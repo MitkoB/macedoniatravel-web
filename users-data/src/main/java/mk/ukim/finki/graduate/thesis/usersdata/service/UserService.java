@@ -16,6 +16,9 @@ public interface UserService {
 
     User findById(Long id);
 
+    User findByEmail(String email);
+
+
     User getUser(String verificationToken);
 
     void saveRegisteredUser(User user);

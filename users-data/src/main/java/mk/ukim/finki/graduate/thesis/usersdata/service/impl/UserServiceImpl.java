@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User getUser(String verificationToken) {
         return verificationTokenRepository.findByToken(verificationToken).getUser();
     }

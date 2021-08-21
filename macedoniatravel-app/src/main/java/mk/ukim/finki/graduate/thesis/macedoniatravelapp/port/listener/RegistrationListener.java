@@ -18,8 +18,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private final UserService service;
 
-    private final MessageSource messages;
-
     private final JavaMailSender mailSender;
 
     @Override
@@ -36,7 +34,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         String subject = "Registration Confirmation";
         String confirmationUrl
                 = event.getAppUrl() + "/regitrationConfirm.html?token=" + token;
-        String message = messages.getMessage("message.regSucc", null, event.getLocale());
+        String message = ("You have registered successfully. Activate your account with this code: " + token);
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);

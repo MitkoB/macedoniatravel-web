@@ -19,8 +19,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 @RestController
-@RequestMapping("/api/user")
 @RequiredArgsConstructor
+@RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final ApplicationEventPublisher eventPublisher;
     private final UserService userService;

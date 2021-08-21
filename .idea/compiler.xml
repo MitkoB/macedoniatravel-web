@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="users-data" />
         <module name="macedoniatravel-app" />
+        <module name="route-management" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="macedoniatravel-app" options="-parameters" />
       <module name="macedoniatravel-backend" options="" />
+      <module name="route-management" options="-parameters" />
       <module name="user-management" options="-parameters" />
       <module name="users-data" options="-parameters" />
     </option>

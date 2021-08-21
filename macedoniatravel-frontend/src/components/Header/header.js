@@ -23,7 +23,7 @@ const header = (props) => {
                         </li>
                     </ul>
                     <form className="form-inline mt-2 mt-md-0 ml-3">
-                        <Link className="btn btn-outline-info my-2 my-sm-0" to={"/"}>Login</Link>
+                        <Link className="btn btn-outline-info my-2 my-sm-0" to={"/register"}>Register</Link>
                     </form>
                 </div>
             </nav>
