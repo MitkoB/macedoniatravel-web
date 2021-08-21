@@ -52,14 +52,16 @@ public class AttractionServiceImpl implements AttractionService {
     public Optional<Attraction> editAttraction(Long id, AttractionDto form) {
         Optional<Attraction> touristAttraction = this.findById(id);
         if(touristAttraction.isPresent()) {
-            touristAttraction.get().setName(form.getName());
-            touristAttraction.get().setDescription(form.getDescription());
-            touristAttraction.get().setLocation(form.getLocation());
-            touristAttraction.get().setLatitude(form.getLatitude());
-            touristAttraction.get().setLongitude(form.getLongitude());
-            touristAttraction.get().setAttractionType(form.getAttractionType());
-            touristAttraction.get().setPictures(form.getPictures());
-            attractionRepository.save(touristAttraction.get());
+            Attraction attraction = touristAttraction.get();
+            attraction.setName(form.getName());
+            attraction.setDescription(form.getDescription());
+            attraction.setLocation(form.getLocation());
+            attraction.setLatitude(form.getLatitude());
+            attraction.setLongitude(form.getLongitude());
+            attraction.setAttractionType(form.getAttractionType());
+            attraction.setPictures(form.getPictures());
+            attractionRepository.save(attraction);
+            return Optional.of(attraction);
         }
         return touristAttraction;
     }

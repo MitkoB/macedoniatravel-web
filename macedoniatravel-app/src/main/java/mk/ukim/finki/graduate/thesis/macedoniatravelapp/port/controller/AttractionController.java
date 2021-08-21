@@ -2,11 +2,13 @@ package mk.ukim.finki.graduate.thesis.macedoniatravelapp.port.controller;
 
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.AttractionDto;
+import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.AttractionType;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
 import mk.ukim.finki.graduate.thesis.routemanagement.service.AttractionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,7 @@ public class AttractionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Attraction> create(@RequestBody AttractionDto touristAttraction) {
+    public ResponseEntity<Attraction> create(@RequestBody @Valid AttractionDto touristAttraction) {
         return this.attractionService.createAttraction(touristAttraction)
                 .map(attraction -> ResponseEntity.ok().body(attraction))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
@@ -37,7 +39,7 @@ public class AttractionController {
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<Attraction> edit(@PathVariable Long id,
-                                                  @RequestBody AttractionDto touristAttractionForm) {
+                                                  @RequestBody @Valid AttractionDto touristAttractionForm) {
         return this.attractionService.editAttraction(id,touristAttractionForm)
                 .map(attraction -> ResponseEntity.ok().body(attraction))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
@@ -48,5 +50,11 @@ public class AttractionController {
         this.attractionService.deleteAttraction(id);
         if (this.attractionService.findById(id).isEmpty()) return ResponseEntity.ok().build();
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/types")
+    public AttractionType[] findAllAttractionTypes()
+    {
+        return AttractionType.values();
     }
 }

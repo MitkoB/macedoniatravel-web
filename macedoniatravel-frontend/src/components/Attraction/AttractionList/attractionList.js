@@ -40,7 +40,7 @@ class AttractionList extends React.Component {
                     <div className="col mb-3">
                         <div className="row">
                             <div className="col-sm-12 col-md-12">
-                                <Link className={"btn btn-block btn-dark"} to={"/"}>Add new
+                                <Link className={"btn btn-block btn-dark"} to={"/attractions/add"}>Add new
                                     Attraction</Link>
                             </div>
                         </div>
@@ -71,9 +71,9 @@ class AttractionList extends React.Component {
     getAttractionsPage = (offset, nextPageOffset) => {
         return this.props.attractions.map((term, index) => {
             return (
-                <TouristAttractionTerm term={term}/>
+                <TouristAttractionTerm term={term} onEdit={this.props.onEdit} onDelete={this.props.onDelete}/>
             );
-        }).filter((product, index) => {
+        }).filter((route, index) => {
             return index >= offset && index < nextPageOffset;
         })
     }

@@ -9,10 +9,13 @@ const attractionTerm = (props) => {
             <td scope={"col"}>{props.term.attractionType}</td>
             <td scope={"col"}>{props.term.description}</td>
             <td scope={"col"} className={"text-right"}>
-                <a title={"Delete"} className={"btn btn-danger"}>
+                <a title={"Delete"} className={"btn btn-danger"}
+                   onClick={() => props.onDelete(props.term.id)}>
                     Delete
                 </a>
-                <Link className={"btn btn-info ml-2"}>
+                <Link className={"btn btn-info ml-2"}
+                      onClick={() => props.onEdit(props.term.id)}
+                      to={`/attractions/edit/${props.term.id}`}>
                     Edit
                 </Link>
             </td>
