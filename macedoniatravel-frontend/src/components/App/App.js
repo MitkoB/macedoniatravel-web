@@ -5,11 +5,14 @@ import Header from '../Header/header'
 import Register from '../Register/signUpForm'
 import RouteService from "../../repository/routeRepository";
 import Dashboard from "../Dashboard/dashboard";
+import AttractionList from "../Attraction/AttractionList/attractionList";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        currentUser:{},
+        attractions:[]
     }
   }
 
@@ -21,6 +24,8 @@ class App extends Component {
             <div className="container">
                 <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
                 <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
+                <Route path={"/attractions"} exact
+                       render={() => <AttractionList attractions={this.state.attractions}/>}/>
             </div>
           </main>
         </Router>
@@ -34,9 +39,19 @@ class App extends Component {
                     })
             })
     }
+    loadAttractions = () => {
+        RouteService.fetchAttractions()
+            .then((data) => {
+                this.setState({
+                    attractions: data.data
+                })
+            });
+    }
 
   componentDidMount() {
+      this.loadAttractions();
   }
+
 }
 
 export default App;
