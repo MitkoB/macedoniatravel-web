@@ -8,47 +8,70 @@ import Dashboard from "../Dashboard/dashboard";
 import AttractionList from "../Attraction/AttractionList/attractionList";
 import AttractionAdd from "../Attraction/AttractionAdd/attractionAdd";
 import AttractionEdit from "../Attraction/AttractionEdit/attractionEdit";
+import RouteList from "../Route/RouteList/routeList";
+import RouteAdd from '../Route/RouteAdd/routeAdd';
+import RouteEdit from '../Route/RouteEdit/routeEdit';
+
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        currentUser:{},
-        selectedAttraction:{},
-        attractions:[],
-        attractionTypes:[]
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentUser: {},
+            selectedAttraction: {},
+            selectedRoute: {},
+            attractions: [],
+            attractionTypes: [],
+            routes: [],
+            routeStatuses: []
+        }
     }
-  }
 
-  render() {
-    return (
-        <Router>
-          <Header/>
-          <main>
-            <div className="container">
-                <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
-                <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
-                <Route path={"/attractions/edit/:id"} exact
-                       render={() => <AttractionEdit attractionTypes={this.state.attractionTypes}
-                                               onEditAttraction={this.editAttraction}
-                                               attraction={this.state.selectedAttraction}/>}/>
-                <Route path={"/attractions/add"} exact render={() => <AttractionAdd attractionTypes={this.state.attractionTypes}
-                                                                        onAddAttraction={this.addAttraction}/>}/>
-                <Route path={"/attractions"} exact
-                       render={() => <AttractionList attractions={this.state.attractions}
-                                                     onEdit={this.getAttraction}
-                                                     onDelete={this.deleteAttraction}/>}/>
-            </div>
-          </main>
-        </Router>
-    );
-  }
-    registerUser = (email,password,repeatPassword,firsName,lastName,address,contactNumber,role) => {
-        RouteService.registerUser(email,password,repeatPassword,firsName,lastName,address,contactNumber,role)
+    render() {
+        return (
+            <Router>
+                <Header/>
+                <main>
+                    <div className="container">
+                        <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
+                        <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
+                        <Route path={"/attractions/edit/:id"} exact
+                               render={() => <AttractionEdit attractionTypes={this.state.attractionTypes}
+                                                             onEditAttraction={this.editAttraction}
+                                                             attraction={this.state.selectedAttraction}/>}/>
+                        <Route path={"/attractions/add"} exact
+                               render={() => <AttractionAdd attractionTypes={this.state.attractionTypes}
+                                                            onAddAttraction={this.addAttraction}/>}/>
+                        <Route path={"/attractions"} exact
+                               render={() => <AttractionList attractions={this.state.attractions}
+                                                             onEdit={this.getAttraction}
+                                                             onDelete={this.deleteAttraction}/>}/>
+                        <Route path={"/routes/edit/:id"} exact
+                               render={() => <RouteEdit routeStatuses={this.state.routeStatuses}
+                                                        attractions={this.state.attractions}
+                                                        onEditRoute={this.editRoute}
+                                                        route={this.state.selectedRoute}/>}/>
+                        <Route path={"/routes/add"} exact
+                               render={() => <RouteAdd routeStatuses={this.state.routeStatuses}
+                                                       attractions={this.state.attractions}
+                                                       onAddRoute={this.addRoute}/>}/>
+                        <Route path={"/routes"} exact
+                               render={() => <RouteList routes={this.state.routes}
+                                                        attractions={this.state.attractions}
+                                                        onEdit={this.getRoute}
+                                                        onDelete={this.deleteRoute}/>}/>
+                    </div>
+                </main>
+            </Router>
+        );
+    }
+
+    registerUser = (email, password, repeatPassword, firsName, lastName, address, contactNumber, role) => {
+        RouteService.registerUser(email, password, repeatPassword, firsName, lastName, address, contactNumber, role)
             .then((data) => {
                 this.setState({
                     currentUser: data.data
-                    })
+                })
             })
     }
     loadAttractions = () => {
@@ -56,6 +79,14 @@ class App extends Component {
             .then((data) => {
                 this.setState({
                     attractions: data.data
+                })
+            });
+    }
+    loadRoutes = () => {
+        RouteService.fetchRoutes()
+            .then((data) => {
+                this.setState({
+                    routes: data.data
                 })
             });
     }
@@ -69,38 +100,76 @@ class App extends Component {
             });
     }
 
+    loadRouteStatuses = () => {
+        RouteService.fetchRouteStatuses()
+            .then((data) => {
+                this.setState({
+                    routeStatuses: data.data
+                })
+            });
+    }
+
     getAttraction = (id) => {
         RouteService.getAttraction(id)
-            .then((data)=>{
+            .then((data) => {
                 this.setState({
                     selectedAttraction: data.data
                 })
             })
     }
+    getRoute = (id) => {
+        RouteService.getRoute(id)
+            .then((data) => {
+                this.setState({
+                    selectedRoute: data.data
+                })
+            })
+    }
 
     addAttraction = (name, latitude, longitude, location, description, pictures, attractionType) => {
-        RouteService.addAttraction(name,latitude,longitude,location,description,pictures,attractionType)
+        RouteService.addAttraction(name, latitude, longitude, location, description, pictures, attractionType)
             .then(() => {
                 this.loadAttractions();
             })
     }
-    editAttraction = (id,name, latitude, longitude, location, description, pictures, attractionType) => {
-        RouteService.editAttraction(id,name, latitude, longitude, location, description, pictures, attractionType)
+    addRoute = (name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price) => {
+        RouteService.addRoute(name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price)
+            .then(() => {
+                this.loadRoutes();
+            })
+    }
+    editAttraction = (id, name, latitude, longitude, location, description, pictures, attractionType) => {
+        RouteService.editAttraction(id, name, latitude, longitude, location, description, pictures, attractionType)
             .then(() => {
                 this.loadAttractions();
+            })
+    }
+    editRoute = (id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price) => {
+        RouteService.editRoute(id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price)
+            .then(() => {
+                this.loadRoutes();
             })
     }
     deleteAttraction = (id) => {
         RouteService.deleteAttraction(id)
-            .then(()=>{
+            .then(() => {
                 this.loadAttractions();
             });
     }
 
-  componentDidMount() {
-      this.loadAttractionTypes();
-      this.loadAttractions();
-  }
+    deleteRoute = (id) => {
+        RouteService.deleteRoute(id)
+            .then(() => {
+                this.loadRoutes();
+            });
+    }
+
+    componentDidMount() {
+        this.loadAttractionTypes();
+        this.loadRouteStatuses();
+        this.loadAttractions();
+        this.loadRoutes()
+    }
 
 }
 

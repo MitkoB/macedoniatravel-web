@@ -2,6 +2,7 @@ package mk.ukim.finki.graduate.thesis.routemanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.RouteDto;
+import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Route;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.AttractionRepository;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.RouteRepository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,9 +61,13 @@ public class RouteServiceImpl implements RouteService {
             route.get().setName(routeForm.getName());
             route.get().setPictures(routeForm.getPictures());
             route.get().setRouteStatus(routeForm.getRouteStatus());
-            route.get().setStartDate(routeForm.getStartDate());
-            route.get().setEndDate(routeForm.getEndDate());
-            route.get().setAttractions(routeForm.getTouristAttractions());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime startDate = LocalDateTime.parse(routeForm.getStartDate(), formatter);
+            LocalDateTime endDate = LocalDateTime.parse(routeForm.getEndDate(), formatter);
+            route.get().setStartDate(startDate);
+            route.get().setEndDate(endDate);
+            List<Attraction> attractionList=this.attractionRepository.findAllById(routeForm.getTouristAttractions());
+            route.get().setAttractions(attractionList);
             route.get().setDescription(routeForm.getDescription());
             route.get().setPrice(routeForm.getPrice());
             this.routeRepository.save(route.get());
@@ -81,9 +88,13 @@ public class RouteServiceImpl implements RouteService {
         this.routeRepository.deleteById(id);
     }
     private Route toDomainObject(RouteDto routeForm) {
-        User  creator = this.userService.findByEmail(routeForm.getEmail());
-        return new Route(routeForm.getName(), routeForm.getDescription(), routeForm.getStartDate(),
-                routeForm.getEndDate(), routeForm.getPictures(), routeForm.getRouteStatus(),
-                routeForm.getTouristAttractions(),creator, routeForm.getPrice());
+        User  creator = this.userService.findByEmail("admin@admin.com"); // will be changed
+        List<Attraction> attractionList=this.attractionRepository.findAllById(routeForm.getTouristAttractions());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime startDate = LocalDateTime.parse(routeForm.getStartDate(), formatter);
+        LocalDateTime endDate = LocalDateTime.parse(routeForm.getEndDate(), formatter);
+        return new Route(routeForm.getName(), routeForm.getDescription(), startDate,
+                endDate, routeForm.getPictures(), routeForm.getRouteStatus(),
+                attractionList,creator, routeForm.getPrice());
     }
 }

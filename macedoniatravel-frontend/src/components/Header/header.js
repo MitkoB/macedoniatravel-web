@@ -13,13 +13,13 @@ const header = (props) => {
                 <div className="collapse navbar-collapse" id="navbarCollapse">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
-                            <Link className="nav-link" to={"/"}>Home</Link>
+                            <Link className="nav-link" to={"/dashboard"}>Home</Link>
                         </li>
                         <li className="nav-item active">
                             <Link className="nav-link" to={"/attractions"}>Attractions</Link>
                         </li>
                         <li className="nav-item active">
-                            <Link className={"nav-link"} to={"/"}>Routes</Link>
+                            <Link className={"nav-link"} to={"/routes"}>Routes</Link>
                         </li>
                     </ul>
                     <form className="form-inline mt-2 mt-md-0 ml-3">

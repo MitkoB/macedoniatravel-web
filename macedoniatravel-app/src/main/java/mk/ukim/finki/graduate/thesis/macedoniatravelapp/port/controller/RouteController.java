@@ -2,6 +2,7 @@ package mk.ukim.finki.graduate.thesis.macedoniatravelapp.port.controller;
 
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.RouteDto;
+import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.RouteStatus;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Route;
 import mk.ukim.finki.graduate.thesis.routemanagement.service.RouteService;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,11 @@ public class RouteController {
         this.routeService.deleteRoute(id);
         if (this.routeService.findById(id).isEmpty()) return ResponseEntity.ok().build();
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/statuses")
+    public RouteStatus[] findAllRouteStatuses()
+    {
+        return RouteStatus.values();
     }
 }
