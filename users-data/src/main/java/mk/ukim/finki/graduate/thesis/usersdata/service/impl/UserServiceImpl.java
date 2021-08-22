@@ -11,6 +11,9 @@ import mk.ukim.finki.graduate.thesis.usersdata.domain.model.VerificationToken;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.repository.UserRepository;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.repository.VerificationTokenRepository;
 import mk.ukim.finki.graduate.thesis.usersdata.service.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,6 +27,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final VerificationTokenRepository verificationTokenRepository;
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final Validator validator;
 
@@ -90,7 +94,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private User toDomainObject(UserRegisterDto userForm) {
-        return new User(userForm.getEmail(), userForm.getPassword(), userForm.getFirstName(),
+        return new User(userForm.getEmail(), passwordEncoder.encode(userForm.getPassword()), userForm.getFirstName(),
                 userForm.getLastName(), userForm.getAddress(), userForm.getContactNumber(), userForm.getRole());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userRepository.findByEmail(s);
     }
 }

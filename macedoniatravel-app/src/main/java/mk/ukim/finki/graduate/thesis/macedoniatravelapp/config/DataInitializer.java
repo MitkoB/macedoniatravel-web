@@ -10,6 +10,7 @@ import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.RouteRepo
 import mk.ukim.finki.graduate.thesis.usersdata.domain.enumeration.Role;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -21,11 +22,13 @@ public class DataInitializer {
     private final AttractionRepository touristAttractionRepository;
     private final RouteRepository routeRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void initData() {
-        User user = new User("admin@admin.com","p@ssw0rd123.","ADMIN","ADMIN",
+        User user = new User("admin@admin.com",passwordEncoder.encode("p@ssw0rd123."),"ADMIN","ADMIN",
                 "none","071111222", Role.ROLE_ADMIN);
+        user.setEnabled(true);
         if(userRepository.findAll().isEmpty()) {
             this.userRepository.save(user);
         }
