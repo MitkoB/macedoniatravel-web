@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public VerificationToken getVerificationToken(String VerificationToken) {
-        return null;
+        return verificationTokenRepository.findByToken(VerificationToken);
     }
 
     private boolean emailExist(String email) {

@@ -8,7 +8,6 @@ import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.model.VerificationToken;
 import mk.ukim.finki.graduate.thesis.usersdata.service.UserService;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
@@ -25,7 +24,6 @@ import java.util.Locale;
 public class UserController {
     private final ApplicationEventPublisher eventPublisher;
     private final UserService userService;
-    private final MessageSource messages;
 
     @PostMapping("/registration")
     public ResponseEntity<UserRegisterDto> registerUserAccount(
@@ -45,7 +43,7 @@ public class UserController {
         return ResponseEntity.ok().body(userDto);
     }
 
-    @GetMapping("/regitrationConfirm")
+    @GetMapping("/registrationConfirm")
     public ResponseEntity<?> confirmRegistration
             (WebRequest request, @RequestParam("token") String token) {
 
@@ -53,14 +51,14 @@ public class UserController {
 
         VerificationToken verificationToken = userService.getVerificationToken(token);
         if (verificationToken == null) {
-            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+            String message = "No token";
             return ResponseEntity.badRequest().body(message);
         }
 
         User user = verificationToken.getUser();
         Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            String message = messages.getMessage("auth.message.expired", null, locale);
+            String message ="Token not valid anymore";
             return ResponseEntity.badRequest().body(message);
         }
 
