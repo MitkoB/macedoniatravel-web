@@ -1,9 +1,11 @@
 import './App.css';
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import Header from '../Header/header'
 import Register from '../Register/signUpForm'
+import Login from '../Login/loginForm'
 import RouteService from "../../repository/routeRepository";
+import AuthService from "../../repository/authRepository"
 import Dashboard from "../Dashboard/dashboard";
 import AttractionList from "../Attraction/AttractionList/attractionList";
 import AttractionAdd from "../Attraction/AttractionAdd/attractionAdd";
@@ -32,9 +34,9 @@ class App extends Component {
             <Router>
                 <Header/>
                 <main>
-                    <div className="container">
                         <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
-                        <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
+                    <Route path={"/login"} exact render={() => <Login onUserSignIn={this.loginUser}/>}/>
+                    <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
                         <Route path={"/attractions/edit/:id"} exact
                                render={() => <AttractionEdit attractionTypes={this.state.attractionTypes}
                                                              onEditAttraction={this.editAttraction}
@@ -60,12 +62,21 @@ class App extends Component {
                                                         attractions={this.state.attractions}
                                                         onEdit={this.getRoute}
                                                         onDelete={this.deleteRoute}/>}/>
-                    </div>
+                        <Route path={"/"} exact render={() => <Dashboard/>}/>
+                        <Redirect to={"/dashboard"}/>
                 </main>
             </Router>
         );
     }
 
+    loginUser = (email, password) => {
+        AuthService.login(email, password)
+            .then((data) => {
+                this.setState({
+                    currentUser: data.data
+                })
+            })
+    }
     registerUser = (email, password, repeatPassword, firsName, lastName, address, contactNumber, role) => {
         RouteService.registerUser(email, password, repeatPassword, firsName, lastName, address, contactNumber, role)
             .then((data) => {

@@ -1,12 +1,16 @@
 import {React} from 'react';
-import HeaderCss from '../Header/header.css'
+import  '../Header/header.css'
 import appLogo from '../../assets/img/white-logo.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
+import TokenService from '../../repository/tokenRepository'
 
 const Header = (props) => {
 
     const { width } = useWindowSize();
+    const isLoggedIn = TokenService.getLocalAccessToken();
+    console.log(isLoggedIn);
+    console.log(localStorage.getItem("user"))
 
     const f = (e) => {
         document.getElementsByClassName('dropdown_mobile')[0].classList.toggle('down');
@@ -20,41 +24,43 @@ const Header = (props) => {
     }
 
     return (
-        <header>
+        <header id="header">
             {width <= 800 && (
-            <div className="row w-100" id="wider_row" >
+            <div className="row w-100" id="wider_row" style={{'display': "none"}}>
                 <div className="col-4">
                     <div className="menu_dropdown">
                         <div className="title text-center" onClick={f}>
                             <span className="fa fa-bars" />
                         </div>
                         <div className="dropdown_mobile">
-                            <a href="/dashboard" className="nav-link">Home</a>
-                            <a href="/attractions" className="nav-link">Attractions</a>
-                            <a href="/routes" className="nav-link">Routes</a>
-                            <a href="/#" className="nav-link">Famous Events</a>
-                            <a href="/#" className="nav-link">About Strumica</a>
-                            <a href="/?jumpSection=food" className="nav-link">Traditional Food</a>
-                            <a className="nav-link" href="/#">Team</a>
+                            <Link to={"/dashboard"} className="nav-link">Home</Link>
+                            <Link to={"/attractions"} className="nav-link">Attractions</Link>
+                            <Link to={"/routes"} className="nav-link">Routes</Link>
+                            <Link to={"/"} className="nav-link">Famous Events</Link>
+                            <Link to={"/#"} className="nav-link">About Macedonia</Link>
+                            <Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
+                            <Link className="nav-link" to={"/"}>Team</Link>
                             <div>
-                                <a href="/" className="nav-link">Favorites <i
-                                    className="fa fa-heart-o" /></a>
+                                <Link to={"/"} className="nav-link">Favorites <i
+                                    className="fa fa-heart-o" /></Link>
                             </div>
-                            {/*<div>*/}
-                            {/*    <a href="/" className="nav-link ">Login</a>*/}
-                            {/*</div>*/}
+                            {isLoggedIn == null && (
                             <div>
+                                <Link to={"/login"} className="nav-link ">Login</Link>
+                            </div> )}
+                            {isLoggedIn && (<div>
                                 <hr />
-                                    <a href="/attractions/add" className="nav-link small">Add Tourist
-                                        Attraction</a>
-                                    <a href="/routes/add" className="nav-link small">Add Route</a>
-                                    <a href="/" className="nav-link small">Add Famous Event</a>
-                                    <a href="/" className="nav-link small">Add User To Role</a>
+                                    <Link to={"/attractions/add"} className="nav-link small">Add Tourist
+                                        Attraction</Link>
+                                    <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
+                                    <Link to={"/"} className="nav-link small">Add Famous Event</Link>
+                                    <Link to={"/"} className="nav-link small">Add User To Role</Link>
                                 <hr />
-                            </div>
+                            </div>)}
+                            {isLoggedIn && (
                             <div>
-                                <a href="/" className="nav-link">Logout</a>
-                            </div>
+                                <Link to={"/"} className="nav-link">Logout</Link>
+                            </div>)}
                         </div>
                     </div>
                 </div>
@@ -62,70 +68,71 @@ const Header = (props) => {
             {width <= 800 && (
             <div className="row w-100" id="smaller_row" >
                 <div className="col-12 text-center">
-                    <img src={appLogo} className="float-left"/>
+                    <img src={appLogo} className="float-left" alt=""/>
                 </div>
             </div> )}
             {width > 800 && (
             <div className="row w-100 " id="default_row">
                 <div className="col-3">
-                    <img src={appLogo} className="float-left"/>
+                    <img src={appLogo} className="float-left" alt=""/>
                 </div>
                 <div className="col-6 menu-column mt-3">
                     <ul className="menu pl-0">
                         <li>
-                            <a href="/dashboard" className="nav-link">Home</a>
+                            <Link to={"/dashboard"} className="nav-link">Home</Link>
                         </li>
                         <li>
-                            <a href="/attractions" className="nav-link">Attractions</a>
+                            <Link to={"/attractions"} className="nav-link">Attractions</Link>
                         </li>
                         <li>
-                            <a href="/routes" className="nav-link">Routes</a>
+                            <Link to={"/routes"} className="nav-link">Routes</Link>
                         </li>
                         <li className="drop-down">
-                            <a href="/" className="nav-link">Culture</a>
+                            <Link to={"/"} className="nav-link">Culture</Link>
                             <ul>
-                                <li><a href="/" className="nav-link">About Strumica</a></li>
-                                <li><a href="/?jumpSection=food" className="nav-link">Traditional Food</a></li>
-                                <li><a href="/" className="nav-link">Famous Events</a></li>
+                                <li><Link to={"/"} className="nav-link">About Macedonia</Link></li>
+                                <li><Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link></li>
+                                <li><Link to={"/"} className="nav-link">Famous Events</Link></li>
                             </ul>
                         </li>
                         <li>
-                            <a className="nav-link" href="/">Team</a>
+                            <Link className="nav-link" to={"/"}>Team</Link>
                         </li>
                         <li>
-                            <a href="/" className="nav-link">Favorites <i
-                                className="fa fa-heart-o" /></a>
+                            <Link to={"/"} className="nav-link">Favorites <i
+                                className="fa fa-heart-o" /></Link>
                         </li>
                     </ul>
                 </div>
                 <div className="col-3 mt-3 pl-0">
-                    {/*<li className="CssLogin">*/}
-                    {/*    <a href="/" className="nav-link logging_buttons">*/}
-                    {/*        <i className="fa fa-user-circle-o" /> Login*/}
-                    {/*    </a>*/}
-                    {/*</li>*/}
+                    {isLoggedIn==null && (
+                        <li className="CssLogin">
+                        <Link to={"/login"} className="nav-link logging_buttons">
+                            <i className="fa fa-user-circle-o" /> Login
+                        </Link>
+                    </li> )}
 
-                    <li id="logoutDropdown" className="drop-down CssLogin">
-                        <a href="#" className="nav-link logging_buttons">
+                    {isLoggedIn && (
+                        <li id="logoutDropdown" className="drop-down CssLogin">
+                        <Link to={"/"} className="nav-link logging_buttons">
                            mitkobelmezov@outlook.com
-                        </a>
+                        </Link>
                         <ul className="text-center">
                             <div className="p-0 m-0">
                                 <ul className="p-0 m-0">
-                                    <li><a href="/attractions/add">Add Tourist Attraction</a></li>
-                                    <li className="mt-1"><a href="/routes/add">Add Route</a></li>
-                                    <li className="mt-1"><a href="/">Add Famous Event</a></li>
-                                    <li className="mt-1"><a href="/">Add User To Role</a></li>
+                                    <li><Link to={"/attractions/add"}>Add Tourist Attraction</Link></li>
+                                    <li className="mt-1"><Link to={"/routes/add"}>Add Route</Link></li>
+                                    <li className="mt-1"><Link to={"/"}>Add Famous Event</Link></li>
+                                    <li className="mt-1"><Link to={"/"}>Add User To Role</Link></li>
                                 </ul>
                             </div>
                             <hr />
-                                <li className="text-center"><a href="/">Logout</a></li>
+                                <li className="text-center"><Link to={"/"}>Logout</Link></li>
                         </ul>
-                    </li>
+                    </li> )}
                 </div>
             </div> )}
         </header>
     )
-
 }
 export default Header;
