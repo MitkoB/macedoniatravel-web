@@ -17,7 +17,9 @@ class AuthService {
     }
 
     logout() {
-        TokenService.removeUser();
+        return axios.post("/auth/logout").then(() => {
+            TokenService.removeUser();
+        })
     }
 
     register(username, email, password) {

@@ -13,6 +13,9 @@ const RouteService = {
     fetchRouteStatuses: () => {
         return axios.get("/route/statuses")
     },
+    fetchFavoriteCartItems: () => {
+        return axios.get("/favorite-cart/items")
+    },
     getAttraction: (id) => {
         return axios.get(`attraction/${id}`)
     },
@@ -83,6 +86,9 @@ const RouteService = {
     },
     deleteRoute: (id) => {
         return axios.delete(`/route/delete/${id}`);
+    },
+    removeItem: (id) => {
+        return axios.delete(`/favorite-cart/${id}/routeRemove`);
     }
 }
 export default RouteService;

@@ -4,13 +4,15 @@ import appLogo from '../../assets/img/white-logo.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
 import TokenService from '../../repository/tokenRepository'
+import AuthRepository from '../../repository/authRepository'
 
 const Header = (props) => {
 
     const { width } = useWindowSize();
     const isLoggedIn = TokenService.getLocalAccessToken();
-    console.log(isLoggedIn);
-    console.log(localStorage.getItem("user"))
+    const logout = (e) => {
+       AuthRepository.logout();
+    }
 
     const f = (e) => {
         document.getElementsByClassName('dropdown_mobile')[0].classList.toggle('down');
@@ -28,11 +30,11 @@ const Header = (props) => {
             {width <= 800 && (
             <div className="row w-100" id="wider_row" style={{'display': "none"}}>
                 <div className="col-4">
-                    <div className="menu_dropdown">
+                    <div className="menu_dropdown" id="menu_dropdown">
                         <div className="title text-center" onClick={f}>
-                            <span className="fa fa-bars" />
+                            <span><i className="fa fa-bars"/></span>
                         </div>
-                        <div className="dropdown_mobile">
+                        <div className="dropdown_mobile" id="dropdown_mobile">
                             <Link to={"/dashboard"} className="nav-link">Home</Link>
                             <Link to={"/attractions"} className="nav-link">Attractions</Link>
                             <Link to={"/routes"} className="nav-link">Routes</Link>
@@ -41,7 +43,7 @@ const Header = (props) => {
                             <Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
                             <Link className="nav-link" to={"/"}>Team</Link>
                             <div>
-                                <Link to={"/"} className="nav-link">Favorites <i
+                                <Link to={"/favorite-cart"} className="nav-link">Favorites <i
                                     className="fa fa-heart-o" /></Link>
                             </div>
                             {isLoggedIn == null && (
@@ -59,7 +61,7 @@ const Header = (props) => {
                             </div>)}
                             {isLoggedIn && (
                             <div>
-                                <Link to={"/"} className="nav-link">Logout</Link>
+                                <Link to={"/login"} className="nav-link" onClick={logout}>Logout</Link>
                             </div>)}
                         </div>
                     </div>
@@ -99,7 +101,7 @@ const Header = (props) => {
                             <Link className="nav-link" to={"/"}>Team</Link>
                         </li>
                         <li>
-                            <Link to={"/"} className="nav-link">Favorites <i
+                            <Link to={"/favorite-cart"} className="nav-link">Favorites <i
                                 className="fa fa-heart-o" /></Link>
                         </li>
                     </ul>
@@ -127,7 +129,7 @@ const Header = (props) => {
                                 </ul>
                             </div>
                             <hr />
-                                <li className="text-center"><Link to={"/"}>Logout</Link></li>
+                                <li className="text-center"><Link to={"/login"} onClick={logout}>Logout</Link></li>
                         </ul>
                     </li> )}
                 </div>

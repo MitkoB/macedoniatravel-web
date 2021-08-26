@@ -13,7 +13,7 @@ import AttractionEdit from "../Attraction/AttractionEdit/attractionEdit";
 import RouteList from "../Route/RouteList/routeList";
 import RouteAdd from '../Route/RouteAdd/routeAdd';
 import RouteEdit from '../Route/RouteEdit/routeEdit';
-
+import FavoriteCartList from "../FavoriteCart/FavoriteCartList/favoriteCartList";
 
 class App extends Component {
     constructor(props) {
@@ -25,7 +25,8 @@ class App extends Component {
             attractions: [],
             attractionTypes: [],
             routes: [],
-            routeStatuses: []
+            routeStatuses: [],
+            favoriteCartItems: []
         }
     }
 
@@ -62,8 +63,12 @@ class App extends Component {
                                                         attractions={this.state.attractions}
                                                         onEdit={this.getRoute}
                                                         onDelete={this.deleteRoute}/>}/>
+                        <Route path={"/favorite-cart"} exact
+                           render={() => <FavoriteCartList items={this.state.favoriteCartItems}
+                                                    onRemove={this.removeItem}/>}/>
+
                         <Route path={"/"} exact render={() => <Dashboard/>}/>
-                        <Redirect to={"/dashboard"}/>
+                        {/*<Redirect to={"/dashboard"}/>*/}
                 </main>
             </Router>
         );
@@ -98,6 +103,15 @@ class App extends Component {
             .then((data) => {
                 this.setState({
                     routes: data.data
+                })
+            });
+    }
+
+    loadFavoriteCartItems = () => {
+        RouteService.fetchFavoriteCartItems()
+            .then((data) => {
+                this.setState({
+                    favoriteCartItems: data.data
                 })
             });
     }
@@ -175,7 +189,15 @@ class App extends Component {
             });
     }
 
+    removeItem = (id) => {
+        RouteService.removeItem(id)
+            .then(() => {
+                this.loadFavoriteCartItems();
+            });
+    }
+
     componentDidMount() {
+        this.loadFavoriteCartItems();
         this.loadAttractionTypes();
         this.loadRouteStatuses();
         this.loadAttractions();

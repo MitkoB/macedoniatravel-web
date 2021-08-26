@@ -1,6 +1,9 @@
 package mk.ukim.finki.graduate.thesis.macedoniatravelapp.config;
 
 import lombok.RequiredArgsConstructor;
+import mk.ukim.finki.graduate.thesis.favoritecartmanagement.domain.model.FavoriteCart;
+import mk.ukim.finki.graduate.thesis.favoritecartmanagement.domain.repository.FavoriteCartRepository;
+import mk.ukim.finki.graduate.thesis.favoritecartmanagement.service.FavoriteCartService;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.AttractionType;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.RouteStatus;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
@@ -21,6 +24,8 @@ import java.util.Arrays;
 public class DataInitializer {
     private final AttractionRepository touristAttractionRepository;
     private final RouteRepository routeRepository;
+    private final FavoriteCartRepository favoriteCartRepository;
+    private final FavoriteCartService favoriteCartService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -55,6 +60,14 @@ public class DataInitializer {
         if (routeRepository.findAll().isEmpty()) {
             routeRepository.save(route);
         }
+
+        FavoriteCart favoriteCart = new FavoriteCart(userRepository.findByEmail(user.getEmail()));
+        if (favoriteCartRepository.findAll().isEmpty()) {
+            favoriteCartRepository.save(favoriteCart);
+        }
+
+        this.favoriteCartService.addRouteToFavoriteCart(userRepository.findByEmail(user.getEmail()).getUsername(),
+                routeRepository.findByName(route.getName()).get().getId());
 
     }
 }

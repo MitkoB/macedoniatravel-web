@@ -18,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +47,13 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
                 userDetails.getUsername(), roles));
+    }
+
+    @PostMapping("/logout")
+    public void logout(Authentication authentication, HttpServletRequest request){
+        User  user = (User) authentication.getPrincipal();
+        this.refreshTokenService.deleteByUserId(user.getId());
+        request.getSession().invalidate();
     }
 
     @PostMapping("/refreshtoken")
