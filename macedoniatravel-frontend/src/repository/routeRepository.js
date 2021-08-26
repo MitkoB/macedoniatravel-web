@@ -16,11 +16,17 @@ const RouteService = {
     fetchFavoriteCartItems: () => {
         return axios.get("/favorite-cart/items")
     },
+    fetchFamousEvents: () => {
+        return axios.get("/famous-event")
+    },
     getAttraction: (id) => {
         return axios.get(`attraction/${id}`)
     },
     getRoute: (id) => {
         return axios.get(`route/${id}`)
+    },
+    getFamousEvent: (id) => {
+        return axios.get(`famous-event/${id}`)
     },
     registerUser: (email, password, repeatPassword, firstName, lastName, address, contactNumber, role) => {
         return axios.post("/user/registration", {
@@ -58,6 +64,16 @@ const RouteService = {
             "price":price
         });
     },
+    addFamousEvent: (title, description, start, end, picture, location) => {
+        return axios.post("/famous-event/create", {
+            "title": title,
+            "description": description,
+            "start": start,
+            "end":end,
+            "picture":picture,
+            "location": location
+        });
+    },
     editAttraction: (id, name, latitude, longitude, location, description, pictures, attractionType) => {
         return axios.put(`/attraction/edit/${id}`, {
             "name": name,
@@ -81,11 +97,25 @@ const RouteService = {
             "price":price
         });
     },
+    editFamousEvent: (id, title, description, start, end, picture, location) => {
+        return axios.put(`/famous-event/edit/${id}`, {
+            "id":id,
+            "title": title,
+            "description": description,
+            "start": start,
+            "end":end,
+            "picture":picture,
+            "location": location
+        });
+    },
     deleteAttraction: (id) => {
         return axios.delete(`/attraction/delete/${id}`);
     },
     deleteRoute: (id) => {
         return axios.delete(`/route/delete/${id}`);
+    },
+    deleteFamousEvent: (id) => {
+        return axios.delete(`/famous-event/delete/${id}`);
     },
     removeItem: (id) => {
         return axios.delete(`/favorite-cart/${id}/routeRemove`);

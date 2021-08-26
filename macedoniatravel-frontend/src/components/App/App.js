@@ -14,6 +14,9 @@ import RouteList from "../Route/RouteList/routeList";
 import RouteAdd from '../Route/RouteAdd/routeAdd';
 import RouteEdit from '../Route/RouteEdit/routeEdit';
 import FavoriteCartList from "../FavoriteCart/FavoriteCartList/favoriteCartList";
+import FamousEventList from "../FamousEvent/FamousEventList/famousEventList"
+import FamousEventAdd from "../FamousEvent/FamousEventAdd/famousEventAdd"
+import FamousEventEdit from "../FamousEvent/FamousEventEdit/famousEventEdit"
 
 class App extends Component {
     constructor(props) {
@@ -22,11 +25,13 @@ class App extends Component {
             currentUser: {},
             selectedAttraction: {},
             selectedRoute: {},
+            selectedFamousEvent:{},
             attractions: [],
             attractionTypes: [],
             routes: [],
             routeStatuses: [],
-            favoriteCartItems: []
+            favoriteCartItems: [],
+            famousEvents:[]
         }
     }
 
@@ -66,6 +71,15 @@ class App extends Component {
                         <Route path={"/favorite-cart"} exact
                            render={() => <FavoriteCartList items={this.state.favoriteCartItems}
                                                     onRemove={this.removeItem}/>}/>
+                        <Route path={"/famous-events/edit/:id"} exact
+                           render={() => <FamousEventEdit onEditFamousEvent={this.editFamousEvent}
+                                                    famousEvent={this.state.selectedFamousEvent}/>}/>
+                        <Route path={"/famous-events/add"} exact
+                           render={() => <FamousEventAdd onAddFamousEvent={this.addFamousEvent}/>}/>
+                        <Route path={"/famous-events"} exact
+                           render={() => <FamousEventList famousEvents={this.state.famousEvents}
+                                                           onEdit={this.getFamousEvent}
+                                                           onDelete={this.deleteFamousEvent}/>}/>
 
                         <Route path={"/"} exact render={() => <Dashboard/>}/>
                         {/*<Redirect to={"/dashboard"}/>*/}
@@ -134,6 +148,15 @@ class App extends Component {
             });
     }
 
+    loadFamousEvents = () => {
+        RouteService.fetchFamousEvents()
+            .then((data) => {
+                this.setState({
+                    famousEvents: data.data
+                })
+            });
+    }
+
     getAttraction = (id) => {
         RouteService.getAttraction(id)
             .then((data) => {
@@ -151,6 +174,15 @@ class App extends Component {
             })
     }
 
+    getFamousEvent = (id) => {
+        RouteService.getFamousEvent(id)
+            .then((data) => {
+                this.setState({
+                    selectedFamousEvent: data.data
+                })
+            })
+    }
+
     addAttraction = (name, latitude, longitude, location, description, pictures, attractionType) => {
         RouteService.addAttraction(name, latitude, longitude, location, description, pictures, attractionType)
             .then(() => {
@@ -163,6 +195,12 @@ class App extends Component {
                 this.loadRoutes();
             })
     }
+    addFamousEvent = (title, description, start, end, picture, location) => {
+        RouteService.addFamousEvent(title, description, start, end, picture, location)
+            .then(() => {
+                this.loadFamousEvents();
+            })
+    }
     editAttraction = (id, name, latitude, longitude, location, description, pictures, attractionType) => {
         RouteService.editAttraction(id, name, latitude, longitude, location, description, pictures, attractionType)
             .then(() => {
@@ -173,6 +211,12 @@ class App extends Component {
         RouteService.editRoute(id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price)
             .then(() => {
                 this.loadRoutes();
+            })
+    }
+    editFamousEvent = (id, title, description, start, end, picture, location) => {
+        RouteService.editFamousEvent(id, title, description, start, end, picture, location)
+            .then(() => {
+                this.loadFamousEvents();
             })
     }
     deleteAttraction = (id) => {
@@ -189,6 +233,13 @@ class App extends Component {
             });
     }
 
+    deleteFamousEvent = (id) => {
+        RouteService.deleteFamousEvent(id)
+            .then(() => {
+                this.loadFamousEvents();
+            });
+    }
+
     removeItem = (id) => {
         RouteService.removeItem(id)
             .then(() => {
@@ -200,6 +251,7 @@ class App extends Component {
         this.loadFavoriteCartItems();
         this.loadAttractionTypes();
         this.loadRouteStatuses();
+        this.loadFamousEvents();
         this.loadAttractions();
         this.loadRoutes()
     }

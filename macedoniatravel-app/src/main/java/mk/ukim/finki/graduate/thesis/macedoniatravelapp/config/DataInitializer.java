@@ -64,10 +64,9 @@ public class DataInitializer {
         FavoriteCart favoriteCart = new FavoriteCart(userRepository.findByEmail(user.getEmail()));
         if (favoriteCartRepository.findAll().isEmpty()) {
             favoriteCartRepository.save(favoriteCart);
+            this.favoriteCartService.addRouteToFavoriteCart(userRepository.findByEmail(user.getEmail()).getUsername(),
+                    routeRepository.findByName(route.getName()).get().getId());
         }
-
-        this.favoriteCartService.addRouteToFavoriteCart(userRepository.findByEmail(user.getEmail()).getUsername(),
-                routeRepository.findByName(route.getName()).get().getId());
 
     }
 }

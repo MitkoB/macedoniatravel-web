@@ -38,7 +38,7 @@ const Header = (props) => {
                             <Link to={"/dashboard"} className="nav-link">Home</Link>
                             <Link to={"/attractions"} className="nav-link">Attractions</Link>
                             <Link to={"/routes"} className="nav-link">Routes</Link>
-                            <Link to={"/"} className="nav-link">Famous Events</Link>
+                            <Link to={"/famous-events"} className="nav-link">Famous Events</Link>
                             <Link to={"/#"} className="nav-link">About Macedonia</Link>
                             <Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
                             <Link className="nav-link" to={"/"}>Team</Link>
@@ -55,7 +55,7 @@ const Header = (props) => {
                                     <Link to={"/attractions/add"} className="nav-link small">Add Tourist
                                         Attraction</Link>
                                     <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
-                                    <Link to={"/"} className="nav-link small">Add Famous Event</Link>
+                                    <Link to={"/famous-events/add"} className="nav-link small">Add Famous Event</Link>
                                     <Link to={"/"} className="nav-link small">Add User To Role</Link>
                                 <hr />
                             </div>)}
@@ -94,7 +94,7 @@ const Header = (props) => {
                             <ul>
                                 <li><Link to={"/"} className="nav-link">About Macedonia</Link></li>
                                 <li><Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link></li>
-                                <li><Link to={"/"} className="nav-link">Famous Events</Link></li>
+                                <li><Link to={"/famous-events"} className="nav-link">Famous Events</Link></li>
                             </ul>
                         </li>
                         <li>
@@ -124,7 +124,7 @@ const Header = (props) => {
                                 <ul className="p-0 m-0">
                                     <li><Link to={"/attractions/add"}>Add Tourist Attraction</Link></li>
                                     <li className="mt-1"><Link to={"/routes/add"}>Add Route</Link></li>
-                                    <li className="mt-1"><Link to={"/"}>Add Famous Event</Link></li>
+                                    <li className="mt-1"><Link to={"/famous-events/add"}>Add Famous Event</Link></li>
                                     <li className="mt-1"><Link to={"/"}>Add User To Role</Link></li>
                                 </ul>
                             </div>
