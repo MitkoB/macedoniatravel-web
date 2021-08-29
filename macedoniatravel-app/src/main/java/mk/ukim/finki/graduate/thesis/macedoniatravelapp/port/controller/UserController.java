@@ -26,7 +26,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<UserRegisterDto> registerUserAccount(
+    public ResponseEntity<?> registerUserAccount(
             @RequestBody @Valid UserRegisterDto userDto,
             HttpServletRequest request) {
 
@@ -36,9 +36,9 @@ public class UserController {
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
                     request.getLocale(), appUrl));
         } catch (UserAlreadyExistsException uaeEx) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(uaeEx);
         } catch (RuntimeException ex) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex);
         }
         return ResponseEntity.ok().body(userDto);
     }

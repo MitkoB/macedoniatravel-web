@@ -1,18 +1,18 @@
-import {React} from 'react';
+import {React, useState} from 'react';
 import  '../Header/header.css'
 import appLogo from '../../assets/img/white-logo.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
-import TokenService from '../../repository/tokenRepository'
 import AuthRepository from '../../repository/authRepository'
 
 const Header = (props) => {
 
     const { width } = useWindowSize();
-    const isLoggedIn = TokenService.getLocalAccessToken();
     const logout = (e) => {
-       AuthRepository.logout();
+       AuthRepository.logout()
     }
+    const [isLoggedIn, setLoggedStatus] = useState(props.loggedStatus);
+
 
     const f = (e) => {
         document.getElementsByClassName('dropdown_mobile')[0].classList.toggle('down');
@@ -107,7 +107,7 @@ const Header = (props) => {
                     </ul>
                 </div>
                 <div className="col-3 mt-3 pl-0">
-                    {isLoggedIn==null && (
+                    {isLoggedIn ==null && (
                         <li className="CssLogin">
                         <Link to={"/login"} className="nav-link logging_buttons">
                             <i className="fa fa-user-circle-o" /> Login
@@ -129,7 +129,7 @@ const Header = (props) => {
                                 </ul>
                             </div>
                             <hr />
-                                <li className="text-center"><Link to={"/login"} onClick={logout}>Logout</Link></li>
+                                <li className="text-center"><Link to={"/login"} onClick={logout} >Logout</Link></li>
                         </ul>
                     </li> )}
                 </div>

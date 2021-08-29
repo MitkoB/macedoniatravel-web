@@ -16,6 +16,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -40,16 +42,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/auth/logout","/api/user/registration","/api/auth/**","/api/user/registrationConfirm","/assets/**","/api/attraction","/api/attraction/types","/api/route","/api/route/statuses","/images/**","/css/**","/js/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/user/registration","/api/auth/**","/api/user/registrationConfirm","/assets/**","/api/attraction","/api/attraction/types","/api/route","/api/route/statuses","/images/**","/css/**","/js/**").permitAll().and()
                 .authorizeRequests().antMatchers("/api/attraction/add", "/api/attraction/edit/**","/api/attraction/delete").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutUrl("/auth/logout")
+                .logoutUrl("/api/auth/logout")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/home");;
+                .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> httpServletResponse.setStatus(HttpServletResponse.SC_OK));
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

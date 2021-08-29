@@ -5,7 +5,6 @@ import Header from '../Header/header'
 import Register from '../Register/signUpForm'
 import Login from '../Login/loginForm'
 import RouteService from "../../repository/routeRepository";
-import AuthService from "../../repository/authRepository"
 import Dashboard from "../Dashboard/dashboard";
 import AttractionList from "../Attraction/AttractionList/attractionList";
 import AttractionAdd from "../Attraction/AttractionAdd/attractionAdd";
@@ -17,6 +16,8 @@ import FavoriteCartList from "../FavoriteCart/FavoriteCartList/favoriteCartList"
 import FamousEventList from "../FamousEvent/FamousEventList/famousEventList"
 import FamousEventAdd from "../FamousEvent/FamousEventAdd/famousEventAdd"
 import FamousEventEdit from "../FamousEvent/FamousEventEdit/famousEventEdit"
+import TokenService from '../../repository/tokenRepository'
+import ConfirmAccount from "../ConfirmAccount/confirmAccount";
 
 class App extends Component {
     constructor(props) {
@@ -31,19 +32,21 @@ class App extends Component {
             routes: [],
             routeStatuses: [],
             favoriteCartItems: [],
-            famousEvents:[]
+            famousEvents:[],
+            isLoggedIn: TokenService.getLocalAccessToken()
         }
     }
 
     render() {
         return (
             <Router>
-                <Header/>
+                <Header key={this.state.isLoggedIn} loggedStatus={this.state.isLoggedIn} />
                 <main>
-                        <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
-                    <Route path={"/login"} exact render={() => <Login onUserSignIn={this.loginUser}/>}/>
+                    <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
+                    <Route path={"/login"} exact render={() => <Login />}/>
                     <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
-                        <Route path={"/attractions/edit/:id"} exact
+                    <Route path={"/confirm-account"} exact render={() => <ConfirmAccount />} />
+                    <Route path={"/attractions/edit/:id"} exact
                                render={() => <AttractionEdit attractionTypes={this.state.attractionTypes}
                                                              onEditAttraction={this.editAttraction}
                                                              attraction={this.state.selectedAttraction}/>}/>
@@ -88,14 +91,6 @@ class App extends Component {
         );
     }
 
-    loginUser = (email, password) => {
-        AuthService.login(email, password)
-            .then((data) => {
-                this.setState({
-                    currentUser: data.data
-                })
-            })
-    }
     registerUser = (email, password, repeatPassword, firsName, lastName, address, contactNumber, role) => {
         RouteService.registerUser(email, password, repeatPassword, firsName, lastName, address, contactNumber, role)
             .then((data) => {
@@ -247,8 +242,15 @@ class App extends Component {
             });
     }
 
+    checkLoginStatus = () => {
+        this.setState({
+            isLoggedIn: TokenService.getLocalAccessToken()
+        })
+    }
+
     componentDidMount() {
         this.loadFavoriteCartItems();
+        this.checkLoginStatus();
         this.loadAttractionTypes();
         this.loadRouteStatuses();
         this.loadFamousEvents();

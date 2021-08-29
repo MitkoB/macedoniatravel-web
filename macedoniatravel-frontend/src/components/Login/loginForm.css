@@ -1,0 +1,23 @@
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+#loginBtn, #registerBtn {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+#formData, #loginTitle, #registerLink {
+    color: #1F3750;
+}
+
+.h-custom {
+    height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+}

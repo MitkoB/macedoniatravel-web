@@ -28,19 +28,6 @@ const RouteService = {
     getFamousEvent: (id) => {
         return axios.get(`famous-event/${id}`)
     },
-    registerUser: (email, password, repeatPassword, firstName, lastName, address, contactNumber, role) => {
-        return axios.post("/user/registration", {
-            "email": email,
-            "password": password,
-            "repeatPassword": repeatPassword,
-            "firstName":firstName,
-            "lastName": lastName,
-            "address": address,
-            "contactNumber": contactNumber,
-            "role": role
-        });
-    },
-
     addAttraction: (name, latitude, longitude, location, description, pictures, attractionType) => {
         return axios.post("/attraction/add", {
             "name": name,
