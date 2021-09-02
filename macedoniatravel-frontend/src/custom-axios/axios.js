@@ -1,5 +1,6 @@
 import axios from "axios";
 import TokenService from '../repository/tokenRepository'
+import AuthService from '../repository/authRepository'
 
 const instance = axios.create({
     baseURL: 'http://localhost:9090/api',
@@ -11,6 +12,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const token = TokenService.getLocalAccessToken();
+        console.log(token)
         if (token) {
             config.headers["Authorization"] ='Bearer ' + token;
         }
@@ -43,6 +45,7 @@ instance.interceptors.response.use(
 
                     return instance(originalConfig);
                 } catch (_error) {
+                    await AuthService.logout();
                     return Promise.reject(_error);
                 }
             }

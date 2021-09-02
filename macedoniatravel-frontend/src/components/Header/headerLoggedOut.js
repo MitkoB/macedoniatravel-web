@@ -3,8 +3,6 @@ import '../Header/header.css'
 import appLogo from '../../assets/img/white-logo.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
-import AuthRepository from '../../repository/authRepository'
-import TokenService from  '../../repository/tokenRepository'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBars} from "@fortawesome/free-solid-svg-icons";
@@ -14,14 +12,10 @@ import {faBars} from "@fortawesome/free-solid-svg-icons";
 library.add(faBars)
 
 
-const Header = (props) => {
+
+const HeaderLoggedOut = (props) => {
 
     const {width} = useWindowSize();
-    const user = TokenService.getUser()?.username;
-    const logout = (e) => {
-        AuthRepository.logout()
-    }
-
 
     const f = (e) => {
         document.getElementsByClassName('dropdown_mobile')[0].classList.toggle('down');
@@ -37,11 +31,11 @@ const Header = (props) => {
     return (
         <header id="header">
             {width <= 800 && (
-                <div className="row w-100" id="wider_row">
+                <div className="row w-100" id="wider_row" style={{'display': "none"}}>
                     <div className="col-4">
                         <div className="menu_dropdown" id="menu_dropdown">
                             <div className="title text-center" onClick={f}>
-                               <span><FontAwesomeIcon icon={faBars}/></span>
+                                <span><FontAwesomeIcon icon={faBars}/></span>
                             </div>
                             <div className="dropdown_mobile" id="dropdown_mobile">
                                 <Link to={"/dashboard"} className="nav-link">Home</Link>
@@ -52,21 +46,11 @@ const Header = (props) => {
                                 <Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
                                 <Link className="nav-link" to={"/"}>Contact</Link>
                                 <div>
-                                    <Link to={"/favorite-cart"} className="nav-link">Favorites
-                                    </Link>
-                                </div>
-
-                                <div>
-                                    <hr/>
-                                    <Link to={"/attractions/add"} className="nav-link small">Add Tourist
-                                        Attraction</Link>
-                                    <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
-                                    <Link to={"/famous-events/add"} className="nav-link small">Add Famous Event</Link>
-                                    <Link to={"/"} className="nav-link small">Add User To Role</Link>
-                                    <hr/>
+                                    <Link to={"/favorite-cart"} className="nav-link">Favorites <i
+                                        className="fa fa-heart-o"/></Link>
                                 </div>
                                 <div>
-                                    <Link to={"/login"} className="nav-link" onClick={logout}>Logout</Link>
+                                    <Link to={"/login"} className="nav-link ">Login</Link>
                                 </div>
                             </div>
                         </div>
@@ -107,33 +91,20 @@ const Header = (props) => {
                                 <Link className="nav-link" to={"/"}>Contact</Link>
                             </li>
                             <li>
-                                <Link to={"/favorite-cart"} className="nav-link">Favorites
-                                </Link>
+                                <Link to={"/favorite-cart"} className="nav-link">Favorites <i
+                                    className="fa fa-heart-o"/></Link>
                             </li>
                         </ul>
                     </div>
                     <div className="col-3 mt-3 pl-0">
-                        <li id="logoutDropdown" className="drop-down CssLogin">
-                            <Link to={"/"} className="nav-link logging_buttons">
-                                {user}
+                        <li className="CssLogin">
+                            <Link to={"/login"} className="nav-link logging_buttons">
+                                <FontAwesomeIcon icon="{solid('user-secret')}" /> Login
                             </Link>
-                            <ul className="text-center">
-                                <div className="p-0 m-0">
-                                    <ul className="p-0 m-0">
-                                        <li><Link to={"/attractions/add"}>Add Tourist Attraction</Link></li>
-                                        <li className="mt-1"><Link to={"/routes/add"}>Add Route</Link></li>
-                                        <li className="mt-1"><Link to={"/famous-events/add"}>Add Famous Event</Link>
-                                        </li>
-                                        <li className="mt-1"><Link to={"/"}>Add User To Role</Link></li>
-                                    </ul>
-                                </div>
-                                <hr/>
-                                <li className="text-center"><Link to={"/login"} onClick={logout}>Logout</Link></li>
-                            </ul>
                         </li>
                     </div>
                 </div>)}
         </header>
     )
 }
-export default Header;
+export default HeaderLoggedOut;

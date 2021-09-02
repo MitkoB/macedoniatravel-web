@@ -1,28 +1,23 @@
 .body{
-  color: #009961;
+  color: #001c35;
   font-family: Tahoma, Verdana, sans-serif;
   text-align: center;
 }
-#greenButton{
-  background-color: #009961;
+#seeMoreButton{
+  border-radius: 0 0 6px 6px;
+  background: #66615b;
+  box-shadow: 3px 3px 3px #001c35;
+  transform: scale(1.1);
+  text-decoration: none;
 }
-#thingsToDoSection{
-  height: 10vh;
-}
-#thingsToDoBtn{
-  width: 100%;
-  color: #009961;
-  border: 1px solid #009961;
-  background: white;
-  font-weight: bold;
-  font-size:small;
-}
-#thingsToDoBtn:hover{
-  color: white;
-  background-color: #009961;
+#seeMoreButton:hover{
+  border-radius: 0 0 6px 6px;
+  background: linear-gradient(to bottom, #001c35, #66615b);
+  box-shadow: 3px 3px 3px #001c35;
+  transform: scale(1.1);
 }
 .horizontal_line{
-  background: linear-gradient(.25turn,#009961, black, #009961);
+  background: linear-gradient(.25turn,#66615b, black, #001c35);
   height:3px;
 }
 .topDiv{

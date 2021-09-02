@@ -1,13 +1,13 @@
 #homePageHorizontalLine{
-    background: linear-gradient(.25turn,#009961, black, white);
+    background: linear-gradient(.25turn,#f3d6d5, #001c35, white);
     height:3px;
 }
 .animationDiv{
     position: absolute;
     top:12vw;
-    font-size: 7vw;
+    font-size: 4vw;
     font-weight: 100;
-    color: white;
+    color: #f3d6d5;
     margin: 0 auto;
     letter-spacing: 4px;
 }
@@ -16,9 +16,68 @@
     display: flex;
     justify-content: center;
     font-size: 2vw;
-    color: #009961;
+    color: #f3d6d5;
     font-style: italic;
 }
+#readMore{
+    border-radius: 0 0 6px 6px;
+    background: #66615b;
+    color: white;
+    box-shadow: 3px 3px 3px #001c35;
+    transform: scale(1.1);
+    text-decoration: none;
+}
+#readMore:hover{
+    background: linear-gradient(to bottom, #001c35, #66615b);
+    box-shadow: 3px 3px 3px #001c35;
+    transform: scale(1.1);
+}
+.banner {
+    top: -45px;
+    position: relative;
+}
+
+.banner .label {
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    top: 50%;
+    margin-top: -38px;
+    right: 0;
+    text-transform: uppercase;
+}
+
+
+.banner .label .title {
+    font-size: 30px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.banner .label .price span {
+    display: block;
+    font-size: 24px;
+    padding-top: 3px;
+}
+
+.banner a {
+    font-size: 14px;
+    line-height: 20px;
+    color: #c73430;
+    text-transform: uppercase;
+    display: inline-block;
+    background-color: #e5e5e5;
+    padding: 5px 18px 4px;
+    margin-top: 25px;
+    border-radius: 13px;
+}
+
+.banner a:hover {
+    background-color: #c73430;
+    color: #fff;
+}
+
 .divTextAnimation {
     white-space:nowrap;
 }

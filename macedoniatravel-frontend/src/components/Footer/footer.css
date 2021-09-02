@@ -1,0 +1,26 @@
+#footer {
+    background: #001c35;
+    color: #f3d6d5;
+    font-family: Tahoma, Verdana, sans-serif;
+}
+.h_line {
+    background: linear-gradient(.25turn,#f3d6d5, #66615b, #f3d6d5);
+    height:5px;
+}
+#footerMenu a {
+    color: #f3d6d5;
+}
+.footer-copyright a {
+    color: #66615b;
+}
+.footer-copyright a:hover {
+    color: #f3d6d5;
+}
+#social-media a {
+    font-size: large;
+    color: #66615b;
+}
+#social-media a:hover {
+    font-size: large;
+    color: #f3d6d5;
+}

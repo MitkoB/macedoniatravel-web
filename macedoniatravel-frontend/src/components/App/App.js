@@ -1,6 +1,6 @@
 import './App.css';
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Header from '../Header/header'
 import Register from '../Register/signUpForm'
 import Login from '../Login/loginForm'
@@ -18,6 +18,10 @@ import FamousEventAdd from "../FamousEvent/FamousEventAdd/famousEventAdd"
 import FamousEventEdit from "../FamousEvent/FamousEventEdit/famousEventEdit"
 import TokenService from '../../repository/tokenRepository'
 import ConfirmAccount from "../ConfirmAccount/confirmAccount";
+import PrivateRoute from "../../routes/privateRoute";
+import PublicRoute from "../../routes/publicRoute";
+import HeaderRoute from "../../routes/headerRoute";
+import Footer from "../Footer/footer";
 
 class App extends Component {
     constructor(props) {
@@ -26,13 +30,13 @@ class App extends Component {
             currentUser: {},
             selectedAttraction: {},
             selectedRoute: {},
-            selectedFamousEvent:{},
+            selectedFamousEvent: {},
             attractions: [],
             attractionTypes: [],
             routes: [],
             routeStatuses: [],
             favoriteCartItems: [],
-            famousEvents:[],
+            famousEvents: [],
             isLoggedIn: TokenService.getLocalAccessToken()
         }
     }
@@ -40,53 +44,70 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <Header key={this.state.isLoggedIn} loggedStatus={this.state.isLoggedIn} />
+                <HeaderRoute component={Header} />
+                <HeaderRoute component={Header} />
                 <main>
-                    <Route path={"/dashboard"} exact render={() => <Dashboard/>}/>
-                    <Route path={"/login"} exact render={() => <Login />}/>
-                    <Route path={"/register"} exact render={() => <Register onUserRegister={this.registerUser}/>}/>
-                    <Route path={"/confirm-account"} exact render={() => <ConfirmAccount />} />
-                    <Route path={"/attractions/edit/:id"} exact
-                               render={() => <AttractionEdit attractionTypes={this.state.attractionTypes}
-                                                             onEditAttraction={this.editAttraction}
-                                                             attraction={this.state.selectedAttraction}/>}/>
-                        <Route path={"/attractions/add"} exact
-                               render={() => <AttractionAdd attractionTypes={this.state.attractionTypes}
-                                                            onAddAttraction={this.addAttraction}/>}/>
-                        <Route path={"/attractions"} exact
-                               render={() => <AttractionList attractions={this.state.attractions}
-                                                             onEdit={this.getAttraction}
-                                                             onDelete={this.deleteAttraction}/>}/>
-                        <Route path={"/routes/edit/:id"} exact
-                               render={() => <RouteEdit routeStatuses={this.state.routeStatuses}
-                                                        attractions={this.state.attractions}
-                                                        onEditRoute={this.editRoute}
-                                                        route={this.state.selectedRoute}/>}/>
-                        <Route path={"/routes/add"} exact
-                               render={() => <RouteAdd routeStatuses={this.state.routeStatuses}
-                                                       attractions={this.state.attractions}
-                                                       onAddRoute={this.addRoute}/>}/>
-                        <Route path={"/routes"} exact
-                               render={() => <RouteList routes={this.state.routes}
-                                                        attractions={this.state.attractions}
-                                                        onEdit={this.getRoute}
-                                                        onDelete={this.deleteRoute}/>}/>
-                        <Route path={"/favorite-cart"} exact
-                           render={() => <FavoriteCartList items={this.state.favoriteCartItems}
-                                                    onRemove={this.removeItem}/>}/>
-                        <Route path={"/famous-events/edit/:id"} exact
-                           render={() => <FamousEventEdit onEditFamousEvent={this.editFamousEvent}
-                                                    famousEvent={this.state.selectedFamousEvent}/>}/>
-                        <Route path={"/famous-events/add"} exact
-                           render={() => <FamousEventAdd onAddFamousEvent={this.addFamousEvent}/>}/>
-                        <Route path={"/famous-events"} exact
-                           render={() => <FamousEventList famousEvents={this.state.famousEvents}
-                                                           onEdit={this.getFamousEvent}
-                                                           onDelete={this.deleteFamousEvent}/>}/>
+                    <Switch>
+                        <PublicRoute restricted={false} component={Dashboard} path="/dashboard" exact/>
+                        <PublicRoute restricted={true} component={Login} path="/login" exact/>
+                        <PublicRoute restricted={true} onUserRegister={this.registerUser} component={Register}
+                                     path="/register" exact/>
+                        <PublicRoute restricted={true} component={ConfirmAccount} path="/confirm-account" exact/>
 
-                        <Route path={"/"} exact render={() => <Dashboard/>}/>
-                        {/*<Redirect to={"/dashboard"}/>*/}
+                        <PrivateRoute component={AttractionEdit} path="/attractions/edit/:id"
+                                      attractionTypes={this.state.attractionTypes}
+                                      onEditAttraction={this.editAttraction}
+                                      attraction={this.state.selectedAttraction}
+                                      exact/>
+                        <PrivateRoute component={AttractionAdd} path="/attractions/add"
+                                      attractionTypes={this.state.attractionTypes}
+                                      onAddAttraction={this.addAttraction}
+                                      exact/>
+                        <PrivateRoute component={AttractionList} path="/attractions"
+                                      attractions={this.state.attractions}
+                                      onEdit={this.getAttraction}
+                                      onDelete={this.deleteAttraction}
+                                      exact/>
+
+                        <PrivateRoute component={RouteEdit} path="/routes/edit/:id"
+                                      routeStatuses={this.state.routeStatuses}
+                                      attractions={this.state.attractions}
+                                      onEditRoute={this.editRoute}
+                                      route={this.state.selectedRoute}
+                                      exact/>
+                        <PrivateRoute component={RouteAdd} path="/routes/add"
+                                      routeStatuses={this.state.routeStatuses}
+                                      attractions={this.state.attractions}
+                                      onAddRoute={this.addRoute}
+                                      exact/>
+                        <PrivateRoute component={RouteList} path="/routes"
+                                      routes={this.state.routes}
+                                      onEdit={this.getRoute}
+                                      onDelete={this.deleteRoute}
+                                      exact/>
+
+                        <PrivateRoute component={FavoriteCartList} path="/favorite-cart"
+                                      items={this.state.favoriteCartItems}
+                                      onRemove={this.removeItem}
+                                      exact/>
+
+                        <PrivateRoute component={FamousEventEdit} path="/famous-events/edit/:id"
+                                      onEditFamousEvent={this.editFamousEvent}
+                                      famousEvent={this.state.selectedFamousEvent}
+                                      exact/>
+                        <PrivateRoute component={FamousEventAdd} path="/famous-events/add"
+                                      onAddFamousEvent={this.addFamousEvent}
+                                      exact/>
+                        <PublicRoute restricted={false} component={FamousEventList} path="/famous-events"
+                                     famousEvents={this.state.famousEvents}
+                                     onEdit={this.getFamousEvent}
+                                     onDelete={this.deleteFamousEvent}
+                                     exact/>
+
+                        <PublicRoute restricted={false} component={Dashboard} path="/dashboard" exact/>
+                    </Switch>
                 </main>
+                <PublicRoute restricted={false} component={Footer}/>
             </Router>
         );
     }
@@ -242,15 +263,9 @@ class App extends Component {
             });
     }
 
-    checkLoginStatus = () => {
-        this.setState({
-            isLoggedIn: TokenService.getLocalAccessToken()
-        })
-    }
 
     componentDidMount() {
         this.loadFavoriteCartItems();
-        this.checkLoginStatus();
         this.loadAttractionTypes();
         this.loadRouteStatuses();
         this.loadFamousEvents();

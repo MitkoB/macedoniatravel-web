@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState} from "react";
 import {useHistory} from 'react-router-dom';
 import {Link} from "react-router-dom";
 import '../Login/loginForm.css'
@@ -7,11 +7,11 @@ import loginImage from '../../assets/img/loginPageImage.jpg'
 
 const LoginForm = (props) => {
     const history = useHistory();
-    const [formData, updateFormData] = React.useState({
+    const [formData, updateFormData] = useState({
         email: "",
         password: ""
     })
-    const [error, setError] = React.useState({
+    const [error, setError] = useState({
         message: ""
     })
 
@@ -106,7 +106,8 @@ const LoginForm = (props) => {
                             <div className="text-center text-lg-start mt-4 pt-2">
                                 <button type="submit"
                                         className="btn btn-primary btn-lg"
-                                        id="loginBtn">Login
+                                        id="loginBtn"
+                                        >Login
                                 </button>
                                 <p className="small fw-bold mt-3 mb-5 pt-1 mb-0">Don't have an account?
                                    <span>  </span> <Link to={"/register"} className="link-danger" id="registerLink">Register</Link>
