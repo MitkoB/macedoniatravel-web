@@ -1,26 +1,27 @@
 #footer {
     background: #001c35;
-    color: #f3d6d5;
+    color: #aaa;
     font-family: Tahoma, Verdana, sans-serif;
 }
 .h_line {
-    background: linear-gradient(.25turn,#f3d6d5, #66615b, #f3d6d5);
+    background: linear-gradient(.25turn,#f3d6d5, #66615b, #aaa);
     height:5px;
 }
 #footerMenu a {
-    color: #f3d6d5;
+    color: #aaa;
 }
+
 .footer-copyright a {
-    color: #66615b;
+    color: #aaa;
 }
-.footer-copyright a:hover {
-    color: #f3d6d5;
+.footer-copyright a:hover, #footerMenu a:hover {
+    color: #856849;
 }
 #social-media a {
     font-size: large;
-    color: #66615b;
+    color: #aaa;
 }
 #social-media a:hover {
     font-size: large;
-    color: #f3d6d5;
+    color: #856849;
 }

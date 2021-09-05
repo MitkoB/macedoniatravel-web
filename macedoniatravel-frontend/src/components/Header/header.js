@@ -1,6 +1,6 @@
 import {React} from 'react';
 import '../Header/header.css'
-import appLogo from '../../assets/img/white-logo.png'
+import appLogo from '../../assets/img/logoMacedoniaTravel.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
 import AuthRepository from '../../repository/authRepository'
@@ -19,7 +19,7 @@ const Header = (props) => {
     const {width} = useWindowSize();
     const user = TokenService.getUser()?.username;
     const logout = (e) => {
-        AuthRepository.logout()
+         AuthRepository.logout()
     }
 
 
@@ -72,6 +72,7 @@ const Header = (props) => {
                         </div>
                     </div>
                 </div>)}
+
             {width <= 800 && (
                 <div className="row w-100" id="smaller_row">
                     <div className="col-12 text-center">
@@ -104,15 +105,15 @@ const Header = (props) => {
                                 </ul>
                             </li>
                             <li>
-                                <Link className="nav-link" to={"/"}>Contact</Link>
-                            </li>
-                            <li>
                                 <Link to={"/favorite-cart"} className="nav-link">Favorites
                                 </Link>
                             </li>
+                            <li>
+                                <Link className="nav-link" to={"/"}>Contact</Link>
+                            </li>
                         </ul>
                     </div>
-                    <div className="col-3 mt-3 pl-0">
+                    <div className="col-3 mt-3 pl-0" id="logoutD">
                         <li id="logoutDropdown" className="drop-down CssLogin">
                             <Link to={"/"} className="nav-link logging_buttons">
                                 {user}

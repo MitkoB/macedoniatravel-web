@@ -1,13 +1,18 @@
 #homePageHorizontalLine{
-    background: linear-gradient(.25turn,#f3d6d5, #001c35, white);
+    background: linear-gradient(.25turn,#001c35, #aaa, #001c35);
     height:3px;
+}
+.coverDiv{
+    width:100%;
+    display: flex;
+    justify-content: center;
 }
 .animationDiv{
     position: absolute;
-    top:12vw;
+    top:13vw;
     font-size: 4vw;
     font-weight: 100;
-    color: #f3d6d5;
+    color: #aaa;
     margin: 0 auto;
     letter-spacing: 4px;
 }
@@ -16,115 +21,69 @@
     display: flex;
     justify-content: center;
     font-size: 2vw;
-    color: #f3d6d5;
-    font-style: italic;
+    color: #aaa;
 }
+
 #readMore{
+    margin-top: 3vw;
     border-radius: 0 0 6px 6px;
-    background: #66615b;
-    color: white;
+    background: rgba(133, 104, 73, 0.33);
+    color: #aaa;
     box-shadow: 3px 3px 3px #001c35;
     transform: scale(1.1);
     text-decoration: none;
 }
 #readMore:hover{
-    background: linear-gradient(to bottom, #001c35, #66615b);
+    background: rgba(133, 104, 73, 0.78);
     box-shadow: 3px 3px 3px #001c35;
     transform: scale(1.1);
+    animation: pulse 1s infinite;
+    transition: .3s;
 }
-.banner {
-    top: -45px;
-    position: relative;
-}
-
-.banner .label {
-    color: #fff;
-    position: absolute;
-    text-align: center;
-    left: 0;
-    top: 50%;
-    margin-top: -38px;
-    right: 0;
-    text-transform: uppercase;
-}
-
-
-.banner .label .title {
-    font-size: 30px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-}
-
-.banner .label .price span {
-    display: block;
-    font-size: 24px;
-    padding-top: 3px;
-}
-
-.banner a {
-    font-size: 14px;
-    line-height: 20px;
-    color: #c73430;
-    text-transform: uppercase;
-    display: inline-block;
-    background-color: #e5e5e5;
-    padding: 5px 18px 4px;
-    margin-top: 25px;
-    border-radius: 13px;
-}
-
-.banner a:hover {
-    background-color: #c73430;
-    color: #fff;
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(.9);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .divTextAnimation {
     white-space:nowrap;
 }
 .divTextAnimation:first-of-type {
-    animation: showup 9s ;
+    animation: showup 11s ;
 }
 .divTextAnimation:last-of-type span {
     padding: 0 5px;
     background-color: rgba(255,255,255,0.8);
     border-radius: 20px;
-    animation: slidein 5s ;
-}
-.coverDiv{
-    width:100%;
-    display: flex;
-    justify-content: center;
+    animation: slidein 7s ;
 }
 #coverImageHomePage{
     background-size: cover;
 }
-#smallBanner{
-    box-shadow: 0 0 20px gainsboro;
-}
-#smallBanner>div>img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
-@keyframes showup {
-    0% {opacity:0; }
-    20% {opacity:1; }
-    80% {opacity:1;}
-    100% {opacity:1;}
+#seeMoreButton{
+    border-radius: 0 0 6px 6px;
+    background: rgba(133, 104, 73, 0.78);
+    color: #aaa;
+    box-shadow: 3px 3px 3px #001c35;
+    transform: scale(1.1);
+    text-decoration: none;
 }
-
-@keyframes slidein {
-    0% { margin-left:-800px; opacity:0; }
-    20% { margin-left:-800px; opacity:0;}
-    35% { margin-left:35px; opacity: 0.7; }
-    100% { margin-left:35px; opacity: 1; background-color: rgba(255,255,255,0.8); border-radius: 20px; padding: 0 0;}
+#seeMoreButton:hover{
+    border-radius: 0 0 6px 6px;
+    background: rgba(133, 104, 73, 0.78);
+    box-shadow: 3px 3px 3px #001c35;
+    transform: scale(1.1);
+    animation: pulse 1s infinite;
+    transition: .3s;
 }
-
-@keyframes reveal {
-    0% {opacity:0;width:0;}
-    20% {opacity:1;width:0;}
-    30% {width:355px;}
-    80% {opacity:1;}
-    100% {opacity:1;width:355px;}
+#titleHome {
+    color: #001c35;
 }

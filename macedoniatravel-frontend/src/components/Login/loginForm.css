@@ -1,23 +1,63 @@
-.divider:after,
-.divider:before {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #eee;
+.h-custom, .h-custom1{
+    font-family: "Bodoni MT", sans-serif;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    background-image: url("https://www.teahub.io/photos/full/88-888246_ohrid-macedonia-ohrid-macedonia.jpg");
+    background-size: cover;
+    height: 100%;
+}
+#container-login {
+    position: relative;
+    justify-content: center;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    border: 6px;
+    color: #001c35;
+    /*-webkit-box-shadow: 3px 5px 10px -5px rgba(0, 0, 0, 0.1);*/
+    /*box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.1);*/
+}
+#email::placeholder, #password::placeholder, #firstName::placeholder,
+#lastName::placeholder, #address::placeholder, #contactNumber::placeholder, #repeatPassword::placeholder,
+#token::placeholder{
+    color: #001c35;
 }
 #loginBtn, #registerBtn {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+
 }
-#formData, #loginTitle, #registerLink {
-    color: #1F3750;
+#loginBtn, #registerBtn {
+    display: block;
+    width: 100%;
+    color: #fff;
+    background-color: #001c35;
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+    border-radius: 40px;
+    height: 55px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
 }
 
-.h-custom {
-    height: calc(100% - 73px);
+#loginBtn:hover,
+#loginBtn:focus, #registerBtn:hover,
+#registerBtn:focus{
+    background-color:#324e67 ;
+}
+#formData, #loginTitle, #registerLink {
+    color: #001c35;
 }
 @media (max-width: 450px) {
     .h-custom {
+        height: 100%;
+    }
+}
+@media (max-width: 450px) {
+    .h-custom1 {
+        position: relative;
         height: 100%;
     }
 }

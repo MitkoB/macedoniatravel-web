@@ -2,7 +2,7 @@ import React from "react";
 import {useHistory} from 'react-router-dom';
 import '../Login/loginForm.css'
 import AuthService from '../../repository/authRepository'
-import loginImage from '../../assets/img/loginPageImage.jpg'
+import appLogo from "../../assets/img/logoMacedoniaTravel2.png";
 
 const ConfirmAccount = (props) => {
     const history = useHistory();
@@ -26,43 +26,42 @@ const ConfirmAccount = (props) => {
         ).catch(error => {
             console.log(error?.response?.data?.message)
         })
-}
+    }
 
-return (
-    <section className="vh-100">
-        <div className="container-fluid h-custom">
-            <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="col-md-9 col-lg-6 col-xl-5">
-                    <img src={loginImage}
-                         className="img-fluid"
-                         alt="Login image"/>
-                </div>
-                <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1 mt-2" id="formColumn">
-                    <h2 className="text-center" id="loginTitle">Confirm your registration process</h2>
-                    <form onSubmit={onFormSubmit} id="formData">
-                        <div className="form-outline mb-4 mt-3">
-                            <label className="form-label"
-                                   htmlFor="token">Validation code from email</label>
-                            <input type="text"
-                                   id="token"
-                                   name="token"
-                                   className="form-control form-control-lg"
-                                   placeholder="Enter validation code"
-                                   autoFocus=""
-                                   required={true}
-                                   onChange={handleChange}/>
+    return (
+        <div className="container-fluid  h-custom">
+            <div className="d-flex align-items-center">
+                <div className="container" id="container-login">
+                    <div className="row justify-content-center">
+                        <div className="col" id="formColumn">
+                            <img src={appLogo} alt="logo"/>
+                            <hr className="horizontal_line"/>
+                            <h2 className="text-center" id="loginTitle">Confirm your registration process</h2>
+                            <form onSubmit={onFormSubmit} id="formData">
+                                <div className="form-outline mb-4 mt-3">
+                                    <label className="form-label"
+                                           htmlFor="token">Validation code from email</label>
+                                    <input type="text"
+                                           id="token"
+                                           name="token"
+                                           className="form-control form-control-lg"
+                                           placeholder="Enter validation code"
+                                           autoFocus=""
+                                           required={true}
+                                           onChange={handleChange}/>
+                                </div>
+                                <div className="text-center text-lg-start mt-4 mb-5 pt-2">
+                                    <button type="submit"
+                                            className="btn btn-primary btn-lg"
+                                            id="loginBtn">Confirm
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div className="text-center text-lg-start mt-4 pt-2">
-                            <button type="submit"
-                                    className="btn btn-primary btn-lg"
-                                    id="loginBtn">Confirm
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-);
+    );
 }
 export default ConfirmAccount;

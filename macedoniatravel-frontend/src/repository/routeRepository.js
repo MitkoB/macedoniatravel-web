@@ -7,6 +7,13 @@ const RouteService = {
     fetchAttractions: () => {
         return axios.get("/attraction");
     },
+    searchAttractions: (name) => {
+        return axios.get('/attraction', {
+            params: {
+                name: name
+            }
+        })
+    },
     fetchAttractionTypes: () => {
         return axios.get("/attraction/types")
     },

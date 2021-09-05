@@ -3,13 +3,11 @@
     display: flex;
     top: 0;
     z-index: 1;
-    font-family: 'PT Sans Narrow', sans-serif;
+    font-family: "Bodoni MT", sans-serif;;
     text-transform: uppercase;
     justify-content: center;
     min-width: 100%;
-    width: 100%;
 }
-
 .menu-column{
     width:100%;
     display: flex;
@@ -28,40 +26,35 @@ li {
     position: relative;
     cursor: pointer;
 }
+
 .menu>li>a{
-    color: #f3d6d5;
+    color:  #aaa;
 }
 .menu>li:hover>a{
     color: white;
 }
-li::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left:0;
-    height:100%;
-    width: 100%;
-    color: #001c35;
-    z-index:-1;
-    transition: .2s;
-    border-radius: 0 0 6px 6px;
+menu>li:active>a{
+    color: white;
 }
-li:hover {
+menu>li>a:active{
+    color: white;
+}
+.menu>li:hover, .menu>li>ul>li:hover, #logoutD>li:hover, #logoutD>li>ul>div>ul>li:hover, #logoutD>li>ul>li:hover {
     color:white;
     border-radius: 0 0 6px 6px;
-    background: linear-gradient(to bottom, #001c35, #66615b);
+    background: linear-gradient(to bottom, #001c35, #aaa);
     box-shadow: 3px 3px 3px #001c35;
     transform: scale(1.1);
 }
-
 .CssLogin{
     float: right;
-    color: #f3d6d5;
+    color: #aaa;
+    transition: 0.3s;
     transition: 0.3s;
     display: inline-block;
 }
 .CssLogin>a{
-    color: #f3d6d5;
+    color: #aaa;
 }
 .CssLogin>a:hover{
     color: white;
@@ -74,19 +67,14 @@ li:hover {
     z-index: 10;
     opacity: 0;
     visibility: hidden;
-    padding: 10px 3px;
+    padding: 8px 3px;
     width: 100%;
     background: #fff;
     border-radius: 0 0 6px 6px;
     box-shadow: 3px 3px 3px #001c35;
     transition: 0.3s;
     list-style: none;
-}
-.drop-down>ul{
     font-size: small;
-}
-.drop-down>a{
-    color: #001c35;
 }
 .drop-down:hover>a{
     color: white;
@@ -106,8 +94,9 @@ li:hover {
     color: white;
     text-decoration: none;
 }
+
 .logging_buttons{
-    color: white;
+    color: #aaa;
 }
 .logging_buttons:hover{
     color: white;
@@ -115,8 +104,8 @@ li:hover {
 }
 
 #logoutDropdown>a{
-    color: #f3d6d5;
-    font-size: 1vw;
+    color: #aaa;
+    font-size: small;
 }
 #logoutDropdown:hover{
     transform: none;
@@ -129,9 +118,6 @@ li:hover {
     text-decoration: none;
     color: white;
 }
-#logoutDropdown>ul>div>ul>li:hover>a{
-    color: white;
-}
 
 .menu_dropdown{
     width:100%;
@@ -139,10 +125,11 @@ li:hover {
     cursor:pointer;
     color: #001c35;
 }
+
 .title{
     width:25%;
     box-sizing:border-box;
-    background:#f3d6d5;
+    background:#aaa;
     padding:5px;
     border-radius: 0 0 5px 5px;
     position:relative;
@@ -155,7 +142,7 @@ li:hover {
     background:#fff;
     border-radius: 0 0 2px 2px;
     box-shadow:3px 3px 3px #001c35;
-    color:#f3d6d5;
+    color:#aaa;
     margin-top:25px;
     max-height:0;
     overflow:hidden;

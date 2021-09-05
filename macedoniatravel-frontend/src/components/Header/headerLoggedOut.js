@@ -1,22 +1,16 @@
 import {React} from 'react';
-import '../Header/header.css'
-import appLogo from '../../assets/img/white-logo.png'
+import appLogo from '../../assets/img/logoMacedoniaTravel.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
+import '../Header/header.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBars} from "@fortawesome/free-solid-svg-icons";
-
-
-
 library.add(faBars)
-
-
 
 const HeaderLoggedOut = (props) => {
 
     const {width} = useWindowSize();
-
     const f = (e) => {
         document.getElementsByClassName('dropdown_mobile')[0].classList.toggle('down');
         if (document.getElementsByClassName('dropdown_mobile')[0].classList.contains('down')) {
@@ -45,10 +39,6 @@ const HeaderLoggedOut = (props) => {
                                 <Link to={"/#"} className="nav-link">About Macedonia</Link>
                                 <Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
                                 <Link className="nav-link" to={"/"}>Contact</Link>
-                                <div>
-                                    <Link to={"/favorite-cart"} className="nav-link">Favorites <i
-                                        className="fa fa-heart-o"/></Link>
-                                </div>
                                 <div>
                                     <Link to={"/login"} className="nav-link ">Login</Link>
                                 </div>
@@ -89,10 +79,6 @@ const HeaderLoggedOut = (props) => {
                             </li>
                             <li>
                                 <Link className="nav-link" to={"/"}>Contact</Link>
-                            </li>
-                            <li>
-                                <Link to={"/favorite-cart"} className="nav-link">Favorites <i
-                                    className="fa fa-heart-o"/></Link>
                             </li>
                         </ul>
                     </div>

@@ -12,11 +12,7 @@ import s6 from '../../assets/img/skopjenight.jpg'
 import s7 from '../../assets/img/winter-ohrid.jpg'
 import s8 from '../../assets/img/oh-img.jpg'
 import './cards.css'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faFacebookF);
 
 const Dashboard = (props) => {
     return (
@@ -26,16 +22,15 @@ const Dashboard = (props) => {
                 <div className="animationDiv">
                     <div className="divTextAnimation">Macedonia Travel</div>
                     <div className=" secondAnimationDiv">
-                        <h3 style={{"color":"#f3d6d5"}}>If you want to know more about Macedonia, click below</h3>
+                        <h3>If you want to know more about Macedonia, click below</h3>
                     </div>
-                    <Link type="button" id="readMore" className="btn btn-light" to={"/"}>Read more</Link>
+                    <Link type="button" id="readMore" className="btn btn-light" to={"/"}><span>Read more</span></Link>
                 </div>
-
             </div>
 
             {/*CARDS*/}
-            <h1 className="mt-4">What are you looking for?</h1>
-            <div className="container bootstrap snippets bootdeys mt-5">
+            <h2 className="mt-3" index="titleHome">What are you looking for?</h2>
+            <div className="container bootstrap snippets bootdeys mt-3">
                 <div className="row">
                     <div className="col-md-4 col-sm-6 content-card">
                         <div className="card-big-shadow">
@@ -77,7 +72,7 @@ const Dashboard = (props) => {
                                     <h4 className="titleCard"><Link to={"/routes"}>See now</Link></h4>
                                     <p className="description">
                                         You can see more different travel routes, you can add your favorites
-                                        in your favorite cart, and than to create ticket for them.
+                                        in your favorite cart, and than to create ticket for them. Enjoy!
                                     </p>
                                 </div>
                             </div>
@@ -90,7 +85,7 @@ const Dashboard = (props) => {
             <div className="container mt-5 mb-5">
                 <div className="row mt-2">
                     <div className="col-12">
-                        <p className="text-justify">
+                        <p className="text-center">
                             Macedonia, officially the Republic of Macedonia, is a country in Southeast Europe. It gained
                             independence in 1991 as one of the successor states of Yugoslavia. Macedonia is a
                             landlocked country bordering with Kosovo to the northwest, Serbia to the north, Bulgaria to
@@ -107,105 +102,71 @@ const Dashboard = (props) => {
                             the world, you’ll pay a fraction of what you would for a trip to similar spots
                             in western Europe.
                         </p>
-                        <p>Want to learn more about Macedonia?</p>
-                        <Link to={"/"} className="btn btn-link text-white" id="seeMoreButton">Learn more</Link>
                     </div>
                 </div>
 
+                <div className="mt-3">
+                <p>Want to learn more about Macedonia?</p>
+                <Link to={"/"} className="btn btn-link text-white" id="seeMoreButton">Learn more</Link>
+                </div>
+
                 <hr id="homePageHorizontalLine"/>
 
+                {/*GALLERY*/}
                 <div className="container">
                     <div className="row text-center text-lg-start">
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 mh-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 mh-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s2} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 mh-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s3} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 h-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s4} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 h-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s5} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 h-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s6} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 h-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s7} alt=""/>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-4 col-6">
-                                <a href="#" className="d-block mb-4 h-100">
-                                    <img className="img-fluid img-thumbnail"
-                                         src={s8} alt=""/>
-                                </a>
-                            </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 mh-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s1} alt=""/>
+                            </a>
                         </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 mh-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s2} alt=""/>
+                            </a>
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 mh-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s3} alt=""/>
+                            </a>
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 h-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s4} alt=""/>
+                            </a>
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 h-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s5} alt=""/>
+                            </a>
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 h-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s6} alt=""/>
+                            </a>
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 h-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s7} alt=""/>
+                            </a>
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-6">
+                            <a href="#" className="d-block mb-4 h-100">
+                                <img className="img-fluid img-thumbnail"
+                                     src={s8} alt=""/>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <hr id="homePageHorizontalLine"/>
             </div>
-            {/*<Carousel>*/}
-            {/*    <Carousel.Item>*/}
-            {/*        <img*/}
-            {/*            className="d-block w-100"*/}
-            {/*            src={backgroundImg}*/}
-            {/*            alt="First slide"*/}
-            {/*        />*/}
-            {/*        <Carousel.Caption>*/}
-            {/*            <h3>If you want to know more about Macedonia, click below</h3>*/}
-            {/*            <Link type="button" className="btn btn-light" to={"/"}>Read more</Link>*/}
-            {/*        </Carousel.Caption>*/}
-            {/*    </Carousel.Item>*/}
-            {/*    <Carousel.Item>*/}
-            {/*        <img*/}
-            {/*            className="d-block w-100"*/}
-            {/*            src={macedoniaImg}*/}
-            {/*            alt="Second slide"*/}
-            {/*        />*/}
-
-            {/*        <Carousel.Caption>*/}
-            {/*            <h3>If you want to know more about Macedonia, click below</h3>*/}
-            {/*            <Link type="button" className="btn btn-light" to={"/"}>Read more</Link>*/}
-            {/*        </Carousel.Caption>*/}
-            {/*    </Carousel.Item>*/}
-            {/*    <Carousel.Item>*/}
-            {/*        <img*/}
-            {/*            className="d-block w-100"*/}
-            {/*            src={skopjeImg}*/}
-            {/*            alt="Third slide"*/}
-            {/*        />*/}
-
-            {/*        <Carousel.Caption>*/}
-            {/*            <h3>If you want to know more about Macedonia, click below</h3>*/}
-            {/*            <Link type="button" className="btn btn-light" to={"/"}>Read more</Link>*/}
-            {/*        </Carousel.Caption>*/}
-            {/*    </Carousel.Item>*/}
-            {/*</Carousel>*/}
-
         </div>)
 }
 export default Dashboard

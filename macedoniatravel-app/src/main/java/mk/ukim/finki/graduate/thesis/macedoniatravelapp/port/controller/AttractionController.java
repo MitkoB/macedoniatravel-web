@@ -19,7 +19,16 @@ public class AttractionController {
     private final AttractionService attractionService;
 
     @GetMapping
-    public List<Attraction> findAll() {
+    public List<Attraction> findAll(@RequestParam(required = false) String name,
+                                    @RequestParam(required = false) AttractionType
+                                    attractionType)
+    {
+        if (name!=null) {
+            return attractionService.searchAttractionByName(name);
+        }
+        if(attractionType!=null) {
+            return attractionService.searchAttractionByType(attractionType);
+        }
         return attractionService.findAll();
     }
 

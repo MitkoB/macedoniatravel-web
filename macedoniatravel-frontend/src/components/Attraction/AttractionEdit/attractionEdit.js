@@ -1,5 +1,7 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
+import '../AttractionEdit/attractionEditCss.css'
+import RouteService from "../../../repository/routeRepository";
 
 const AttractionEdit = (props) => {
 
@@ -13,6 +15,17 @@ const AttractionEdit = (props) => {
         pictures:"",
         attractionType:0
     })
+    const {id} = useParams();
+    const [constructorHasRun, setConstructorHasRun] = React.useState(false);
+    const [attraction, setAttraction] = React.useState(props.attraction);
+    const constructor = () => {
+        if (constructorHasRun) return;
+        RouteService.getAttraction(id).then((data) => {
+            setAttraction(data.data);
+        })
+        setConstructorHasRun(true);
+    };
+    constructor();
 
     const handleChange = (e) => {
         updateFormData({
@@ -22,103 +35,122 @@ const AttractionEdit = (props) => {
     }
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const name = formData.name !== "" ? formData.name : props.attraction.name;
-        const latitude = formData.latitude !== "" ? formData.latitude : props.attraction.latitude;
-        const longitude = formData.longitude !== "" ? formData.longitude : props.attraction.longitude;
-        const location = formData.location !== "" ? formData.location : props.attraction.location;
-        const description = formData.description !== "" ? formData.description : props.attraction.description;
-        const pictures = formData.pictures !== "" ? formData.pictures : props.attraction.pictures;
-        const attractionType = formData.attractionType !== 0 ? formData.attractionType : props.attraction.attractionType;
+        const name = formData.name !== "" ? formData.name : attraction.name;
+        const latitude = formData.latitude !== "" ? formData.latitude : attraction.latitude;
+        const longitude = formData.longitude !== "" ? formData.longitude : attraction.longitude;
+        const location = formData.location !== "" ? formData.location : attraction.location;
+        const description = formData.description !== "" ? formData.description : attraction.description;
+        const pictures = formData.pictures !== "" ? formData.pictures : attraction.pictures;
+        const attractionType = formData.attractionType !== 0 ? formData.attractionType : attraction.attractionType;
 
-        props.onEditAttraction(props.attraction.id,name,latitude,longitude,location, description, pictures, attractionType);
-        history.push("/attractions");
+        props.onEditAttraction(attraction.id,name,latitude,longitude,location, description, pictures, attractionType);
+        history.push(`/attractions/${attraction.id}`);
     }
     return (
-        <div className="row mt-5">
-            <div className="col-md-5">
-                <form onSubmit={onFormSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">Attraction name</label>
-                        <input type="text"
-                               className="form-control"
-                               id="name"
-                               name="name"
-                               required
-                               placeholder={props.attraction.name}
-                               onChange={handleChange}
-                        />
+              <body className="body-1">
+                <div className="container mt-5 mb-5 edit-con">
+                    <div className="row" id="creationRow">
+                        <div className="creation-form mt-5">
+                            <div className="creation-bg">
+                                <div className="form-header">
+                                    <h2>Edit Tourist Attraction</h2>
+                                    <p> Macedonia is probably one of the most fascinating tourist destinations in Europe.
+                                        Edit current tourist attraction with new, valid information.
+                                    </p>
+                                </div>
+                            </div>
+                            <form onSubmit={onFormSubmit}>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <span className="form-label">Attraction name</span>
+                                            <input type="text"
+                                                   className="form-control"
+                                                   id="name"
+                                                   name="name"
+                                                   required
+                                                   placeholder={attraction.name}
+                                                   onChange={handleChange}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <span className="form-label">Latitude</span>
+                                            <input type="text"
+                                                   className="form-control"
+                                                   id="latitude"
+                                                   name="latitude"
+                                                   required
+                                                   placeholder={attraction.latitude}
+                                                   onChange={handleChange}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <span className="form-label">Longitude</span>
+                                            <input type="text"
+                                                   className="form-control"
+                                                   id="longitude"
+                                                   name="longitude"
+                                                   required
+                                                   placeholder={attraction.longitude}
+                                                   onChange={handleChange}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <span className="form-label">Attraction type</span>
+                                    <select name="attractionType" className="form-control" onChange={handleChange} required>
+                                        {props.attractionTypes.map((term) => {
+                                            if (attraction.attractionType !== 0 &&
+                                                attraction.attractionType === term)
+                                                return <option selected={attraction.attractionType}
+                                                               value={term}>{term}</option>
+                                            else return <option value={term}>{term}</option>
+                                        })}
+                                    </select>
+                                    <span className="select-arrow"/>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <span className="form-label">Attraction location</span>
+                                            <input type="text"
+                                                   className="form-control"
+                                                   id="location"
+                                                   name="location"
+                                                   required
+                                                   placeholder={attraction.location}
+                                                   onChange={handleChange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <span className="form-label">Attraction picture</span>
+                                            <input type="text"
+                                                   className="form-control"
+                                                   id="pictures"
+                                                   name="pictures"
+                                                   required
+                                                   placeholder={attraction.pictures}
+                                                   onChange={handleChange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-btn">
+                                    <button className="submit-btn" type="submit">Create</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Attraction latitude</label>
-                        <input type="text"
-                               className="form-control"
-                               id="latitude"
-                               name="latitude"
-                               required
-                               placeholder={props.attraction.latitude}
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Attraction longitude</label>
-                        <input type="text"
-                               className="form-control"
-                               id="longitude"
-                               name="longitude"
-                               required
-                               placeholder={props.attraction.longitude}
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Attraction location</label>
-                        <input type="text"
-                               className="form-control"
-                               id="location"
-                               name="location"
-                               required
-                               placeholder={props.attraction.location}
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Attraction description</label>
-                        <textarea
-                            className="form-control"
-                            id="description"
-                            name="description"
-                            required
-                            placeholder={props.attraction.description}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Attraction pictures url</label>
-                        <input type="text"
-                               className="form-control"
-                               id="pictures"
-                               name="pictures"
-                               required
-                               placeholder={props.attraction.pictures}
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Attraction Type</label>
-                        <select name="attractionType" className="form-control" onChange={handleChange}>
-                            {props.attractionTypes.map((term) => {
-                                if (props.attraction.attractionType !== 0 &&
-                                    props.attraction.attractionType === term)
-                                    return <option selected={props.attraction.attractionType}
-                                                   value={term}>{term}</option>
-                                else return <option value={term}>{term}</option>
-                            })}
-                        </select>
-                    </div>
-                    <button id="submit" type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
+                </div>
+              </body>
     )
 }
 export default AttractionEdit;

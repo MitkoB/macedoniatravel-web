@@ -1,6 +1,6 @@
 import './App.css';
-import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
+import React, {Component, Fragment} from "react";
+import {BrowserRouter as Router, Route, Redirect, Switch, useRouteMatch} from 'react-router-dom'
 import Header from '../Header/header'
 import Register from '../Register/signUpForm'
 import Login from '../Login/loginForm'
@@ -9,6 +9,7 @@ import Dashboard from "../Dashboard/dashboard";
 import AttractionList from "../Attraction/AttractionList/attractionList";
 import AttractionAdd from "../Attraction/AttractionAdd/attractionAdd";
 import AttractionEdit from "../Attraction/AttractionEdit/attractionEdit";
+import Attraction from "../Attraction/AttractionTerm/attractionTerm"
 import RouteList from "../Route/RouteList/routeList";
 import RouteAdd from '../Route/RouteAdd/routeAdd';
 import RouteEdit from '../Route/RouteEdit/routeEdit';
@@ -29,6 +30,7 @@ class App extends Component {
         this.state = {
             currentUser: {},
             selectedAttraction: {},
+            lastSelectedAttraction: {},
             selectedRoute: {},
             selectedFamousEvent: {},
             attractions: [],
@@ -37,77 +39,87 @@ class App extends Component {
             routeStatuses: [],
             favoriteCartItems: [],
             famousEvents: [],
-            isLoggedIn: TokenService.getLocalAccessToken()
+            isLoggedIn: TokenService.getLocalAccessToken(),
+            currentLocation: ""
         }
     }
 
     render() {
         return (
             <Router>
-                <HeaderRoute component={Header} />
-                <HeaderRoute component={Header} />
-                <main>
-                    <Switch>
-                        <PublicRoute restricted={false} component={Dashboard} path="/dashboard" exact/>
-                        <PublicRoute restricted={true} component={Login} path="/login" exact/>
-                        <PublicRoute restricted={true} onUserRegister={this.registerUser} component={Register}
-                                     path="/register" exact/>
-                        <PublicRoute restricted={true} component={ConfirmAccount} path="/confirm-account" exact/>
+                <Switch>
+                    <PublicRoute restricted={false} component={Login} path="/login" exact/>
+                    <PublicRoute restricted={false} onUserRegister={this.registerUser} component={Register}
+                                 path="/register" exact/>
+                    <PublicRoute restricted={false} component={ConfirmAccount} path="/confirm-account" exact/>
 
-                        <PrivateRoute component={AttractionEdit} path="/attractions/edit/:id"
-                                      attractionTypes={this.state.attractionTypes}
-                                      onEditAttraction={this.editAttraction}
-                                      attraction={this.state.selectedAttraction}
-                                      exact/>
-                        <PrivateRoute component={AttractionAdd} path="/attractions/add"
-                                      attractionTypes={this.state.attractionTypes}
-                                      onAddAttraction={this.addAttraction}
-                                      exact/>
-                        <PrivateRoute component={AttractionList} path="/attractions"
-                                      attractions={this.state.attractions}
-                                      onEdit={this.getAttraction}
-                                      onDelete={this.deleteAttraction}
-                                      exact/>
+                    <Fragment>
+                        <HeaderRoute component={Header}/>
+                        <Switch>
+                            <PublicRoute restricted={false} component={Dashboard} path="/dashboard" exact/>
+                            <PrivateRoute component={AttractionEdit} path="/attractions/edit/:id"
+                                          attractionTypes={this.state.attractionTypes}
+                                          onEditAttraction={this.editAttraction}
+                                          attraction={this.state.selectedAttraction}
+                                          exact/>
+                            <PrivateRoute component={AttractionAdd} path="/attractions/add"
+                                          attractionTypes={this.state.attractionTypes}
+                                          onAddAttraction={this.addAttraction}
+                                          exact/>
+                            <PrivateRoute component={Attraction} path="/attractions/:id"
+                                          attraction={this.state.selectedAttraction}
+                                          onEdit={this.getAttraction}
+                                          onDelete={this.deleteAttraction}
+                                          exact/>
+                            <PrivateRoute component={AttractionList} path="/attractions"
+                                          attractions={this.state.attractions}
+                                          attractionTypes={this.state.attractionTypes}
+                                          onEdit={this.getAttraction}
+                                          onDelete={this.deleteAttraction}
+                                          onSelect={this.getAttraction}
+                                          onSearchAttraction={this.searchAttraction}
+                                          exact/>
 
-                        <PrivateRoute component={RouteEdit} path="/routes/edit/:id"
-                                      routeStatuses={this.state.routeStatuses}
-                                      attractions={this.state.attractions}
-                                      onEditRoute={this.editRoute}
-                                      route={this.state.selectedRoute}
-                                      exact/>
-                        <PrivateRoute component={RouteAdd} path="/routes/add"
-                                      routeStatuses={this.state.routeStatuses}
-                                      attractions={this.state.attractions}
-                                      onAddRoute={this.addRoute}
-                                      exact/>
-                        <PrivateRoute component={RouteList} path="/routes"
-                                      routes={this.state.routes}
-                                      onEdit={this.getRoute}
-                                      onDelete={this.deleteRoute}
-                                      exact/>
+                            <PrivateRoute component={RouteEdit} path="/routes/edit/:id"
+                                          routeStatuses={this.state.routeStatuses}
+                                          attractions={this.state.attractions}
+                                          onEditRoute={this.editRoute}
+                                          route={this.state.selectedRoute}
+                                          exact/>
+                            <PrivateRoute component={RouteAdd} path="/routes/add"
+                                          routeStatuses={this.state.routeStatuses}
+                                          attractions={this.state.attractions}
+                                          onAddRoute={this.addRoute}
+                                          exact/>
+                            <PrivateRoute component={RouteList} path="/routes"
+                                          routes={this.state.routes}
+                                          onEdit={this.getRoute}
+                                          onDelete={this.deleteRoute}
+                                          exact/>
 
-                        <PrivateRoute component={FavoriteCartList} path="/favorite-cart"
-                                      items={this.state.favoriteCartItems}
-                                      onRemove={this.removeItem}
-                                      exact/>
+                            <PrivateRoute component={FavoriteCartList} path="/favorite-cart"
+                                          items={this.state.favoriteCartItems}
+                                          onRemove={this.removeItem}
+                                          exact/>
 
-                        <PrivateRoute component={FamousEventEdit} path="/famous-events/edit/:id"
-                                      onEditFamousEvent={this.editFamousEvent}
-                                      famousEvent={this.state.selectedFamousEvent}
-                                      exact/>
-                        <PrivateRoute component={FamousEventAdd} path="/famous-events/add"
-                                      onAddFamousEvent={this.addFamousEvent}
-                                      exact/>
-                        <PublicRoute restricted={false} component={FamousEventList} path="/famous-events"
-                                     famousEvents={this.state.famousEvents}
-                                     onEdit={this.getFamousEvent}
-                                     onDelete={this.deleteFamousEvent}
-                                     exact/>
+                            <PrivateRoute component={FamousEventEdit} path="/famous-events/edit/:id"
+                                          onEditFamousEvent={this.editFamousEvent}
+                                          famousEvent={this.state.selectedFamousEvent}
+                                          exact/>
+                            <PrivateRoute component={FamousEventAdd} path="/famous-events/add"
+                                          onAddFamousEvent={this.addFamousEvent}
+                                          exact/>
+                            <PublicRoute restricted={false} component={FamousEventList} path="/famous-events"
+                                         famousEvents={this.state.famousEvents}
+                                         onEdit={this.getFamousEvent}
+                                         onDelete={this.deleteFamousEvent}
+                                         exact/>
 
-                        <PublicRoute restricted={false} component={Dashboard} path="/dashboard" exact/>
-                    </Switch>
-                </main>
-                <PublicRoute restricted={false} component={Footer}/>
+                            <PublicRoute restricted={false} component={Dashboard} path="/" exact/>
+                        </Switch>
+                        <PublicRoute restricted={false} component={Footer}/>
+                    </Fragment>
+                </Switch>
             </Router>
         );
     }
@@ -262,7 +274,14 @@ class App extends Component {
                 this.loadFavoriteCartItems();
             });
     }
-
+    searchAttraction = (name) => {
+        RouteService.searchAttractions(name)
+            .then((data) => {
+                this.setState({
+                    attractions: data.data
+                })
+            })
+    }
 
     componentDidMount() {
         this.loadFavoriteCartItems();
@@ -273,6 +292,9 @@ class App extends Component {
         this.loadRoutes()
     }
 
+    componentWillMount() {
+
+    }
 }
 
 export default App;

@@ -1,0 +1,199 @@
+.body-1 {
+    font-family: 'Alice', serif;
+    display: flex;
+    background: white;
+}
+
+.edit-con{
+    position: relative;
+}
+
+.creation-form {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+    background: #fff;
+    border: 10px solid #001c35;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+.creation-form .creation-bg {
+    position: absolute;
+    left: 25px;
+    top: -25px;
+    bottom: -25px;
+    width: 400px;
+    background-image: url('../../../assets/img/creationImage.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 25px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.creation-form .creation-bg::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(133, 104, 73, 0.78);
+}
+
+.creation-form>form {
+    text-align: justify;
+    margin-left: 425px;
+    padding: 30px;
+}
+
+.creation-form .form-header {
+    margin-bottom: 30px;
+    margin-top: 60px;
+    position: relative;
+    text-align: center;
+    z-index: 20;
+}
+
+.creation-form .form-header h2 {
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 900;
+    color: #fff;
+    font-size: 42px;
+    text-transform: capitalize;
+}
+
+.creation-form .form-header p {
+    color: #fff;
+    font-size: 18px;
+}
+
+.creation-form .form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.creation-form .form-group span{
+    font-weight: 700;
+}
+.creation-form .form-control {
+    background-color: #fff;
+    height: 45px;
+    padding: 0 15px;
+    color: #001c35;
+    border: 1px solid #e5e5e5;
+    font-size: 16px;
+    font-weight: 200;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 40px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+/*.creation-form .form-control::-webkit-input-placeholder {*/
+/*    color: #e5e5e5;*/
+/*}*/
+
+/*.creation-form .form-control:-ms-input-placeholder {*/
+/*    color: #e5e5e5;*/
+/*}*/
+
+.creation-form .form-control::placeholder {
+    color: #001c35;
+}
+
+.creation-form .form-control:focus {
+    background: #f8f8f8;
+}
+
+.creation-form input[type="date"].form-control:invalid {
+    color: #e5e5e5;
+}
+
+.creation-form select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.creation-form select.form-control:invalid {
+    color: #e5e5e5;
+}
+
+.creation-form select.form-control option {
+    color: #001c35;
+}
+
+.creation-form select.form-control+.select-arrow {
+    position: absolute;
+    right: 3px;
+    bottom: 5px;
+    width: 32px;
+    line-height: 32px;
+    height: 32px;
+    text-align: center;
+    pointer-events: none;
+    color: #e5e5e5;
+    font-size: 14px;
+}
+
+.creation-form select.form-control+.select-arrow:after {
+    content: '\279C';
+    display: block;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.creation-form .form-label {
+    color: #001c35;
+    text-transform: uppercase;
+    line-height: 24px;
+    height: 24px;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.creation-form .form-btn {
+    margin-top: 30px;
+}
+
+.creation-form .submit-btn {
+    display: block;
+    width: 100%;
+    color: #fff;
+    background: rgba(133, 104, 73, 0.78);
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+    border-radius: 40px;
+    height: 55px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.creation-form .submit-btn:hover,
+.creation-form .submit-btn:focus {
+    background: rgba(133, 104, 73, 0.33);
+}
+
+@media only screen and (max-width: 768px) {
+    .creation-form .creation-bg {
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: -15px;
+        width: 100%;
+        margin: auto
+    }
+    .creation-form>form {
+        margin-left: 0;
+    }
+}

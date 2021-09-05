@@ -1,17 +1,19 @@
 .attractions-con {
     height: 100%;
     padding: 5% 0;
+    position: relative;
 }
 
 h1 {
-    color: #FCFBFA;
+    color: #fff;
 }
 
 .container_card {
     background-color: rgba(57, 62, 93, 0.7);
     padding: 0;
+    display: flex;
     overflow: hidden;
-    max-width: 350px;
+    /*max-width: 350px;*/
     margin: 5px;
     position: relative;
 }
@@ -42,9 +44,7 @@ h1 {
 
 .container_card img {
     width: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0.4;
+    opacity: 0.5;
     -webkit-transition: all 4s ease;
     -moz-transition: all 4s ease;
     -o-transition: all 4s ease;
