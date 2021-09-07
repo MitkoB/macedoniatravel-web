@@ -143,8 +143,23 @@ const AttractionEdit = (props) => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <span className="form-label">Attraction description</span>
+                                            <textarea
+                                                   className="form-control"
+                                                   id="description"
+                                                   name="description"
+                                                   required
+                                                   placeholder={attraction.description}
+                                                   onChange={handleChange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="form-btn">
-                                    <button className="submit-btn" type="submit">Create</button>
+                                    <button className="submit-btn" type="submit">Edit</button>
                                 </div>
                             </form>
                         </div>

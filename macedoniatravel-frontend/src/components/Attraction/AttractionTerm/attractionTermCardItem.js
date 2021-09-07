@@ -9,7 +9,6 @@ library.add(faEye);
 
 const attractionTerm = (props) => {
     return (
-                <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 " >
                     <div className="container_card">
                     <img
                         src={props.term.pictures}
@@ -20,12 +19,10 @@ const attractionTerm = (props) => {
                         <h4>{props.term.location}</h4>
                     </article>
                     <Link className="d-block seeMore text-center"
-                          onClick={() => props.onSelect(props.term.id)}
                           to={`/attractions/${props.term.id}`}>
                            <span><FontAwesomeIcon icon={faEye}/></span>
                     </Link>
                     </div>
-                </div>
     )
 }
 export default attractionTerm;

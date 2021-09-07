@@ -31,7 +31,7 @@ const AttractionEdit = (props) => {
         const pictures = formData.pictures;
         const attractionType = formData.attractionType;
 
-        props.onAddAttraction(name,latitude,longitude,location, description, pictures, attractionType);
+        props.onAddReview(name,latitude,longitude,location, description, pictures, attractionType);
         history.push('/attractions');
     }
     return (
@@ -123,6 +123,21 @@ const AttractionEdit = (props) => {
                                            required
                                            placeholder="Enter attraction picture"
                                            onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <div className="form-group">
+                                    <span className="form-label">Attraction description</span>
+                                    <textarea
+                                        className="form-control"
+                                        id="description"
+                                        name="description"
+                                        required
+                                        placeholder="Enter description"
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </div>

@@ -10,6 +10,7 @@ import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Route;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.AttractionRepository;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.RouteRepository;
+import mk.ukim.finki.graduate.thesis.routemanagement.service.ReviewService;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.enumeration.Role;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.repository.UserRepository;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 public class DataInitializer {
     private final AttractionRepository touristAttractionRepository;
     private final RouteRepository routeRepository;
+    private final ReviewService reviewService;
     private final FavoriteCartRepository favoriteCartRepository;
     private final FavoriteCartService favoriteCartService;
     private final UserRepository userRepository;
@@ -67,6 +69,14 @@ public class DataInitializer {
             this.favoriteCartService.addRouteToFavoriteCart(userRepository.findByEmail(user.getEmail()).getUsername(),
                     routeRepository.findByName(route.getName()).get().getId());
         }
+
+
+        if(reviewService.listAllRouteReviews(routeRepository.findByName(route.getName()).get().getId()).isEmpty()) {
+            this.reviewService.addReviewForRoute(userRepository.findByEmail(user.getEmail()).getUsername(),
+                    routeRepository.findByName(route.getName()).get().getId(),
+                    "This route is awesome, I want to create ticket.. Who is going?",5);
+        }
+
 
     }
 }

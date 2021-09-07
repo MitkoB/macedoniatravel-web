@@ -1,0 +1,10 @@
+#routeDetails {
+    position: relative;
+    margin-top: 15vh;
+    color: #001c35;
+}
+.star {
+    color: #ff9933;
+    font-size: 3.5vh;
+    cursor: pointer;
+}

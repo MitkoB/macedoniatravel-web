@@ -27,7 +27,6 @@ const AttractionPage = (props) => {
     srcLink += "%20";
     srcLink += longitude;
     srcLink += "&t=&z=13&ie=UTF8&iwloc=&output=embed";
-    console.log(props.attraction)
     return (
         <div className="container mt-5 mb-5" id="container-details">
             <div className="card-details mt-5">

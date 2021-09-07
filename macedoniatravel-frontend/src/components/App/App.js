@@ -1,22 +1,27 @@
 import './App.css';
 import React, {Component, Fragment} from "react";
-import {BrowserRouter as Router, Route, Redirect, Switch, useRouteMatch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Header from '../Header/header'
 import Register from '../Register/signUpForm'
 import Login from '../Login/loginForm'
 import RouteService from "../../repository/routeRepository";
 import Dashboard from "../Dashboard/dashboard";
+
 import AttractionList from "../Attraction/AttractionList/attractionList";
 import AttractionAdd from "../Attraction/AttractionAdd/attractionAdd";
 import AttractionEdit from "../Attraction/AttractionEdit/attractionEdit";
 import Attraction from "../Attraction/AttractionTerm/attractionTerm"
+
 import RouteList from "../Route/RouteList/routeList";
 import RouteAdd from '../Route/RouteAdd/routeAdd';
 import RouteEdit from '../Route/RouteEdit/routeEdit';
+import RouteDetail from '../Route/RouteTerm/routeTerm'
+
 import FavoriteCartList from "../FavoriteCart/FavoriteCartList/favoriteCartList";
 import FamousEventList from "../FamousEvent/FamousEventList/famousEventList"
 import FamousEventAdd from "../FamousEvent/FamousEventAdd/famousEventAdd"
 import FamousEventEdit from "../FamousEvent/FamousEventEdit/famousEventEdit"
+
 import TokenService from '../../repository/tokenRepository'
 import ConfirmAccount from "../ConfirmAccount/confirmAccount";
 import PrivateRoute from "../../routes/privateRoute";
@@ -32,15 +37,16 @@ class App extends Component {
             selectedAttraction: {},
             lastSelectedAttraction: {},
             selectedRoute: {},
+            selectedReview:{},
             selectedFamousEvent: {},
             attractions: [],
             attractionTypes: [],
             routes: [],
+            allReviews: [],
             routeStatuses: [],
             favoriteCartItems: [],
             famousEvents: [],
             isLoggedIn: TokenService.getLocalAccessToken(),
-            currentLocation: ""
         }
     }
 
@@ -91,16 +97,32 @@ class App extends Component {
                                           attractions={this.state.attractions}
                                           onAddRoute={this.addRoute}
                                           exact/>
+
+                            <PrivateRoute component={RouteDetail} path="/routes/:id"
+                                          route={this.state.selectedRoute}
+                                          reviews={this.state.allReviews}
+                                          onAddReview={this.addRouteReview}
+                                          onRemoveReview={this.deleteRouteReview}
+                                          onAddItemInFavoriteCart={this.addRouteInFavoriteCart}
+                                          onEdit={this.getRoute}
+                                          onDelete={this.deleteRoute}
+                                          exact/>
+
                             <PrivateRoute component={RouteList} path="/routes"
                                           routes={this.state.routes}
                                           onEdit={this.getRoute}
                                           onDelete={this.deleteRoute}
+                                          onSearchRoute={this.searchRoute}
+                                          onSelect={this.getRoute}
                                           exact/>
+
+
 
                             <PrivateRoute component={FavoriteCartList} path="/favorite-cart"
                                           items={this.state.favoriteCartItems}
                                           onRemove={this.removeItem}
                                           exact/>
+
 
                             <PrivateRoute component={FamousEventEdit} path="/famous-events/edit/:id"
                                           onEditFamousEvent={this.editFamousEvent}
@@ -136,7 +158,7 @@ class App extends Component {
         RouteService.fetchAttractions()
             .then((data) => {
                 this.setState({
-                    attractions: data.data
+                    attractions: data.data,
                 })
             });
     }
@@ -145,6 +167,15 @@ class App extends Component {
             .then((data) => {
                 this.setState({
                     routes: data.data
+                })
+            });
+    }
+
+    loadRouteReviews = (id) => {
+        RouteService.fetchRouteReviews(id)
+            .then((data) => {
+                this.setState({
+                    allReviews: data.data
                 })
             });
     }
@@ -199,6 +230,7 @@ class App extends Component {
                 this.setState({
                     selectedRoute: data.data
                 })
+                this.loadRouteReviews(id);
             })
     }
 
@@ -221,6 +253,18 @@ class App extends Component {
         RouteService.addRoute(name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price)
             .then(() => {
                 this.loadRoutes();
+            })
+    }
+    addRouteInFavoriteCart = (id) => {
+        RouteService.addFavoriteCartItem(id)
+            .then(() => {
+                this.loadFavoriteCartItems();
+            })
+    }
+    addRouteReview = (id, comment, grade) => {
+        RouteService.addRouteReview(id, comment, grade)
+            .then(() => {
+                this.loadRouteReviews(id);
             })
     }
     addFamousEvent = (title, description, start, end, picture, location) => {
@@ -274,6 +318,7 @@ class App extends Component {
                 this.loadFavoriteCartItems();
             });
     }
+
     searchAttraction = (name) => {
         RouteService.searchAttractions(name)
             .then((data) => {
@@ -281,6 +326,20 @@ class App extends Component {
                     attractions: data.data
                 })
             })
+    }
+    searchRoute = (name) => {
+        RouteService.searchRoute(name)
+            .then((data) => {
+                this.setState({
+                    routes: data.data
+                })
+            })
+    }
+    deleteRouteReview = (id, routeId) => {
+        RouteService.deleteRouteReview(id)
+            .then(() => {
+                this.loadRouteReviews(routeId);
+            });
     }
 
     componentDidMount() {
@@ -290,10 +349,6 @@ class App extends Component {
         this.loadFamousEvents();
         this.loadAttractions();
         this.loadRoutes()
-    }
-
-    componentWillMount() {
-
     }
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactPaginate from 'react-paginate';
 import FavoriteCartItem from '../FavoriteCartTerm/favoriteCartTerm';
+import '../FavoriteCartList/favoriteCartCss.css'
 
 class FavoriteCartList extends React.Component {
     constructor(props) {
@@ -20,10 +21,10 @@ class FavoriteCartList extends React.Component {
         console.log(this.props.items.length)
 
         return (
-            <div className={"container mm-4 mt-5"}>
+            <div className={"container mt-5"}>
                 <div className={"row"}>
-                    <div className={"table-responsive"}>
-                        <table className={"table table-striped"}>
+                    <div className={"table-responsive mt-5"} id="tableFav">
+                        <table className={"table table-bordered table-dark"}>
                             <thead>
                             <tr>
                                 <th scope={"col"}>Route</th>
@@ -32,6 +33,7 @@ class FavoriteCartList extends React.Component {
                                 <th scope={"col"}>End Date</th>
                                 <th scope={"col"}>Route Status</th>
                                 <th scope={"col"}>Price</th>
+                                <th scope={"col"}/>
                             </tr>
                             </thead>
                             <tbody>

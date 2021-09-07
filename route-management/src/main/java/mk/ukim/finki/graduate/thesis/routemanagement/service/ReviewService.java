@@ -11,4 +11,5 @@ public interface ReviewService {
     Optional<Review> addReviewForRoute(String username, Long routeId, String comment, Integer grade);
     void deleteReview(String username,Long reviewId);
     Integer numberOfReviewsInRoutesByGrade(Long routeId,Integer grade);
+    List<Integer> numberOfReviewsPerGrade(Long routeId);
 }

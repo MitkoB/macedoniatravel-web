@@ -32,14 +32,14 @@ h1 {
 .container_card h2 {
     color: #fff;
     font-weight: 600;
-    font-size: 25px;
+    font-size: 20px;
     border-bottom: #fff solid 1px;
 }
 
 .container_card h4 {
     font-weight: 300;
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .container_card img {

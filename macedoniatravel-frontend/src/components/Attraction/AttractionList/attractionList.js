@@ -3,10 +3,6 @@ import {Link} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import TouristAttractionTerm from '../AttractionTerm/attractionTermCardItem'
 import '../AttractionList/attractionsCss.css'
-import styles from '../AttractionList/attractionsCss.css';
-
-
-
 
 class AttractionList extends React.Component {
     constructor(props) {
@@ -40,7 +36,7 @@ class AttractionList extends React.Component {
         }
 
         return (
-            <div className="container attractions-con text-center mt-3">
+            <div className="container attractions-con text-center">
                 <div className="divider"><span/><span>TOURIST ATTRACTIONS</span><span/></div>
                 <div className="row mb-5">
                     <div className="col-lg-8 mx-auto">
@@ -167,10 +163,11 @@ class AttractionList extends React.Component {
     getAttractionsPage = (offset, nextPageOffset) => {
         return this.props.attractions.map((term, index) => {
             return (
+                <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 " >
                 <TouristAttractionTerm term={term}
-                                       onSelect={this.props.onSelect}/>
+                                       onSelect={this.props.onSelect}/></div>
             );
-        }).filter((route, index) => {
+        }).filter((attraction, index) => {
             return index >= offset && index < nextPageOffset;
         })
     }

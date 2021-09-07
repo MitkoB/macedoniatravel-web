@@ -1,15 +1,19 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import RouteTerm from '../RouteTerm/routeTerm'
+import RouteCard from '../RouteTerm/RouteMainCardItem/routeMainCardItem'
+import RouteTerm from '../RouteTerm/RouteCardItem/routeCardItem'
+import '../RouteList/routesCss.css'
+import Carousel from "react-grid-carousel";
+
 
 class RouteList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             page: 0,
-            size: 2
-
+            size: 9,
+            name: "",
         }
     }
 
@@ -19,48 +23,81 @@ class RouteList extends React.Component {
         const pageCount = Math.ceil(this.props.routes.length / this.state.size);
         const routes = this.getRoutesPage(offset, nextPageOffset);
 
-        return (
-            <div className={"container mm-4 mt-5"}>
-                <div className={"row"}>
-                    <div className={"table-responsive"}>
-                        <table className={"table table-striped"}>
-                            <thead>
-                            <tr>
-                                <th scope={"col"}>Name</th>
-                                <th scope={"col"}>Description</th>
-                                <th scope={"col"}>Start Date</th>
-                                <th scope={"col"}>End Date</th>
-                                <th scope={"col"}>Route Status</th>
-                                <th scope={"col"}>Price</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {routes}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="col mb-3">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-12">
-                                <Link className={"btn btn-block btn-dark"} to={"/routes/add"}>Add new
-                                    Route</Link>
-                            </div>
+        const handleChange = (e) => {
+            this.setState({
+                name: e.target.value.trim()
+            })
+        }
+
+        const onFormSubmit = (e) => {
+            e.preventDefault();
+            const name = this.state.name;
+            this.props.onSearchRoute(name);
+        }
+
+
+
+        return (
+            <div className="container routes-con text-center mt-5">
+                <div className="divider"><span/><span>ROUTES</span><span/></div>
+                <div className="row mb-5">
+                    <div className="col-lg-8 mx-auto">
+                        <div className="bg-white p-5 rounded shadow">
+                            <form onSubmit={onFormSubmit}>
+                                <div className="row mb-4">
+                                    <div className="form-group col-md-9">
+                                        <input id="searchFormControl" type="text"
+                                               placeholder="Enter route's name..."
+                                               className="form-control form-control-underlined"
+                                               onChange={handleChange}/>
+                                    </div>
+                                    <div className="form-group col-md-3">
+                                        <button type="submit"
+                                                className="btn btn-primary rounded-pill btn-block shadow-sm"
+                                                id="searchBtn">Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <ReactPaginate previousLabel={"back"}
-                               nextLabel={"next"}
-                               breakLabel={<a href="/#">...</a>}
-                               breakClassName={"break-me"}
-                               pageClassName={"ml-1"}
-                               pageCount={pageCount}
-                               marginPagesDisplayed={2}
-                               pageRangeDisplayed={5}
-                               onPageChange={this.handlePageClick}
-                               containerClassName={"pagination m-4 justify-content-center"}
-                               activeClassName={"active"}/>
+
+                {/*POPULAR SECTION*/}
+                <div className="row">
+                <h4 id="popularSectionTitle" className="text-start mx-4">Top rated</h4>
+                <Carousel cols={3} rows={1} gap={10} loop>
+                    {this.props.routes.map((term) => {
+                      return  <Carousel.Item><RouteTerm term={term}/></Carousel.Item>
+                    })}
+                </Carousel>
+                </div>
+                <hr id="h_line"/>
+
+                {/*ROUTES*/}
+                <div className="row text-center mt-5">
+                    {routes}
+                </div>
+
+                <ReactPaginate
+                    previousLabel={"← Previous"}
+                    nextLabel={"Next →"}
+                    breakLabel={<a href="/#">...</a>}
+                    breakClassName={"break-me"}
+                    pageClassName={"ml-1"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={"pagination"}
+                    previousLinkClassName={"pagination__link"}
+                    nextLinkClassName={"pagination__link"}
+                    disabledClassName={"pagination__link--disabled"}
+                    activeClassName={"pagination__link--active"}/>
             </div>
+
+
         )
     }
 
@@ -74,11 +111,13 @@ class RouteList extends React.Component {
     getRoutesPage = (offset, nextPageOffset) => {
         return this.props.routes.map((term, index) => {
             return (
-                <RouteTerm term={term} onEdit={this.props.onEdit} onDelete={this.props.onDelete}/>
+                <RouteCard term={term}
+                           onSelect={this.props.onSelect} />
             );
         }).filter((route, index) => {
             return index >= offset && index < nextPageOffset;
         })
     }
 }
+
 export default RouteList;

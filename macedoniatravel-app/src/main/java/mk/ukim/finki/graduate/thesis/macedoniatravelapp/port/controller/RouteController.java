@@ -22,7 +22,11 @@ public class RouteController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public List<Route> findAll() {
+    public List<Route> findAll(@RequestParam(required = false) String name)
+    {
+        if(name!=null) {
+            return routeService.searchRoutes(name);
+        }
         return routeService.findAll();
     }
 
@@ -61,6 +65,12 @@ public class RouteController {
         return RouteStatus.values();
     }
 
+
+    @GetMapping("/{id}/reviews")
+    public List<Review> allReviews(@PathVariable Long id) {
+        return this.reviewService.listAllRouteReviews(id);
+    }
+
     @PostMapping("/{id}/add-review")
     public ResponseEntity<Review> addReview(@PathVariable Long id,
                                   @RequestParam String comment,
@@ -79,5 +89,9 @@ public class RouteController {
         this.reviewService.deleteReview(user.getUsername(),id);
         if (this.reviewService.findById(id).isEmpty()) return ResponseEntity.ok().build();
         return ResponseEntity.badRequest().build();
+    }
+    @GetMapping("/{id}/percent-per-grade")
+    public List<Integer> getNumberOfReviewsPerGrader(@PathVariable Long id){
+        return this.reviewService.numberOfReviewsPerGrade(id);
     }
 }

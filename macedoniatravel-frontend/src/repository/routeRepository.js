@@ -7,8 +7,18 @@ const RouteService = {
     fetchAttractions: () => {
         return axios.get("/attraction");
     },
+    fetchGrades: (id) => {
+        return axios.get(`/route/${id}/percent-per-grade`);
+    },
     searchAttractions: (name) => {
         return axios.get('/attraction', {
+            params: {
+                name: name
+            }
+        })
+    },
+    searchRoute: (name) => {
+        return axios.get('/route', {
             params: {
                 name: name
             }
@@ -25,6 +35,9 @@ const RouteService = {
     },
     fetchFamousEvents: () => {
         return axios.get("/famous-event")
+    },
+    fetchRouteReviews: (id) => {
+        return axios.get(`route/${id}/reviews`);
     },
     getAttraction: (id) => {
         return axios.get(`attraction/${id}`)
@@ -58,6 +71,14 @@ const RouteService = {
             "price":price
         });
     },
+    addRouteReview: (id, comment, grade) => {
+        return axios.post(`/route/${id}/add-review`,null, {
+            params: {
+                comment: comment,
+                grade: grade
+            }
+        });
+    },
     addFamousEvent: (title, description, start, end, picture, location) => {
         return axios.post("/famous-event/create", {
             "title": title,
@@ -67,6 +88,9 @@ const RouteService = {
             "picture":picture,
             "location": location
         });
+    },
+    addFavoriteCartItem: (id) => {
+        return axios.post(`/favorite-cart/${id}/routeAdd`)
     },
     editAttraction: (id, name, latitude, longitude, location, description, pictures, attractionType) => {
         return axios.put(`/attraction/edit/${id}`, {
@@ -107,6 +131,9 @@ const RouteService = {
     },
     deleteRoute: (id) => {
         return axios.delete(`/route/delete/${id}`);
+    },
+    deleteRouteReview: (id) => {
+        return axios.delete(`/route/${id}/delete-review`);
     },
     deleteFamousEvent: (id) => {
         return axios.delete(`/famous-event/delete/${id}`);
