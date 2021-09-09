@@ -7,8 +7,10 @@ import mk.ukim.finki.graduate.thesis.favoritecartmanagement.service.FavoriteCart
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.AttractionType;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.RouteStatus;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
+import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.FamousEvent;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Route;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.AttractionRepository;
+import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.FamousEventRepository;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.RouteRepository;
 import mk.ukim.finki.graduate.thesis.routemanagement.service.ReviewService;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.enumeration.Role;
@@ -30,6 +32,7 @@ public class DataInitializer {
     private final FavoriteCartService favoriteCartService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FamousEventRepository famousEventRepository;
 
     @PostConstruct
     public void initData() {
@@ -77,6 +80,18 @@ public class DataInitializer {
                     "This route is awesome, I want to create ticket.. Who is going?",5);
         }
 
+        FamousEvent famousEvent = new FamousEvent("Strumica carnival","The Strumica Carnival is a secular traditional custom that has its origins in a pagan cult and in its essence, celebrates fertility and cleansing. The Carnival has turned into an event that in 1994 climbed the international ladder. This Carnival is held every year at the beginning of the Great Lent, before Easter.\n" +
+                "\n" +
+                "The Strumica Carnival was first mentioned in 1670 by the Turkish writer Evliya Çelebi. " +
+                "The opening of the Carnival is marked with a masquerade ball, during which a prince and princess are " +
+                "elected. The following night, the main international carnival begins where " +
+                "awards for best and most original masks are given."
+        ,LocalDateTime.now(), LocalDateTime.of(2021,9,15,20, 0),
+                "https://editorial01.shutterstock.com/wm-preview-1500/10149440k/06e4f8bf/strumica-carnival-republic-of-north-macedonia-shutterstock-editorial-10149440k.jpg",
+                "Strumica, Macedonia");
+        if (famousEventRepository.findAll().isEmpty()) {
+            famousEventRepository.save(famousEvent);
+        }
 
     }
 }

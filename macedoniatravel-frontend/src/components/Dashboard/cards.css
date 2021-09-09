@@ -27,9 +27,7 @@
 .card .content {
     padding: 20px 20px 10px 20px;
 }
-.card[data-color="blue"] .category {
-    color: #7a9e9f;
-}
+
 
 .card .category, .card .label {
     font-size: 14px;
@@ -81,6 +79,10 @@ a:hover, a:focus {
 .card[data-color="blue"] .description {
     color: #506568;
 }
+.card[data-color="blue"] .category {
+    color: #7a9e9f;
+}
+
 .card[data-color="brown"] {
     background: #d6c1ab;
 }

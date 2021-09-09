@@ -2,6 +2,13 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import FamousEventTerm from '../FamousEventTerm/famousEventTerm'
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+
+// import "@fullcalendar/core/main.css";
+// import "@fullcalendar/daygrid/main.css";
+// import "@fullcalendar/timegrid/main.css";
 
 class FamousEventList extends React.Component {
     constructor(props) {
@@ -46,6 +53,21 @@ class FamousEventList extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="container">
+                    <FullCalendar
+                        defaultView="dayGridMonth"
+                        header={{
+                            left: "prev,next",
+                            center: "title",
+                            right: "dayGridMonth,timeGridWeek,timeGridDay"
+                        }}
+                        plugins={[dayGridPlugin, timeGridPlugin]}
+                        events={this.props.famousEvents}
+                        eventClick={function(info) {
+                            alert('Event: ' + info.event.title+'\n'+ 'Description: '+info.event.start)
+                        }}
+                    />
                 </div>
                 <ReactPaginate previousLabel={"back"}
                                nextLabel={"next"}

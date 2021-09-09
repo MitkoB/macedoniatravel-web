@@ -15,6 +15,7 @@
     color: #aaa;
     margin: 0 auto;
     letter-spacing: 4px;
+
 }
 .secondAnimationDiv{
     width:100%;
@@ -22,7 +23,20 @@
     justify-content: center;
     font-size: 2vw;
     color: #aaa;
+    animation: slidein 1s ;
 }
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+        width: 100%;
+    }
+
+    to {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
 
 #readMore{
     margin-top: 3vw;
@@ -52,18 +66,6 @@
     }
 }
 
-.divTextAnimation {
-    white-space:nowrap;
-}
-.divTextAnimation:first-of-type {
-    animation: showup 11s ;
-}
-.divTextAnimation:last-of-type span {
-    padding: 0 5px;
-    background-color: rgba(255,255,255,0.8);
-    border-radius: 20px;
-    animation: slidein 7s ;
-}
 #coverImageHomePage{
     background-size: cover;
 }
@@ -78,7 +80,7 @@
 }
 #seeMoreButton:hover{
     border-radius: 0 0 6px 6px;
-    background: rgba(133, 104, 73, 0.78);
+    background: #856849;
     box-shadow: 3px 3px 3px #001c35;
     transform: scale(1.1);
     animation: pulse 1s infinite;

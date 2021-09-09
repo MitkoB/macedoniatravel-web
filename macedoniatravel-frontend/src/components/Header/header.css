@@ -3,11 +3,14 @@
     display: flex;
     top: 0;
     z-index: 1;
-    font-family: "Bodoni MT", sans-serif;;
+    font-family: "Tahoma",PT Sans Narrow, sans-serif;
     text-transform: uppercase;
     justify-content: center;
     min-width: 100%;
+    background-image: url("../../assets/img/headerImg.jpg");
+    background-repeat: no-repeat;
 }
+
 .menu-column{
     width:100%;
     display: flex;
@@ -22,7 +25,6 @@
 }
 li {
     list-style: none;
-    font-family: sans-serif;
     position: relative;
     cursor: pointer;
 }
@@ -33,31 +35,36 @@ li {
 .menu>li:hover>a{
     color: white;
 }
-menu>li:active>a{
-    color: white;
-}
-menu>li>a:active{
-    color: white;
+.menu>li>a:visited{
+    color: #aaaaaa;
 }
 .menu>li:hover, .menu>li>ul>li:hover, #logoutD>li:hover, #logoutD>li>ul>div>ul>li:hover, #logoutD>li>ul>li:hover {
     color:white;
     border-radius: 0 0 6px 6px;
-    background: linear-gradient(to bottom, #001c35, #aaa);
-    box-shadow: 3px 3px 3px #001c35;
+    /*background: linear-gradient(to bottom, #001c35, #aaa);*/
+    /*box-shadow: 3px 3px 3px #001c35;*/
     transform: scale(1.1);
+    box-shadow: 1px 1px 1px #856849;
 }
 .CssLogin{
     float: right;
     color: #aaa;
     transition: 0.3s;
-    transition: 0.3s;
     display: inline-block;
 }
-.CssLogin>a{
+.CssLogin1{
+    float: right;
+    color: #aaa;
+    display: inline-block;
+}
+.CssLogin1 a {
     color: #aaa;
 }
-.CssLogin>a:hover{
+.CssLogin1:hover a {
     color: white;
+    transform: scale(1.1);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 1px 1px 1px #856849;
 }
 
 .drop-down>ul {
@@ -69,8 +76,8 @@ menu>li>a:active{
     visibility: hidden;
     padding: 8px 3px;
     width: 100%;
-    background: #fff;
-    border-radius: 0 0 6px 6px;
+    background: #001c35;
+    border-radius: 0 0 10px 10px;
     box-shadow: 3px 3px 3px #001c35;
     transition: 0.3s;
     list-style: none;
@@ -88,7 +95,7 @@ menu>li>a:active{
     position: relative;
 }
 .drop-down>ul>li>a {
-    color: #001c35;
+    color: #aaa;
 }
 .drop-down:hover > ul>li:hover>a{
     color: white;
@@ -107,12 +114,13 @@ menu>li>a:active{
     color: #aaa;
     font-size: small;
 }
-#logoutDropdown:hover{
+#logoutDropdown:hover a{
     transform: none;
     transition: none;
 }
+
 #logoutDropdown>ul>div>ul>li>a{
-    color: #001c35;
+    color: #aaa;
 }
 #logoutDropdown>ul>div>ul>li>a:hover{
     text-decoration: none;
@@ -125,7 +133,6 @@ menu>li>a:active{
     cursor:pointer;
     color: #001c35;
 }
-
 .title{
     width:25%;
     box-sizing:border-box;
@@ -138,8 +145,8 @@ menu>li>a:active{
 }
 
 .dropdown_mobile{
-    width:100%;
-    background:#fff;
+    width:120%;
+    background:#001c35;
     border-radius: 0 0 2px 2px;
     box-shadow:3px 3px 3px #001c35;
     color:#aaa;
@@ -151,14 +158,16 @@ menu>li>a:active{
     max-height:700px;
 }
 a:hover{
+    color: white;
     text-decoration: none;
 }
 .dropdown_mobile>a{
-    color: #001c35;
+    color: #aaa;
 }
 .dropdown_mobile>div>a{
-    color: #001c35;
+    color: #aaa;
 }
+
 #wider_row{
     position: absolute;
     top:0;

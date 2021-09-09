@@ -9,7 +9,8 @@ library.add(faEye);
 
 const attractionTerm = (props) => {
     return (
-                    <div className="container_card">
+        <div className="mb-1">
+        <div className="container_card">
                     <img
                         src={props.term.pictures}
                         alt="cartItemImg"
@@ -22,7 +23,8 @@ const attractionTerm = (props) => {
                           to={`/attractions/${props.term.id}`}>
                            <span><FontAwesomeIcon icon={faEye}/></span>
                     </Link>
-                    </div>
+        </div>
+        </div>
     )
 }
 export default attractionTerm;

@@ -20,6 +20,7 @@ const routeCardItem = (props) => {
                     <h4>{startDate}</h4>
                 </article>
                 <Link className="d-block seeMore text-center"
+                      onClick={() => props.onSelect(props.term.id)}
                       to={`/routes/${props.term?.id}`}>
                     <span><FontAwesomeIcon icon={faEye}/></span>
                 </Link>

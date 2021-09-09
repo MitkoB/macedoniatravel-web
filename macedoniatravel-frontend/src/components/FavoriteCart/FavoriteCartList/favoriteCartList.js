@@ -18,15 +18,15 @@ class FavoriteCartList extends React.Component {
         const nextPageOffset = offset + this.state.size;
         const pageCount = Math.ceil(this.props.items.length / this.state.size);
         const items = this.getFavoriteCartPage(offset, nextPageOffset);
-        console.log(this.props.items.length)
 
         return (
             <div className={"container mt-5"}>
                 <div className={"row"}>
                     <div className={"table-responsive mt-5"} id="tableFav">
-                        <table className={"table table-bordered table-dark"}>
+                        <table className={"table table-bordered"}>
                             <thead>
                             <tr>
+                                <th scope={"col"}/>
                                 <th scope={"col"}>Route</th>
                                 <th scope={"col"}>Description</th>
                                 <th scope={"col"}>Start Date</th>
@@ -42,17 +42,21 @@ class FavoriteCartList extends React.Component {
                         </table>
                     </div>
                 </div>
-                <ReactPaginate previousLabel={"back"}
-                               nextLabel={"next"}
-                               breakLabel={<a href="/#">...</a>}
-                               breakClassName={"break-me"}
-                               pageClassName={"ml-1"}
-                               pageCount={pageCount}
-                               marginPagesDisplayed={2}
-                               pageRangeDisplayed={5}
-                               onPageChange={this.handlePageClick}
-                               containerClassName={"pagination m-4 justify-content-center"}
-                               activeClassName={"active"}/>
+                <ReactPaginate
+                    previousLabel={"← Previous"}
+                    nextLabel={"Next →"}
+                    breakLabel={<a href="/#">...</a>}
+                    breakClassName={"break-me"}
+                    pageClassName={"ml-1"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={"pagination"}
+                    previousLinkClassName={"pagination__link"}
+                    nextLinkClassName={"pagination__link"}
+                    disabledClassName={"pagination__link--disabled"}
+                    activeClassName={"pagination__link--active"}/>
             </div>
         )
     }

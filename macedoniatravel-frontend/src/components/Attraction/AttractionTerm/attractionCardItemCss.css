@@ -1,9 +1,3 @@
-.attractions-con {
-    height: 100%;
-    padding: 5% 0;
-    position: relative;
-}
-
 h1 {
     color: #fff;
 }
@@ -13,7 +7,8 @@ h1 {
     padding: 0;
     display: flex;
     overflow: hidden;
-    /*max-width: 350px;*/
+    height: 100%;
+    max-width: 350px;
     margin: 5px;
     position: relative;
 }
@@ -56,7 +51,7 @@ h1 {
     position: absolute;
     width: 100%;
     height: 40px;
-    bottom: 0;
+    bottom: 1px;
     z-index: 1;
     opacity: 0;
     transform: translate(0px, 70px);
@@ -77,19 +72,13 @@ h1 {
     margin: 0 auto;
     width: 100%;
 }
-
-
-/*hovers*/
-
 .container_card:hover {
     cursor: pointer;
 }
-
 .container_card:hover img {
     opacity: 0.1;
     transform: scale(1.5);
 }
-
 .container_card:hover article {
     transform: translate(2px, -69px);
     -webkit-transform: translate(2px, -69px);
@@ -97,7 +86,6 @@ h1 {
     -o-transform: translate(2px, -69px);
     -ms-transform: translate(2px, -69px);
 }
-
 .container_card:hover .seeMore {
     transform: translate(0px, 0px);
     -webkit-transform: translate(0px, 0px);

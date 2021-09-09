@@ -10,6 +10,12 @@ const AttractionPage = (props) => {
     const [constructorHasRun, setConstructorHasRun] = React.useState(false);
     const [attraction, setAttraction] = React.useState(props.attraction);
 
+    React.useEffect(() => {
+        if (props.attraction.name !== undefined) {
+            setAttraction(props.attraction);
+        }
+    })
+
     const constructor = () => {
         if (constructorHasRun) return;
         RouteService.getAttraction(id).then((data) => {
@@ -35,7 +41,7 @@ const AttractionPage = (props) => {
                          src={attraction.pictures}
                          alt=""/>
                 </div>
-                <svg className="card__svg" viewBox="0 0 800 500">
+                <svg className="card__svg"style={{"width":"100%"}} viewBox="0 0 700 400">
                     <path
                         d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
                         stroke="transparent" fill="#001c35"/>
@@ -43,18 +49,17 @@ const AttractionPage = (props) => {
                           d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
                           stroke="pink" stroke-width="3" fill="transparent"/>
                 </svg>
-
-                <div className="card__content container">
+                <div className="card__content container mt-1">
                     <div className="row">
-                        <div className="col">
+                        <div className="col m-2">
                             <h1 className="card__title">{attraction.name}</h1>
                         </div>
                         {isAdmin == "ROLE_ADMIN" && (
                             <div className="col">
-                                <Link type="button" className="btn btn-danger"
+                                <Link type="button" className="btn btn-danger m-2"
                                       onClick={() => props.onDelete(attraction.id)}
                                       to={"/attractions"}>Delete</Link>
-                                <Link type="button" className="btn btn-info mx-5"
+                                <Link type="button" className="btn btn-info m-2"
                                       onClick={() => props.onEdit(props.attraction.id)}
                                       to={`/attractions/edit/${attraction.id}`}>Edit</Link>
                             </div>)

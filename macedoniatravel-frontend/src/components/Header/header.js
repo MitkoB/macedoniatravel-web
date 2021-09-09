@@ -4,11 +4,11 @@ import appLogo from '../../assets/img/logoMacedoniaTravel.png'
 import {Link} from 'react-router-dom';
 import useWindowSize from "../../utils/useWindowSize";
 import AuthRepository from '../../repository/authRepository'
-import TokenService from  '../../repository/tokenRepository'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import TokenService from '../../repository/tokenRepository'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBars} from "@fortawesome/free-solid-svg-icons";
-
+import {HashLink} from "react-router-hash-link";
 
 
 library.add(faBars)
@@ -18,8 +18,9 @@ const Header = (props) => {
 
     const {width} = useWindowSize();
     const user = TokenService.getUser()?.username;
+    const userRole = TokenService.getUser()?.roles;
     const logout = (e) => {
-         AuthRepository.logout()
+        AuthRepository.logout()
     }
 
 
@@ -36,49 +37,55 @@ const Header = (props) => {
 
     return (
         <header id="header">
+            {/*SMALL VIEW*/}
             {width <= 800 && (
                 <div className="row w-100" id="wider_row">
                     <div className="col-4">
                         <div className="menu_dropdown" id="menu_dropdown">
                             <div className="title text-center" onClick={f}>
-                               <span><FontAwesomeIcon icon={faBars}/></span>
+                                <span><FontAwesomeIcon icon={faBars}/></span>
                             </div>
                             <div className="dropdown_mobile" id="dropdown_mobile">
                                 <Link to={"/dashboard"} className="nav-link">Home</Link>
                                 <Link to={"/attractions"} className="nav-link">Attractions</Link>
                                 <Link to={"/routes"} className="nav-link">Routes</Link>
                                 <Link to={"/famous-events"} className="nav-link">Famous Events</Link>
-                                <Link to={"/#"} className="nav-link">About Macedonia</Link>
-                                <Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
-                                <Link className="nav-link" to={"/"}>Contact</Link>
+                                <Link to={"/about"} className="nav-link">About Macedonia</Link>
+                                <HashLink smooth to={"/about/#section1"} className="nav-link">History</HashLink>
+                                <HashLink smooth to={"/about/#section2"} className="nav-link">Info</HashLink>
+                                <HashLink smooth to={"/about/#section3"} className="nav-link">Facts</HashLink>
+                                <Link className="nav-link" to={"/contact"}>Contact</Link>
                                 <div>
                                     <Link to={"/favorite-cart"} className="nav-link">Favorites
                                     </Link>
                                 </div>
-
-                                <div>
-                                    <hr/>
-                                    <Link to={"/attractions/add"} className="nav-link small">Add Tourist
-                                        Attraction</Link>
-                                    <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
-                                    <Link to={"/famous-events/add"} className="nav-link small">Add Famous Event</Link>
-                                    <Link to={"/"} className="nav-link small">Add User To Role</Link>
-                                    <hr/>
-                                </div>
+                                {userRole == "ROLE_ADMIN" && (
+                                    <div>
+                                        <Link to={"/attractions/add"} className="nav-link small">Add Tourist
+                                            Attraction</Link>
+                                        <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
+                                        <Link to={"/famous-events/add"} className="nav-link small">Add Famous Event</Link>
+                                        <Link to={"/"} className="nav-link small">Add User To Role</Link>
+                                    </div>
+                                )}
                                 <div>
                                     <Link to={"/login"} className="nav-link" onClick={logout}>Logout</Link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>)}
-
-            {width <= 800 && (
+                </div>
+                )}
+            {width<=800 && (
                 <div className="row w-100" id="smaller_row">
                     <div className="col-12 text-center">
                         <img src={appLogo} className="float-left" alt=""/>
                     </div>
-                </div>)}
+                </div>
+            )}
+
+
+            {/*LARGE VIEW*/}
             {width > 800 && (
                 <div className="row w-100 " id="default_row">
                     <div className="col-3">
@@ -96,10 +103,14 @@ const Header = (props) => {
                                 <Link to={"/routes"} className="nav-link">Routes</Link>
                             </li>
                             <li className="drop-down">
-                                <Link to={"/"} className="nav-link">Culture</Link>
+                                <Link to={"/about"} className="nav-link">Culture</Link>
                                 <ul>
-                                    <li><Link to={"/"} className="nav-link">About Macedonia</Link></li>
-                                    <li><Link to={"/?jumpSection=food"} className="nav-link">Traditional Food</Link>
+                                    <li><Link to={"/about"} className="nav-link">About Macedonia</Link></li>
+                                    <li><HashLink smooth to={"/about/#section1"} className="nav-link">History</HashLink>
+                                    </li>
+                                    <li><HashLink smooth to={"/about/#section2"} className="nav-link">Info</HashLink>
+                                    </li>
+                                    <li><HashLink smooth to={"/about/#section3"} className="nav-link">Facts</HashLink>
                                     </li>
                                     <li><Link to={"/famous-events"} className="nav-link">Famous Events</Link></li>
                                 </ul>
@@ -109,7 +120,7 @@ const Header = (props) => {
                                 </Link>
                             </li>
                             <li>
-                                <Link className="nav-link" to={"/"}>Contact</Link>
+                                <Link className="nav-link" to={"/contact"}>Contact</Link>
                             </li>
                         </ul>
                     </div>
@@ -119,7 +130,8 @@ const Header = (props) => {
                                 {user}
                             </Link>
                             <ul className="text-center">
-                                <div className="p-0 m-0">
+                                {userRole == "ROLE_ADMIN" && (
+                                    <div className="p-0 m-0">
                                     <ul className="p-0 m-0">
                                         <li><Link to={"/attractions/add"}>Add Tourist Attraction</Link></li>
                                         <li className="mt-1"><Link to={"/routes/add"}>Add Route</Link></li>
@@ -127,8 +139,9 @@ const Header = (props) => {
                                         </li>
                                         <li className="mt-1"><Link to={"/"}>Add User To Role</Link></li>
                                     </ul>
-                                </div>
-                                <hr/>
+                                        <hr/>
+                                    </div>
+                                    )}
                                 <li className="text-center"><Link to={"/login"} onClick={logout}>Logout</Link></li>
                             </ul>
                         </li>

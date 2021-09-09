@@ -41,7 +41,7 @@ class RouteList extends React.Component {
         return (
             <div className="container routes-con text-center mt-5">
                 <div className="divider"><span/><span>ROUTES</span><span/></div>
-                <div className="row mb-5">
+                <div className="row mt-3 mb-5">
                     <div className="col-lg-8 mx-auto">
                         <div className="bg-white p-5 rounded shadow">
                             <form onSubmit={onFormSubmit}>
@@ -69,7 +69,7 @@ class RouteList extends React.Component {
                 <h4 id="popularSectionTitle" className="text-start mx-4">Top rated</h4>
                 <Carousel cols={3} rows={1} gap={10} loop>
                     {this.props.routes.map((term) => {
-                      return  <Carousel.Item><RouteTerm term={term}/></Carousel.Item>
+                      return  <Carousel.Item><RouteTerm term={term} onSelect={this.props.onSelect}/></Carousel.Item>
                     })}
                 </Carousel>
                 </div>

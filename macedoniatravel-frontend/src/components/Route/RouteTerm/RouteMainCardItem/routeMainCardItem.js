@@ -31,8 +31,10 @@ const routeCardItem = (props) => {
                         <h1>{props.term.name}<br/><span>Start date: {startDate}</span></h1>
                         <p>Price: {props.term.price}</p>
                         <Link id="searchBtn" className="btn btn-primary rounded-pill btn-block shadow-sm"
-                              to={`/routes/${props.term.id}`} onClick={() => props.onSelect(props.term.id)}>View
-                            more</Link>
+                              onClick={() => props.onSelect(props.term.id)}
+                              to={`/routes/${props.term.id}`}>View
+                            more
+                        </Link>
                         <ul>
                             <li>
                                 <Link className="fb-ic p-2" to={"/routes"}>

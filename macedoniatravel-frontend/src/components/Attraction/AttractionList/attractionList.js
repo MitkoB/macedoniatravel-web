@@ -1,8 +1,9 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import TouristAttractionTerm from '../AttractionTerm/attractionTermCardItem'
+import TouristAttractionTerm from '../AttractionTerm/attractionCardItem'
 import '../AttractionList/attractionsCss.css'
+import '../../../index.css'
 
 class AttractionList extends React.Component {
     constructor(props) {
@@ -36,9 +37,9 @@ class AttractionList extends React.Component {
         }
 
         return (
-            <div className="container attractions-con text-center">
+            <div className="container attractions-con text-center mt-5">
                 <div className="divider"><span/><span>TOURIST ATTRACTIONS</span><span/></div>
-                <div className="row mb-5">
+                <div className="row mt-3 mb-5">
                     <div className="col-lg-8 mx-auto">
                         <div className="bg-white p-5 rounded shadow">
                             <form onSubmit={onFormSubmit}>
@@ -130,8 +131,9 @@ class AttractionList extends React.Component {
 
                 {/*ATTRACTIONS*/}
                 <div className="row text-center mt-5">
-                    {attractions}
+                            {attractions}
                 </div>
+
                 <ReactPaginate
                                previousLabel={"← Previous"}
                                nextLabel={"Next →"}

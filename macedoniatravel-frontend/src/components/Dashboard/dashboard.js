@@ -2,6 +2,7 @@ import {React} from 'react';
 import {Link} from 'react-router-dom'
 import '../Dashboard/dashboard.css'
 import '../../index.css'
+import './cards.css'
 import backgroundImg from '../../assets/img/kale-wallper.jpg'
 import s1 from '../../assets/img/ohrid-c1.jpg'
 import s2 from '../../assets/img/skopje-c1.jpg'
@@ -11,7 +12,6 @@ import s5 from '../../assets/img/skopje-c2.jpg'
 import s6 from '../../assets/img/skopjenight.jpg'
 import s7 from '../../assets/img/winter-ohrid.jpg'
 import s8 from '../../assets/img/oh-img.jpg'
-import './cards.css'
 
 
 const Dashboard = (props) => {
@@ -22,14 +22,14 @@ const Dashboard = (props) => {
                 <div className="animationDiv">
                     <div className="divTextAnimation">Macedonia Travel</div>
                     <div className=" secondAnimationDiv">
-                        <h3>If you want to know more about Macedonia, click below</h3>
+                        <h4>If you want to know more about Macedonia, click below</h4>
                     </div>
-                    <Link type="button" id="readMore" className="btn btn-light" to={"/"}><span>Read more</span></Link>
+                    <Link type="button" id="readMore" className="btn btn-light" to={"/about"}><span>Read more</span></Link>
                 </div>
             </div>
 
             {/*CARDS*/}
-            <h2 className="mt-3" index="titleHome">What are you looking for?</h2>
+            <h2 className="mt-5" index="titleHome">What are you looking for?</h2>
             <div className="container bootstrap snippets bootdeys mt-3">
                 <div className="row">
                     <div className="col-md-4 col-sm-6 content-card">
@@ -107,7 +107,7 @@ const Dashboard = (props) => {
 
                 <div className="mt-3">
                 <p>Want to learn more about Macedonia?</p>
-                <Link to={"/"} className="btn btn-link text-white" id="seeMoreButton">Learn more</Link>
+                <Link to={"/about"} className="btn btn-link text-white" id="seeMoreButton">Learn more</Link>
                 </div>
 
                 <hr id="homePageHorizontalLine"/>

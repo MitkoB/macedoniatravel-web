@@ -1,11 +1,11 @@
 import React from "react";
 import Chart from "react-google-charts";
-import {Link, useParams, useHistory} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import TokenService from "../../../repository/tokenRepository";
 import RouteService from "../../../repository/routeRepository";
 import '../RouteTerm/routeTermCss.css'
 import Carousel from "react-grid-carousel";
-import AttractionCard from '../../Attraction/AttractionTerm/attractionTermCardItem'
+import AttractionCard from '../../Attraction/AttractionTerm/attractionCardItem'
 
 
 const RouteDetail = (props) => {
@@ -29,21 +29,31 @@ const RouteDetail = (props) => {
         setSelection(val);
     };
 
+    React.useEffect(() => {
+        if (props.route.name !== undefined) {
+            setRoute(props.route);
+        }
+        setReviews(props.reviews)
+        RouteService.fetchGrades(id).then((data) => {
+            setGrades(data.data);
+        })
+    },[props.route, props.reviews])
+
     const constructor = () => {
         if (constructorHasRun) return;
         RouteService.getRoute(id).then((data) => {
             setRoute(data.data);
         })
-        RouteService.fetchRouteReviews(id).then((data)=>{
+
+        RouteService.fetchRouteReviews(id).then((data) => {
             setReviews(data.data)
         })
-        RouteService.fetchGrades(id).then((data)=>{
+        RouteService.fetchGrades(id).then((data) => {
             setGrades(data.data);
         })
         setConstructorHasRun(true)
     };
     constructor();
-
 
 
     const handleChange = (e) => {
@@ -57,21 +67,20 @@ const RouteDetail = (props) => {
         e.preventDefault();
         const comment = reviewComment.comment;
         const grade = rating;
-
-        props.onAddReview(id,comment,grade);
+        document.getElementById("comment").value="";
+        setRating(0);
+        props.onAddReview(id, comment, grade);
     }
 
 
-
-
     return (
-        <section className="mb-5 container" id="routeDetails" key={props.reviews}>
+        <section className="mb-5 container" id="routeDetails">
             <div className="row">
                 <div className="col">
                     <h2>{route?.name}</h2>
                     <p className="mb-2 text-muted text-uppercase small">Tour</p>
-                    <p className="pt-1">Rating: <b>{(grades[0]*1+grades[1]*2+grades[2]*3
-                    +grades[3]*4+grades[4]*5)/(reviews.length)}</b></p>
+                    <p className="pt-1">Rating: <b>{(grades[0] * 1 + grades[1] * 2 + grades[2] * 3
+                        + grades[3] * 4 + grades[4] * 5) / (reviews.length) || 0}</b></p>
                     <p><span className="mr-1"><strong>$ {route?.price}</strong></span></p>
                     <p className="pt-1">{route?.description}</p>
                     <div className="table-responsive">
@@ -83,11 +92,11 @@ const RouteDetail = (props) => {
                             </tr>
                             <tr>
                                 <th className="pl-0 w-25" scope="row"><strong>Start date:</strong></th>
-                                <td>{route?.startDate?.split("T")[0]}</td>
+                                <td>{route?.startDate?.split("T")[0]} {route?.startDate?.split("T")[1]}</td>
                             </tr>
                             <tr>
                                 <th className="pl-0 w-25" scope="row"><strong>End date:</strong></th>
-                                <td>{route?.endDate?.split("T")[0]}</td>
+                                <td>{route?.endDate?.split("T")[0]} {route?.endDate?.split("T")[1]}</td>
                             </tr>
 
                             {isAdmin == "ROLE_ADMIN" && (
@@ -110,7 +119,7 @@ const RouteDetail = (props) => {
                     </div>
                     <hr/>
                     <Link to={`/favorite-cart`}
-                          onClick={()=> props.onAddItemInFavoriteCart(id)}
+                          onClick={() => props.onAddItemInFavoriteCart(id)}
                           type="button" className="btn btn-primary btn-md mr-1 mb-2" id="searchBtn">Add to chart
                     </Link>
                 </div>
@@ -126,7 +135,7 @@ const RouteDetail = (props) => {
 
                             </div>
                             <div className="col-12">
-                                <h4 className="mx-4">Included attractions in this route:</h4>
+                                <h6 className="mx-4">Included attractions in this route:</h6>
                                 <Carousel cols={3} rows={1} gap={10} loop>
                                     {route?.attractions?.map((term) => {
                                         return <Carousel.Item><AttractionCard term={term}/></Carousel.Item>
@@ -172,8 +181,8 @@ const RouteDetail = (props) => {
                         <hr className="h_line"/>
                         <h2 className="text-left mt-2">Reviews</h2>
                         <hr className="h_line"/>
-                            {reviews?.map((term)=> {
-                                return (
+                        {reviews?.map((term) => {
+                            return (
                                 <div className="media p-2 container mb-5">
                                     <div className="media-body text-start">
                                         <h5 className="d-inline font-weight-bold">{term?.user?.email}</h5>
@@ -181,8 +190,8 @@ const RouteDetail = (props) => {
                                         <span
                                             className="d-inline small">{term?.timeCreated?.split("T")[0]} in {term?.timeCreated?.split("T")[1]}h</span>
                                         <br/>
-                                        <span className="insertGrade">{term?.grade}</span>
-                                        <p>{term?.comment}</p>
+                                        <span className="insertGrade">Rating: <b>{term?.grade}</b></span>
+                                        <p>Comment: {term?.comment}</p>
                                         {currentUser == term?.user?.email && (
                                             <button type="submit"
                                                     className="btn btn-link btn-md text-white  btn-danger d-inline float-start"
@@ -197,8 +206,8 @@ const RouteDetail = (props) => {
                                         )}
                                     </div>
                                 </div>
-                                )
-                            })}
+                            )
+                        })}
                     </div>
                 </div>
                 <div className="col">
@@ -218,7 +227,7 @@ const RouteDetail = (props) => {
                             title: 'Route Review',
                             is3D: true,
                         }}
-                        rootProps={{ 'data-testid': '2' }}
+                        rootProps={{'data-testid': '2'}}
                     />
                 </div>
             </div>

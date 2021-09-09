@@ -42,14 +42,14 @@ const RouteEdit = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const name = formData.name !== "" ? formData.name : props.route.name;
-        const description = formData.description !== "" ? formData.description : props.route.description;
-        const startDate = formData.startDate !== "" ? formData.startDate : props.route.startDate;
-        const endDate = formData.endDate !== "" ? formData.endDate : props.route.endDate;
-        const pictures = formData.pictures !== "" ? formData.pictures : props.route.pictures;
+        const name = formData.name !== "" ? formData.name : route.name;
+        const description = formData.description !== "" ? formData.description : route.description;
+        const startDate = formData.startDate !== "" ? formData.startDate : route.startDate;
+        const endDate = formData.endDate !== "" ? formData.endDate : route.endDate;
+        const pictures = formData.pictures !== "" ? formData.pictures : route.pictures;
         const routeStatus = formData.routeStatus !== 0 ? formData.routeStatus : props.route.routeStatus;
-        const touristAttractions = formData.touristAttractions !== [] ? formData.touristAttractions : props.route.touristAttractions;
-        const price = formData.price !== "" ? formData.price : props.route.price;
+        const touristAttractions = formData.touristAttractions !== [] ? formData.touristAttractions : route.touristAttractions;
+        const price = formData.price !== "" ? formData.price : route.price;
 
         props.onEditRoute(route.id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price);
         history.push(`/routes/${route.id}`);

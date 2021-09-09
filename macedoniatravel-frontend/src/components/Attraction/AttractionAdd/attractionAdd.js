@@ -31,7 +31,7 @@ const AttractionEdit = (props) => {
         const pictures = formData.pictures;
         const attractionType = formData.attractionType;
 
-        props.onAddReview(name,latitude,longitude,location, description, pictures, attractionType);
+        props.onAddAttraction(name,latitude,longitude,location, description, pictures, attractionType);
         history.push('/attractions');
     }
     return (

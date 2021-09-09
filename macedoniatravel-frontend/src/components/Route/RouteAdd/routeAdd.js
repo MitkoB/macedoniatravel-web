@@ -91,7 +91,7 @@ const RouteAdd = (props) => {
                                            id="startDate"
                                            name="startDate"
                                            required
-                                           placeholder="Enter start date in format YYYY-MM-DD hh:mm"
+                                           placeholder="Enter start date"
                                            onChange={handleChange}/>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@ const RouteAdd = (props) => {
                                            id="endDate"
                                            name="endDate"
                                            required
-                                           placeholder="Enter route end date in format YYYY-MM-DD hh:mm"
+                                           placeholder="Enter route end date"
                                            onChange={handleChange}/>
                                 </div>
                             </div>

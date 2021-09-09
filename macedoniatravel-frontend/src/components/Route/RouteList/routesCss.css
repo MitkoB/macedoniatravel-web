@@ -1,12 +1,11 @@
 .routes-con{
+    height: 100%;
+    padding: 5% 0;
     position: relative;
 }
-.routes-con #h2Title, #popularSectionTitle {
-    color: #001c35;
-    font-family: 'PT Sans Narrow', sans-serif;
-}
+
 #h_line {
-    background: linear-gradient(.5turn,#aaa, #001c35, #aaa);
+    background: linear-gradient(.5turn,#aaa, #001c35, #856849);
     height:3px;
 }
 
@@ -15,7 +14,7 @@
     font-size: 24px;
     text-align: center;
     width: 75%;
-    margin-top: 15vh;
+    margin: auto;
 }
 .divider span { display: table-cell; position: relative; }
 .divider span:first-child, .divider span:last-child {
