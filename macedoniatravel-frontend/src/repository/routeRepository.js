@@ -4,6 +4,14 @@ const RouteService = {
     fetchRoutes: () => {
         return axios.get("/route");
     },
+    exportRoutes: () => {
+        return axios.get("/route/export/pdf",{
+            responseType: 'arraybuffer',
+            headers: {
+                'Accept': 'application/pdf'
+            }
+        });
+    },
     fetchAttractions: () => {
         return axios.get("/attraction");
     },

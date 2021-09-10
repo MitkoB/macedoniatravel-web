@@ -5,6 +5,7 @@ import RouteCard from '../RouteTerm/RouteMainCardItem/routeMainCardItem'
 import RouteTerm from '../RouteTerm/RouteCardItem/routeCardItem'
 import '../RouteList/routesCss.css'
 import Carousel from "react-grid-carousel";
+import RouteService from "../../../repository/routeRepository";
 
 
 class RouteList extends React.Component {
@@ -36,11 +37,29 @@ class RouteList extends React.Component {
             this.props.onSearchRoute(name);
         }
 
+        const pdfExportClick = (e) => {
+          RouteService.exportRoutes().then(response => {
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf',
+                });
+              let url = window.URL.createObjectURL(blob);
+              let a = document.createElement('a');
+              a.href = url;
+              a.download = "routes.pdf";
+              a.click();
+            });
+        }
+
 
 
         return (
             <div className="container routes-con text-center mt-5">
                 <div className="divider"><span/><span>ROUTES</span><span/></div>
+                <Link type="submit"
+                      to={"/routes"}
+                      onClick={pdfExportClick}
+                      className="btn btn-primary mt-3  shadow-sm"
+                      id="pdfButton">Export Pdf</Link>
                 <div className="row mt-3 mb-5">
                     <div className="col-lg-8 mx-auto">
                         <div className="bg-white p-5 rounded shadow">

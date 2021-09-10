@@ -9,6 +9,18 @@
     height:3px;
 }
 
+#pdfButton {
+    background: #aaa;
+    border: #aaaaaa;
+}
+#pdfButton:hover{
+    background: #aaaaaa;
+    box-shadow: 3px 3px 3px #aaaaaa;
+    border: #aaaaaa;
+    transform: scale(1.1);
+    transition: .3s;
+}
+
 .routes-con .divider {
     display: table;
     font-size: 24px;
