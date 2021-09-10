@@ -3,7 +3,7 @@ import React from "react";
 const favoriteCartTerm = (props) => {
     return (
         <tr>
-            <td scope={"col"}><img src={props.term.pictures}/></td>
+            <td scope={"col"}><img src={props.term.pictures} className={"w-100"}/></td>
             <td scope={"col"}>{props.term.name}</td>
             <td scope={"col"}>{props.term.description}</td>
             <td scope={"col"}>{props.term.startDate}</td>

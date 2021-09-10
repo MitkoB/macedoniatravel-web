@@ -1,4 +1,3 @@
-
 #one {
 
     background: #fff;
@@ -136,4 +135,50 @@
 .timeline .right-bottom {
     left: 50%;
     top: calc(50% - 3px);
+}
+
+
+blockquote {
+    border-left:none
+}
+.quote-box {
+    max-width: 350px;
+    overflow: hidden;
+    padding-top: -25px;
+    border-radius: 17px;
+    background-color: #4ADFCC;
+    color: white;
+    box-shadow: 2px 2px 2px 2px #E0E0E0;
+}
+.quote-box-2 {
+    max-width: 350px;
+    overflow: hidden;
+    padding-top: -25px;
+    border-radius: 17px;
+    background-color: #66615b;
+    color: white;
+    box-shadow: 2px 2px 2px 2px #E0E0E0;
+}
+.quotation-mark {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size:70px;
+    color: white;
+    font-family: "Times New Roman", Times, Serif;
+}
+
+.quote-text {
+    text-align: center;
+    font-size: 15px;
+    margin-top: -60px;
+    border-bottom: 1px solid white;
+    font-family: "Tahoma",PT Sans Narrow, sans-serif;
+}
+.blog-post-bottom{
+    text-align: center;
+}
+
+#carousel img {
+    max-height: 730px;
 }

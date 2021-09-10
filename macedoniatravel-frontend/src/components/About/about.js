@@ -1,9 +1,9 @@
 import {React} from 'react';
 import '../Header/header.css'
 import {Carousel} from "react-bootstrap";
-import c1 from '../../assets/img/winter-ohrid.jpg'
-import c2 from '../../assets/img/skopjenight.jpg'
-import c3 from '../../assets/img/kale-wallper.jpg'
+import c1 from '../../assets/img/carousel1.jpg'
+import c2 from '../../assets/img/carousel2.jpg'
+import c3 from '../../assets/img/carousel3.jpg'
 import '../About/aboutCss.css'
 
 const About = (props) => {
@@ -11,13 +11,12 @@ const About = (props) => {
     return (
          <section id="aboutPage">
              <div className="header-content">
-                     <Carousel>
+                     <Carousel id="carousel">
                          <Carousel.Item interval={1000}>
                              <img
                                  className="d-block w-100"
                                  src={c1}
                                  alt="First slide"
-                                 style={{"max-height":"70%"}}
                              />
                              <Carousel.Caption>
                                  <h3>Travel in Macedonia</h3>

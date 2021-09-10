@@ -3,6 +3,9 @@
   font-family: "Tahoma",PT Sans Narrow, sans-serif;
   text-align: center;
 }
+img {
+  width: 100%;
+}
 .horizontal_line{
   background: linear-gradient(.25turn,#aaa, black, #001c35);
   height:3px;

@@ -5,6 +5,10 @@ import FamousEventTerm from '../FamousEventTerm/famousEventTerm'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import '../FamousEventList/famousEventList.css'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import modalStyle from '../FamousEventList/modalCss.css'
+import eventImg from '../../../assets/img/events.png'
 
 // import "@fullcalendar/core/main.css";
 // import "@fullcalendar/daygrid/main.css";
@@ -15,10 +19,26 @@ class FamousEventList extends React.Component {
         super(props);
         this.state = {
             page: 0,
-            size: 2
+            size: 2,
+            modal: false,
+            event: {
+                title: "",
+                location: "" ,
+                description: "",
+                picture:"",
+                start: new Date(),
+                end: new Date()
+            }
 
         }
     }
+    toggle = () => {
+        this.setState({ modal: !this.state.modal });
+    };
+    handleEventClick = ({ event, el }) => {
+        this.toggle();
+        this.setState({ event });
+    };
 
     render() {
         const offset = this.state.size * this.state.page;
@@ -27,34 +47,11 @@ class FamousEventList extends React.Component {
         const famousEvents = this.getFamousEvents(offset, nextPageOffset);
 
         return (
-            <div className={"container mm-4 mt-5"}>
-                <div className={"row"}>
-                    <div className={"table-responsive"}>
-                        <table className={"table table-striped"}>
-                            <thead>
-                            <tr>
-                                <th scope={"col"}>Title</th>
-                                <th scope={"col"}>Description</th>
-                                <th scope={"col"}>Start date</th>
-                                <th scope={"col"}>End date</th>
-                                <th scope={"col"}>Location</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {famousEvents}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="col mb-3">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-12">
-                                <Link className={"btn btn-block btn-dark"} to={"/famous-events/add"}>Add new
-                                    Famous event</Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="container">
+            <div className="container events-con text-center mt-5">
+                <div className="divider"><span/><span>FAMOUS EVENTS</span><span/></div>
+                <div className="container calendarContainer mt-5">
+                    <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <FullCalendar
                         defaultView="dayGridMonth"
                         header={{
@@ -64,22 +61,62 @@ class FamousEventList extends React.Component {
                         }}
                         plugins={[dayGridPlugin, timeGridPlugin]}
                         events={this.props.famousEvents}
-                        eventClick={function(info) {
-                            alert('Event: ' + info.event.title+'\n'+ 'Description: '+info.event.start)
-                        }}
+                        editable={true}
+                        selectable={true}
+                        eventBackgroundColor={"#001c35"}
+                        eventClick={this.handleEventClick}
+
                     />
+                            <Modal
+                                style={modalStyle}
+                                isOpen={this.state.modal}
+                                toggle={this.toggle}
+                                className={this.props.className}
+                            >
+                                <ModalHeader toggle={this.toggle}>
+                                    {this.state.event.title}
+                                </ModalHeader>
+                                <ModalBody>
+                                    <div>
+                                        <img className={"mb-2"} src={this.state.event.extendedProps?.picture}/>
+                                        <p>Start date: {this.state.event.start.toISOString().split("T")[0]}</p>
+                                        <p>End date: {this.state.event.end.toISOString().split("T")[0]}</p>
+                                        <p>Location: {this.state.event.extendedProps?.location}</p>
+                                        <p>{this.state.event.extendedProps?.description}</p>
+                                    </div>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="secondary" onClick={this.toggle}>
+                                        Cancel
+                                    </Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
+                        <div className="col">
+                            <img alt={"event"} src={eventImg}/>
+                        </div>
+                    </div>
                 </div>
-                <ReactPaginate previousLabel={"back"}
-                               nextLabel={"next"}
-                               breakLabel={<a href="/#">...</a>}
-                               breakClassName={"break-me"}
-                               pageClassName={"ml-1"}
-                               pageCount={pageCount}
-                               marginPagesDisplayed={2}
-                               pageRangeDisplayed={5}
-                               onPageChange={this.handlePageClick}
-                               containerClassName={"pagination m-4 justify-content-center"}
-                               activeClassName={"active"}/>
+                <div className="container dark">
+                    {famousEvents}
+                </div>
+
+                <ReactPaginate
+                    previousLabel={"← Previous"}
+                    nextLabel={"Next →"}
+                    breakLabel={<a href="/#">...</a>}
+                    breakClassName={"break-me"}
+                    pageClassName={"ml-1"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={"pagination"}
+                    previousLinkClassName={"pagination__link"}
+                    nextLinkClassName={"pagination__link"}
+                    disabledClassName={"pagination__link--disabled"}
+                    activeClassName={"pagination__link--active"}/>
+
             </div>
         )
     }
@@ -101,4 +138,5 @@ class FamousEventList extends React.Component {
         })
     }
 }
+
 export default FamousEventList;

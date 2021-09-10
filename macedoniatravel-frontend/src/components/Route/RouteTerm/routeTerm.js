@@ -75,7 +75,7 @@ const RouteDetail = (props) => {
 
     return (
         <section className="mb-5 container" id="routeDetails">
-            <div className="row">
+            <div className="row firstRouteTermRow">
                 <div className="col">
                     <h2>{route?.name}</h2>
                     <p className="mb-2 text-muted text-uppercase small">Tour</p>
@@ -124,21 +124,20 @@ const RouteDetail = (props) => {
                     </Link>
                 </div>
 
-                <div className="col mb-4">
+                <div className="col-lg-6 col-md-6 mb-4">
                     <div id="mdb-lightbox-ui"/>
                     <div className="mdb-lightbox">
                         <div className="row product-gallery mx-1">
                             <div className="col-12 mb-0">
-                                <figure className="view overlay rounded z-depth-1 main-img">
-                                    <img src={route?.pictures} alt={"img"}/>
+                                <figure className="view overlay rounded z-depth-1 imgRouteFigure">
+                                    <img className="imgRoute" src={route?.pictures} alt={"img"}/>
                                 </figure>
-
                             </div>
                             <div className="col-12">
                                 <h6 className="mx-4">Included attractions in this route:</h6>
                                 <Carousel cols={3} rows={1} gap={10} loop>
                                     {route?.attractions?.map((term) => {
-                                        return <Carousel.Item><AttractionCard term={term}/></Carousel.Item>
+                                        return <Carousel.Item><AttractionCard term={term} onSelect={props?.onSelect}/></Carousel.Item>
                                     })}
                                 </Carousel>
                             </div>

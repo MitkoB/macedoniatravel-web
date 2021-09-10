@@ -23,6 +23,8 @@ import FamousEventList from "../FamousEvent/FamousEventList/famousEventList"
 import FamousEventAdd from "../FamousEvent/FamousEventAdd/famousEventAdd"
 import FamousEventEdit from "../FamousEvent/FamousEventEdit/famousEventEdit"
 
+import Contact from '../Contact/contact'
+
 import TokenService from '../../repository/tokenRepository'
 import ConfirmAccount from "../ConfirmAccount/confirmAccount";
 import PrivateRoute from "../../routes/privateRoute";
@@ -108,6 +110,7 @@ class App extends Component {
                                           onAddItemInFavoriteCart={this.addRouteInFavoriteCart}
                                           onEdit={this.getRoute}
                                           onDelete={this.deleteRoute}
+                                          onSelect={this.getAttraction}
                                           exact/>
                             <PrivateRoute component={RouteList} path="/routes"
                                           routes={this.state.routes}
@@ -139,6 +142,7 @@ class App extends Component {
                                          exact/>
 
                             <PrivateRoute component={About} path="/about" exact/>
+                            <PublicRoute component={Contact} path="/contact" exact/>
 
 
                             <PublicRoute restricted={false} component={Dashboard} path="/" exact/>

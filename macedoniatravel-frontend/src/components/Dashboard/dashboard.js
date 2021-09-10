@@ -11,13 +11,13 @@ import s4 from '../../assets/img/ohrid-lake-img.jpg'
 import s5 from '../../assets/img/skopje-c2.jpg'
 import s6 from '../../assets/img/skopjenight.jpg'
 import s7 from '../../assets/img/winter-ohrid.jpg'
-import s8 from '../../assets/img/oh-img.jpg'
+import s8 from '../../assets/img/skopje-img.jpeg'
 
 
 const Dashboard = (props) => {
     return (
         <div className="body">
-            <div className="coverDiv">
+            <div className="coverDiv ">
                 <img className="d-block w-100" id="coverImageHomePage" src={backgroundImg} alt="Macedonia"/>
                 <div className="animationDiv">
                     <div className="divTextAnimation">Macedonia Travel</div>

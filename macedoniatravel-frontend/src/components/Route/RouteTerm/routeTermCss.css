@@ -8,3 +8,10 @@
     font-size: 3.5vh;
     cursor: pointer;
 }
+.imgRouteFigure{
+    overflow: hidden;
+}
+.imgRoute{
+    /*max-width: 600px;*/
+    width: 100%;
+}

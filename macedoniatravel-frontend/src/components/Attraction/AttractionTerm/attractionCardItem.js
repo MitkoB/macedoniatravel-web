@@ -14,13 +14,15 @@ const attractionTerm = (props) => {
                     <img
                         src={props.term.pictures}
                         alt="cartItemImg"
+                        className="cartAttrImg"
                         />
                     <article className="text-left">
                         <h2>{props.term.name}</h2>
                         <h4>{props.term.location}</h4>
                     </article>
                     <Link className="d-block seeMore text-center"
-                          to={`/attractions/${props.term.id}`}>
+                          to={`/attractions/${props.term.id}`}
+                          onClick={() => props.onSelect(props.term.id)}>
                            <span><FontAwesomeIcon icon={faEye}/></span>
                     </Link>
         </div>
