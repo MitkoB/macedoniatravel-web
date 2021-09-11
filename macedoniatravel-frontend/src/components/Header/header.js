@@ -20,7 +20,7 @@ const Header = (props) => {
     const user = TokenService.getUser()?.username;
     const userRole = TokenService.getUser()?.roles;
     const logout = (e) => {
-        AuthRepository.logout()
+        AuthRepository.logout();
     }
 
 
@@ -59,13 +59,17 @@ const Header = (props) => {
                                     <Link to={"/favorite-cart"} className="nav-link">Favorites
                                     </Link>
                                 </div>
-                                {userRole == "ROLE_ADMIN" && (
+                                {userRole == "ROLE_ADMIN"  && (
                                     <div>
                                         <Link to={"/attractions/add"} className="nav-link small">Add Tourist
                                             Attraction</Link>
                                         <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
                                         <Link to={"/famous-events/add"} className="nav-link small">Add Famous Event</Link>
-                                        <Link to={"/"} className="nav-link small">Add User To Role</Link>
+                                    </div>
+                                )}
+                                {userRole == "ROLE_TENANT" && (
+                                    <div>
+                                        <Link to={"/routes/add"} className="nav-link small">Add Route</Link>
                                     </div>
                                 )}
                                 <div>
@@ -137,11 +141,19 @@ const Header = (props) => {
                                         <li className="mt-1"><Link to={"/routes/add"}>Add Route</Link></li>
                                         <li className="mt-1"><Link to={"/famous-events/add"}>Add Famous Event</Link>
                                         </li>
-                                        <li className="mt-1"><Link to={"/"}>Add User To Role</Link></li>
                                     </ul>
                                         <hr/>
                                     </div>
                                     )}
+                                {userRole == "ROLE_TENANT" && (
+                                    <div className="p-0 m-0">
+                                        <ul className="p-0 m-0">
+                                            <li className="mt-1"><Link to={"/routes/add"}>Add Route</Link></li>
+                                        </ul>
+                                        <hr/>
+                                    </div>
+                                )}
+
                                 <li className="text-center"><Link to={"/login"} onClick={logout}>Logout</Link></li>
                             </ul>
                         </li>

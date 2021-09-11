@@ -15,9 +15,10 @@ const AttractionEdit = (props) => {
         pictures:"",
         attractionType:0
     })
-    const {id} = useParams();
     const [constructorHasRun, setConstructorHasRun] = React.useState(false);
     const [attraction, setAttraction] = React.useState(props.attraction);
+    const {id} = useParams();
+
     const constructor = () => {
         if (constructorHasRun) return;
         RouteService.getAttraction(id).then((data) => {
@@ -26,6 +27,12 @@ const AttractionEdit = (props) => {
         setConstructorHasRun(true);
     };
     constructor();
+
+    React.useEffect(() => {
+        if (props.attraction.name !== undefined) {
+            setAttraction(props.attraction);
+        }
+    },[])
 
     const handleChange = (e) => {
         updateFormData({

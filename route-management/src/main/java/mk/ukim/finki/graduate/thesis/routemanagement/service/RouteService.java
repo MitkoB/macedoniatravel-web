@@ -10,8 +10,10 @@ public interface RouteService {
     List<Route> findAll();
     Optional<Route> findById(Long id);
     Optional<Route> findByName(String name);
-    Optional<Route> createRoute(RouteDto routeForm);
+    Optional<Route> createRoute(RouteDto routeForm, String username);
     Optional<Route> editRoute(Long id, RouteDto routeForm);
     List<Route> searchRoutes(String name);
     void deleteRoute(Long id);
+    List<Route> findTopRated();
+    Route enrollUserOnRoute(Long id);
 }

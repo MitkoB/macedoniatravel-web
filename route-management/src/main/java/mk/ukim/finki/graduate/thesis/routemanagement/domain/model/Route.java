@@ -33,9 +33,13 @@ public class Route {
     @ManyToOne
     private User user;
     private String price;
+    // new field how many people can go on this route
+    private Integer capacity;
+    // new field for feature get top 10
+    private Double averageGrade;
 
     public Route(String name, String description, LocalDateTime startDate, LocalDateTime endDate, String pictures,
-                 RouteStatus routeStatus, List<Attraction> attractions, User user, String price) {
+                 RouteStatus routeStatus, List<Attraction> attractions, User user, String price, Integer capacity) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -45,5 +49,7 @@ public class Route {
         this.attractions = attractions;
         this.user = user;
         this.price = price;
+        this.capacity = capacity;
+        this.averageGrade = 0.0;
     }
 }

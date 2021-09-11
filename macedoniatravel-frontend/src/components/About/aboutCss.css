@@ -2,7 +2,10 @@
 
     background: #fff;
 }
-
+.about-header {
+    position: relative;
+    z-index: -2;
+}
 #aboutPage h4, #one p, #aboutPage h2, #aboutPage h5 {
     color: #001c35;
     font-family: "Tahoma",PT Sans Narrow, sans-serif;
@@ -136,8 +139,6 @@
     left: 50%;
     top: calc(50% - 3px);
 }
-
-
 blockquote {
     border-left:none
 }
@@ -182,3 +183,4 @@ blockquote {
 #carousel img {
     max-height: 730px;
 }
+

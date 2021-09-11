@@ -9,6 +9,7 @@ h1 {
     overflow: hidden;
     max-width: 350px;
     max-height: 220px;
+    min-height: 140px;
     margin: 5px;
     position: relative;
 }
@@ -27,7 +28,7 @@ h1 {
 .container_card h2 {
     color: #fff;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 2.5vh;
     border-bottom: #fff solid 1px;
 }
 

@@ -47,7 +47,14 @@ public class ReviewServiceImpl implements ReviewService {
             throw new IllegalArgumentException();
         }
         Review review=new Review(user,route,comment,grade);
-        return Optional.of(reviewRepository.save(review));
+        Review savedReview = this.reviewRepository.save(review);
+
+        // update current route averageGrade;
+        Double updatedAverageRouteGrade = this.findAverageRatingOfRoute(route);
+        route.setAverageGrade(updatedAverageRouteGrade);
+        this.routeRepository.save(route);
+
+        return Optional.of(savedReview);
     }
 
     @Override
@@ -56,7 +63,12 @@ public class ReviewServiceImpl implements ReviewService {
         Review review=reviewRepository.findById(reviewId).orElseThrow(ReviewCanNotBeFoundException::new);
         if(username.equals(review.getUser().getUsername()) || user.getRole().equals(Role.ROLE_ADMIN))
         {
+            Route currentRoute = review.getRoute();
             this.reviewRepository.delete(review);
+            // update current route averageGrade;
+            Double updatedAverageRouteGrade = this.findAverageRatingOfRoute(currentRoute);
+            currentRoute.setAverageGrade(updatedAverageRouteGrade);
+            this.routeRepository.save(currentRoute);
         }
         else {
             throw  new PermisionDeniedException();
@@ -79,5 +91,14 @@ public class ReviewServiceImpl implements ReviewService {
         Integer grade4 = reviewRepository.findAllByRouteAndGrade(route, 4).size();
         Integer grade5 = reviewRepository.findAllByRouteAndGrade(route, 5).size();
         return Arrays.asList(grade1,grade2,grade3,grade4,grade5);
+    }
+
+    private Double findAverageRatingOfRoute(Route currentRoute) {
+        List<Review> reviewsForCurrentRoute = this.reviewRepository.findAllByRoute(currentRoute);
+        Double sum = 0.0;
+        for (Review review : reviewsForCurrentRoute) {
+            sum  = sum + review.getGrade();
+        }
+        return sum/reviewsForCurrentRoute.size();
     }
 }

@@ -5,16 +5,10 @@ import TokenService from '../../../repository/tokenRepository'
 import RouteService from "../../../repository/routeRepository";
 
 const AttractionPage = (props) => {
-    const isAdmin = TokenService.getUser().roles;
-    const {id} = useParams();
     const [constructorHasRun, setConstructorHasRun] = React.useState(false);
     const [attraction, setAttraction] = React.useState(props.attraction);
-
-    React.useEffect(() => {
-        if (props.attraction.name !== undefined) {
-            setAttraction(props.attraction);
-        }
-    })
+    const isAdmin = TokenService.getUser().roles;
+    const {id} = useParams();
 
     const constructor = () => {
         if (constructorHasRun) return;
@@ -25,6 +19,11 @@ const AttractionPage = (props) => {
     };
     constructor();
 
+    React.useEffect(() => {
+        if (props.attraction.name !== undefined) {
+            setAttraction(props.attraction);
+        }
+    })
 
     let srcLink = "https://maps.google.com/maps?q=";
     const latitude = attraction.latitude;
@@ -33,6 +32,7 @@ const AttractionPage = (props) => {
     srcLink += "%20";
     srcLink += longitude;
     srcLink += "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+
     return (
         <div className="container mt-5 mb-5" id="container-details">
             <div className="card-details mt-5">

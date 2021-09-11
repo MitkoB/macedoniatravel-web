@@ -23,4 +23,6 @@ public class RouteDto {
 //    @NotBlank(message = "User email must not be blank")
 //    private String email;
     private String price;
+    @NotNull
+    private Integer capacity;
 }

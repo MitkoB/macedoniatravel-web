@@ -4,6 +4,9 @@ const RouteService = {
     fetchRoutes: () => {
         return axios.get("/route");
     },
+    fetchTopRoutes: () => {
+        return axios.get("/route/top5");
+    },
     exportRoutes: () => {
         return axios.get("/route/export/pdf",{
             responseType: 'arraybuffer',
@@ -53,6 +56,9 @@ const RouteService = {
     getRoute: (id) => {
         return axios.get(`route/${id}`)
     },
+    checkInOnRoute: (id) => {
+        return axios.post(`route/${id}/enroll`)
+    },
     getFamousEvent: (id) => {
         return axios.get(`famous-event/${id}`)
     },
@@ -67,7 +73,7 @@ const RouteService = {
             "attractionType": attractionType
         });
     },
-    addRoute: (name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price) => {
+    addRoute: (name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price, capacity) => {
         return axios.post("/route/add", {
             "name": name,
             "description": description,
@@ -76,7 +82,8 @@ const RouteService = {
             "pictures":pictures,
             "routeStatus": routeStatus,
             "touristAttractions": touristAttractions,
-            "price":price
+            "price":price,
+            "capacity": capacity
         });
     },
     addRouteReview: (id, comment, grade) => {
@@ -111,7 +118,7 @@ const RouteService = {
             "attractionType": attractionType
         });
     },
-    editRoute: (id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price) => {
+    editRoute: (id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price, capacity) => {
         return axios.put(`/route/edit/${id}`, {
             "name": name,
             "description": description,
@@ -120,7 +127,8 @@ const RouteService = {
             "pictures":pictures,
             "routeStatus": routeStatus,
             "touristAttractions": touristAttractions,
-            "price":price
+            "price":price,
+            "capacity": capacity
         });
     },
     editFamousEvent: (id, title, description, start, end, picture, location) => {

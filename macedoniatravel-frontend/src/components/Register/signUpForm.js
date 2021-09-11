@@ -17,6 +17,9 @@ const SignUpForm = (props) => {
         contactNumber: "",
         role: "ROLE_USER"
     })
+    const [error, setError] = React.useState({
+        message: ""
+    })
 
     const handleChange = (e) => {
         updateFormData({
@@ -24,9 +27,6 @@ const SignUpForm = (props) => {
             [e.target.name]: e.target.value.trim()
         })
     }
-    const [error, setError] = React.useState({
-        message: ""
-    })
     const onFormSubmit = (e) => {
         e.preventDefault();
         const firstName = formData.firstName;
@@ -61,6 +61,7 @@ const SignUpForm = (props) => {
                 })
         }
     }
+
     return (
         <div className="container-fluid  h-custom1">
             <div className="d-flex align-items-center">
@@ -142,25 +143,26 @@ const SignUpForm = (props) => {
                                            placeholder="Enter your address"
                                            onChange={handleChange}/>
                                 </div>
-                                <div className="form-outline mb-2 d-inline-block mx-2">
+                                <div className="d-inline-block form-outline mb-2 mx-2">
+                                    <label className="form-label"
+                                           htmlFor="address">Contact Number</label>
+                                    <input type="text"
+                                           id="contactNumber"
+                                           name="contactNumber"
+                                           className="form-control form-control-lg"
+                                           placeholder="Enter your number"
+                                           onChange={handleChange}
+                                           required/>
+                                </div>
+                                <div className="form-outline mb-2">
                                     <label className="form-label"
                                            htmlFor="role">Role</label>
-                                    <select className="form-select form-control" id="role" name="role">
+                                    <select className="form-select form-control" id="role" name="role" required
+                                         onChange={handleChange}>
                                         <option selected>Open to choose your role</option>
                                         <option value="ROLE_USER">User</option>
                                         <option value="ROLE_TENANT">Tenant</option>
                                     </select>
-                                </div>
-
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <div className="form-check mb-0">
-                                        <input className="form-check-input me-2"
-                                               type="checkbox" value=""
-                                               id="remember-me"/>
-                                        <label className="form-check-label" htmlFor="remember-me">
-                                            Remember me
-                                        </label>
-                                    </div>
                                 </div>
 
                                 <div className="text-center text-lg-start pt-2">

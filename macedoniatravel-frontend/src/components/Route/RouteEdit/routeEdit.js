@@ -14,12 +14,13 @@ const RouteEdit = (props) => {
         pictures: "",
         routeStatus: 0,
         touristAttractions: [],
-        price: ""
+        price: "",
+        capacity: 0
     })
-
-    const {id} = useParams();
     const [constructorHasRun, setConstructorHasRun] = React.useState(false);
     const [route, setRoute] = React.useState(props.route);
+    const {id} = useParams();
+
     const constructor = () => {
         if (constructorHasRun) return;
         RouteService.getRoute(id).then((data) => {
@@ -50,8 +51,9 @@ const RouteEdit = (props) => {
         const routeStatus = formData.routeStatus !== 0 ? formData.routeStatus : props.route.routeStatus;
         const touristAttractions = formData.touristAttractions !== [] ? formData.touristAttractions : route.touristAttractions;
         const price = formData.price !== "" ? formData.price : route.price;
+        const capacity = formData.capacity !== "" ? formData.capacity : route.capacity;
 
-        props.onEditRoute(route.id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price);
+        props.onEditRoute(route.id, name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price, capacity);
         history.push(`/routes/${route.id}`);
     }
     return (
@@ -141,7 +143,20 @@ const RouteEdit = (props) => {
                         </div>
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-md-6 d-inline">
+                                <div className="form-group">
+                                    <span className="form-label">Route capacity</span>
+                                    <input type="text"
+                                           className="form-control"
+                                           id="capacity"
+                                           name="capacity"
+                                           required
+                                           placeholder={route?.capacity}
+                                           onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col d-inline">
                                 <div className="form-group">
                                     <span className="form-label">Route picture</span>
                                     <input type="text"

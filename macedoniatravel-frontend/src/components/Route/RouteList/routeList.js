@@ -13,7 +13,7 @@ class RouteList extends React.Component {
         super(props);
         this.state = {
             page: 0,
-            size: 9,
+            size: 6,
             name: "",
         }
     }
@@ -87,7 +87,7 @@ class RouteList extends React.Component {
                 <div className="row">
                 <h4 id="popularSectionTitle" className="text-start mx-4">Top rated</h4>
                 <Carousel cols={3} rows={1} gap={10} loop>
-                    {this.props.routes.map((term) => {
+                    {this.props.topRoutes.map((term) => {
                       return  <Carousel.Item><RouteTerm term={term} onSelect={this.props.onSelect}/></Carousel.Item>
                     })}
                 </Carousel>

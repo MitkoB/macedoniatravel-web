@@ -41,7 +41,6 @@ const LoginForm = (props) => {
                     })
                     history.push("/dashboard");
                 }).catch(error => {
-                console.log(error?.response?.data?.message)
                 setError({
                     ...error,
                     message: error?.response?.data?.message

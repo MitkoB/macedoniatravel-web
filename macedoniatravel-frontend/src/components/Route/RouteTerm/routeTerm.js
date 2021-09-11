@@ -9,9 +9,6 @@ import AttractionCard from '../../Attraction/AttractionTerm/attractionCardItem'
 
 
 const RouteDetail = (props) => {
-    const currentUser = TokenService.getUser().username;
-    const isAdmin = TokenService.getUser().roles;
-    const {id} = useParams();
     const [constructorHasRun, setConstructorHasRun] = React.useState(false);
     const [route, setRoute] = React.useState(props.route);
     const [reviews, setReviews] = React.useState(props.reviews);
@@ -21,30 +18,16 @@ const RouteDetail = (props) => {
     const [rating, setRating] = React.useState(0);
     const [selection, setSelection] = React.useState(0);
     const [grades, setGrades] = React.useState([])
-
-    const hoverOver = event => {
-        let val = 0;
-        if (event && event.target && event.target.getAttribute('data-star-id'))
-            val = event.target.getAttribute('data-star-id');
-        setSelection(val);
-    };
-
-    React.useEffect(() => {
-        if (props.route.name !== undefined) {
-            setRoute(props.route);
-        }
-        setReviews(props.reviews)
-        RouteService.fetchGrades(id).then((data) => {
-            setGrades(data.data);
-        })
-    },[props.route, props.reviews])
+    const [message, setMessage] = React.useState("");
+    const currentUser = TokenService.getUser().username;
+    const isAdmin = TokenService.getUser().roles;
+    const {id} = useParams();
 
     const constructor = () => {
         if (constructorHasRun) return;
         RouteService.getRoute(id).then((data) => {
             setRoute(data.data);
         })
-
         RouteService.fetchRouteReviews(id).then((data) => {
             setReviews(data.data)
         })
@@ -55,12 +38,39 @@ const RouteDetail = (props) => {
     };
     constructor();
 
+    React.useEffect(() => {
+        if (props.route.name !== undefined) {
+            setRoute(props.route);
+        }
+    })
+    React.useEffect(() => {
+        setReviews(props.reviews)
+        RouteService.fetchGrades(id).then((data) => {
+            setGrades(data.data);
+        })
+    },[props.reviews])
+
+    const hoverOver = event => {
+        let val = 0;
+        if (event && event.target && event.target.getAttribute('data-star-id'))
+            val = event.target.getAttribute('data-star-id');
+        setSelection(val);
+    };
+
 
     const handleChange = (e) => {
         setComment({
             ...reviewComment,
             [e.target.name]: e.target.value.trim()
         })
+    }
+
+    const makeReservation = (e) => {
+        RouteService.checkInOnRoute(id).then(()=>{
+            setMessage("Check your email, your reservation is done.")
+        }).catch(error => {
+            setMessage(error?.response?.data?.message)
+        });
     }
 
     const onFormSubmit = (e) => {
@@ -77,29 +87,29 @@ const RouteDetail = (props) => {
         <section className="mb-5 container" id="routeDetails">
             <div className="row firstRouteTermRow">
                 <div className="col">
-                    <h2>{route?.name}</h2>
+                    <h2>{route.name}</h2>
                     <p className="mb-2 text-muted text-uppercase small">Tour</p>
                     <p className="pt-1">Rating: <b>{(grades[0] * 1 + grades[1] * 2 + grades[2] * 3
                         + grades[3] * 4 + grades[4] * 5) / (reviews.length) || 0}</b></p>
-                    <p><span className="mr-1"><strong>$ {route?.price}</strong></span></p>
-                    <p className="pt-1">{route?.description}</p>
+                    <p><span className="mr-1">Price: <strong>MKD {route.price}</strong></span></p>
+                    <p className="pt-1">{route.description}</p>
                     <div className="table-responsive">
                         <table className="table table-sm table-borderless mb-0">
                             <tbody>
                             <tr>
                                 <th className="pl-0 w-25" scope="row"><strong>Organized by:</strong></th>
-                                <td>{route?.user?.email}</td>
+                                <td>{route.user?.email}</td>
                             </tr>
                             <tr>
                                 <th className="pl-0 w-25" scope="row"><strong>Start date:</strong></th>
-                                <td>{route?.startDate?.split("T")[0]} {route?.startDate?.split("T")[1]}</td>
+                                <td>{route.startDate?.split("T")[0]} {route.startDate?.split("T")[1]}</td>
                             </tr>
                             <tr>
                                 <th className="pl-0 w-25" scope="row"><strong>End date:</strong></th>
-                                <td>{route?.endDate?.split("T")[0]} {route?.endDate?.split("T")[1]}</td>
+                                <td>{route.endDate?.split("T")[0]} {route.endDate?.split("T")[1]}</td>
                             </tr>
 
-                            {isAdmin == "ROLE_ADMIN" && (
+                            {(isAdmin == "ROLE_ADMIN" || currentUser == route?.user?.email) && (
                                 <tr>
                                     <td>
                                         <Link type="button" className="btn btn-danger"
@@ -122,6 +132,13 @@ const RouteDetail = (props) => {
                           onClick={() => props.onAddItemInFavoriteCart(id)}
                           type="button" className="btn btn-primary btn-md mr-1 mb-2" id="searchBtn">Add to chart
                     </Link>
+                    <Link to={`/routes/${id}`}
+                          onClick={() => makeReservation()}
+                          type="button" className="btn btn-primary btn-md mx-1 mb-2" id="addToChart">Enroll
+                    </Link>
+                    {message !="" && (<div>
+                        <p style={{"color":"red"}}>*{message}</p>
+                    </div>)}
                 </div>
 
                 <div className="col-lg-6 col-md-6 mb-4">
@@ -130,13 +147,13 @@ const RouteDetail = (props) => {
                         <div className="row product-gallery mx-1">
                             <div className="col-12 mb-0">
                                 <figure className="view overlay rounded z-depth-1 imgRouteFigure">
-                                    <img className="imgRoute" src={route?.pictures} alt={"img"}/>
+                                    <img className="imgRoute" src={route.pictures} alt={"img"}/>
                                 </figure>
                             </div>
                             <div className="col-12">
                                 <h6 className="mx-4">Included attractions in this route:</h6>
                                 <Carousel cols={3} rows={1} gap={10} loop>
-                                    {route?.attractions?.map((term) => {
+                                    {route.attractions?.map((term) => {
                                         return <Carousel.Item><AttractionCard term={term} onSelect={props?.onSelect}/></Carousel.Item>
                                     })}
                                 </Carousel>
@@ -191,16 +208,16 @@ const RouteDetail = (props) => {
                                         <br/>
                                         <span className="insertGrade">Rating: <b>{term?.grade}</b></span>
                                         <p>Comment: {term?.comment}</p>
-                                        {currentUser == term?.user?.email && (
+                                        {currentUser == term.user?.email && (
                                             <button type="submit"
                                                     className="btn btn-link btn-md text-white  btn-danger d-inline float-start"
-                                                    onClick={() => props.onRemoveReview(term?.id, id)}>Delete
+                                                    onClick={() => props.onRemoveReview(term.id, id)}>Delete
                                             </button>
                                         )}
                                         {isAdmin == "ROLE_ADMIN" && (
                                             <button type="submit"
                                                     className="btn btn-link btn-md text-white  btn-danger d-inline float-end"
-                                                    onClick={() => props.onRemoveReview(term?.id, id)}>Admin Delete
+                                                    onClick={() => props.onRemoveReview(term.id, id)}>Admin Delete
                                             </button>
                                         )}
                                     </div>

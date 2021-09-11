@@ -10,9 +10,9 @@ const About = (props) => {
 
     return (
          <section id="aboutPage">
-             <div className="header-content">
-                     <Carousel id="carousel">
-                         <Carousel.Item interval={1000}>
+             <div className="about-header">
+                     <Carousel id="carousel" interval={1000}>
+                         <Carousel.Item>
                              <img
                                  className="d-block w-100"
                                  src={c1}
@@ -190,7 +190,7 @@ const About = (props) => {
              <div className="container dark">
                  <div className="row">
                      <div className="col-12">
-                         <div className="card">
+                         <div className="card aboutCard">
                              <div className="card-body row no-gutters">
                                  <div className="col-4">
                                      <img className="factCardImg"
@@ -220,7 +220,7 @@ const About = (props) => {
                          </div>
                      </div>
                      <div className="col-12">
-                         <div className="card">
+                         <div className="card aboutCard">
                              <div className="card-body row no-gutters">
                                  <div className="col-8">
                                      <h4 className="factCardTitle">Plant & animal life</h4>
@@ -250,7 +250,7 @@ const About = (props) => {
                      </div>
 
                      <div className="col-12">
-                         <div className="card">
+                         <div className="card aboutCard">
                              <div className="card-body row no-gutters">
                                  <div className="col-4">
                                      <img className="factCardImg"
@@ -279,7 +279,7 @@ const About = (props) => {
                          </div>
                      </div>
                      <div className="col-12">
-                         <div className="card">
+                         <div className="card aboutCard">
                              <div className="card-body row no-gutters">
                                  <div className="col-8">
                                      <h4 className="factCardTitle">Urbanism & Architecture</h4>

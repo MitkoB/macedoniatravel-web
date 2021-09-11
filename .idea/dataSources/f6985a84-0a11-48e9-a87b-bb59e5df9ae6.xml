@@ -1076,6 +1076,7 @@ UC/10
     </table>
     <table id="50" parent="25" name="route">
       <ObjectId>26286</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>1669</StateNumber>
     </table>

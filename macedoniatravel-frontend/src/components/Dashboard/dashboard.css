@@ -74,7 +74,6 @@
     0% { margin-left:-800px; opacity:0; }
     20% { margin-left:-800px; opacity:0;}
     35% { margin-left:35px; opacity: 0.7; }
-    100% { margin-left:35px; opacity: 1; background-color: rgba(255,255,255,0.8); border-radius: 20px; padding: 0 0;}
 }
 
 #seeMoreButton{

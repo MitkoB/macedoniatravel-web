@@ -14,7 +14,8 @@ const RouteAdd = (props) => {
         pictures: "",
         routeStatus: 0,
         touristAttractions: [],
-        price: ""
+        price: "",
+        capacity: 0
     })
 
     const {id} = useParams();
@@ -50,8 +51,9 @@ const RouteAdd = (props) => {
         const routeStatus = formData.routeStatus;
         const touristAttractions = formData.touristAttractions;
         const price = formData.price;
+        const capacity = formData.capacity;
 
-        props.onAddRoute(name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price);
+        props.onAddRoute(name, description, startDate, endDate, pictures, routeStatus, touristAttractions, price, capacity);
         history.push("/routes");
     }
     return (
@@ -137,7 +139,20 @@ const RouteAdd = (props) => {
                         </div>
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-md-6 d-inline">
+                                <div className="form-group">
+                                    <span className="form-label">Route capacity</span>
+                                    <input type="text"
+                                           className="form-control"
+                                           id="capacity"
+                                           name="capacity"
+                                           required
+                                           placeholder="Enter route capacity"
+                                           onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col d-inline">
                                 <div className="form-group">
                                     <span className="form-label">Route picture</span>
                                     <input type="text"
@@ -153,7 +168,7 @@ const RouteAdd = (props) => {
                         </div>
 
                         <div className="row">
-                            <div className="form-group">
+                            <div className="form-group d-inline">
                                 <span className="form-label">Route attractions</span>
                                 <select name="touristAttractions" className="form-control"
                                         onChange={handleChangeAttractions} multiple={true} required>
