@@ -111,7 +111,7 @@ public class RouteController {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String appUrl = request.getContextPath();
-            Route route = this.routeService.enrollUserOnRoute(id);
+            Route route = this.routeService.enrollUserOnRoute(id, user.getUsername());
             eventPublisher.publishEvent(new OnRouteReservationEvent(user, route,
                     request.getLocale(), appUrl));
         } catch (CanNotEnrollOnRouteException canNotEnroll) {

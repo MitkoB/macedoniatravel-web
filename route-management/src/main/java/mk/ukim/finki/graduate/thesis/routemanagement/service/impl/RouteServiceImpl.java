@@ -2,6 +2,7 @@ package mk.ukim.finki.graduate.thesis.routemanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.RouteDto;
+import mk.ukim.finki.graduate.thesis.routemanagement.domain.exception.AlreadyHadTicketException;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.exception.CanNotEnrollOnRouteException;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.exception.RouteCanNotBeFoundException;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
@@ -99,10 +100,14 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route enrollUserOnRoute(Long id) {
+    public Route enrollUserOnRoute(Long id, String username) {
         Route route = this.routeRepository.findById(id).orElseThrow(RouteCanNotBeFoundException::new);
         if(route.getCapacity()>0) {
+            if (route.getUsersWithTicket().stream().anyMatch(i->i.getUsername().equals(username))) {
+                throw new AlreadyHadTicketException();
+            }
             //okay scenario
+            route.getUsersWithTicket().add(this.userService.findByEmail(username));
             route.setCapacity(route.getCapacity()-1);
             return this.routeRepository.save(route);
         }

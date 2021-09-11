@@ -1,5 +1,6 @@
 package mk.ukim.finki.graduate.thesis.routemanagement.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,8 +37,11 @@ public class Route {
     private String price;
     // new field how many people can go on this route
     private Integer capacity;
-    // new field for feature get top 10
+    // new field for feature get top 5
     private Double averageGrade;
+    @ManyToMany
+    @JsonIgnore
+    private List<User> usersWithTicket;
 
     public Route(String name, String description, LocalDateTime startDate, LocalDateTime endDate, String pictures,
                  RouteStatus routeStatus, List<Attraction> attractions, User user, String price, Integer capacity) {
@@ -51,5 +56,6 @@ public class Route {
         this.price = price;
         this.capacity = capacity;
         this.averageGrade = 0.0;
+        this.usersWithTicket = new ArrayList<>();
     }
 }

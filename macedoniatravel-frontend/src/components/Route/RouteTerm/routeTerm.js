@@ -134,7 +134,7 @@ const RouteDetail = (props) => {
                     </Link>
                     <Link to={`/routes/${id}`}
                           onClick={() => makeReservation()}
-                          type="button" className="btn btn-primary btn-md mx-1 mb-2" id="addToChart">Enroll
+                          type="button" className="btn btn-primary btn-md mx-1 mb-2" id="addToChart">Create ticket
                     </Link>
                     {message !="" && (<div>
                         <p style={{"color":"red"}}>*{message}</p>

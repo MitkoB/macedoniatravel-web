@@ -58,13 +58,14 @@ public class DataInitializer {
             touristAttractionRepository.saveAll(Arrays.asList(touristAttraction1,touristAttraction2));
         }
 
-        Route route = new Route("Relaxing tour in Strumica",
+        Route route = new Route("Strumica Relaxing Tour",
                 "This is your chance to make  two-day tour in STRUMICA. You will be able to visit the most beautiful natural bansko spa and church Holy Fifteen Tiberiopolis Martyrs. After that you wull visit Belasica mountain.",
                    LocalDateTime.now(),LocalDateTime.now(),"https://images.myguide-cdn.com/macedonia/blog/late-nights-in-skopje/large/late-nights-in-skopje-188310.jpg",
                    RouteStatus.AVAILABLE,Arrays.asList(touristAttraction1, touristAttraction2),userRepository.findByEmail("admin@admin.com"), "1000 MKD", 5);
         if (routeRepository.findAll().isEmpty()) {
             routeRepository.save(route);
         }
+
 
         FavoriteCart favoriteCart = new FavoriteCart(userRepository.findByEmail(user.getEmail()));
         if (favoriteCartRepository.findAll().isEmpty()) {

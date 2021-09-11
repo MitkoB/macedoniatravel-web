@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.enumeration.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.RouteMatcher;
 
 import javax.persistence.*;
 import java.util.Collection;

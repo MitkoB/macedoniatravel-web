@@ -15,5 +15,5 @@ public interface RouteService {
     List<Route> searchRoutes(String name);
     void deleteRoute(Long id);
     List<Route> findTopRated();
-    Route enrollUserOnRoute(Long id);
+    Route enrollUserOnRoute(Long id, String username);
 }
