@@ -5,6 +5,7 @@ import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.FamousEventDto;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.FamousEvent;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.FamousEventRepository;
 import mk.ukim.finki.graduate.thesis.routemanagement.service.FamousEventService;
+import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -39,17 +40,17 @@ public class FamousEventServiceImpl implements FamousEventService {
     }
 
     @Override
-    public Optional<FamousEvent> save(FamousEventDto famousEventDto) {
+    public Optional<FamousEvent> save(FamousEventDto famousEventDto, User creator) {
         Objects.requireNonNull(famousEventDto, "Famous event form must not be null");
         var constraintViolations = validator.validate(famousEventDto);
         if (constraintViolations.size() > 0) {
             throw new ConstraintViolationException("famous event form is not valid", constraintViolations);
         }
-        return Optional.of(famousEventRepository.saveAndFlush(toDomainObject(famousEventDto)));
+        return Optional.of(famousEventRepository.saveAndFlush(toDomainObject(famousEventDto, creator)));
     }
 
     @Override
-    public Optional<FamousEvent> edit(Long id, FamousEventDto famousEventDto) {
+    public Optional<FamousEvent> edit(Long id, FamousEventDto famousEventDto, User creator) {
         Optional<FamousEvent> famousEvent = this.findById(id);
         if(famousEvent.isPresent()) {
             famousEvent.get().setTitle(famousEventDto.getTitle());
@@ -61,6 +62,7 @@ public class FamousEventServiceImpl implements FamousEventService {
             famousEvent.get().setEnd(endDate);
             famousEvent.get().setPicture(famousEventDto.getPicture());
             famousEvent.get().setLocation(famousEventDto.getLocation());
+            famousEvent.get().setCreator(creator);
             famousEventRepository.save(famousEvent.get());
         }
         return famousEvent;
@@ -71,11 +73,11 @@ public class FamousEventServiceImpl implements FamousEventService {
         famousEventRepository.deleteById(id);
     }
 
-    private FamousEvent toDomainObject(FamousEventDto famousEventDto) {
+    private FamousEvent toDomainObject(FamousEventDto famousEventDto, User user) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime startDate = LocalDateTime.parse(famousEventDto.getStart(), formatter);
         LocalDateTime endDate = LocalDateTime.parse(famousEventDto.getEnd(), formatter);
         return new FamousEvent(famousEventDto.getTitle(), famousEventDto.getDescription(),
-                startDate, endDate, famousEventDto.getPicture(), famousEventDto.getLocation());
+                startDate, endDate, famousEventDto.getPicture(), famousEventDto.getLocation(), user);
     }
 }

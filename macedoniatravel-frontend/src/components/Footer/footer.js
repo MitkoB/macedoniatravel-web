@@ -79,7 +79,7 @@ const Footer = (props) => {
                             </div>
                         </div>
             </div>
-            <div className="footer-copyright text-center py-3">© 2020 Copyright:
+            <div className="footer-copyright text-center py-3">© 2021 Copyright:
                 <span> </span>
                 <Link to={"/dashboard"}>Macedonia Travel</Link>
             </div>

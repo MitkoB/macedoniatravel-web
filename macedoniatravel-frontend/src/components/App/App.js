@@ -50,16 +50,18 @@ class App extends Component {
             routeStatuses: [],
             favoriteCartItems: [],
             famousEvents: [],
-            isLoggedIn: TokenService?.getLocalAccessToken(),
+            isLoggedIn: TokenService?.getUser(),
             topRoutes:[]
         }
     }
 
     render() {
         return (
-            <Router key={this.state.isLoggedIn}>
+            <Router>
                 <Switch>
-                    <PublicRoute restricted={false} component={Login} path="/login" exact/>
+                    <PublicRoute restricted={false} component={Login} path="/login"
+                                 onHandleLogin={this.handleLogin}
+                                 exact/>
                     <PublicRoute restricted={false} onUserRegister={this.registerUser} component={Register}
                                  path="/register" exact/>
                     <PublicRoute restricted={false} component={ConfirmAccount} path="/confirm-account" exact/>
@@ -360,16 +362,28 @@ class App extends Component {
                 })
             })
     }
-
-
-    componentDidMount() {
-        // this.loadFavoriteCartItems();
+    handleLogin = () => {
+        this.loadFavoriteCartItems();
         this.loadAttractionTypes();
         this.loadRouteStatuses();
         this.loadFamousEvents();
         this.loadAttractions();
         this.loadRoutes()
         this.loadTopRoutes();
+    }
+
+
+    componentDidMount() {
+        if(this.state.isLoggedIn !== null)
+        {
+            this.loadFavoriteCartItems();
+            this.loadAttractionTypes();
+            this.loadRouteStatuses();
+            this.loadFamousEvents();
+            this.loadAttractions();
+            this.loadRoutes()
+            this.loadTopRoutes();
+        }
     }
 }
 

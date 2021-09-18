@@ -33,7 +33,7 @@ public class RouteReservationListener implements ApplicationListener<OnRouteRese
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
-        email.setFrom("belmezovmitko@gmail.com");
+        email.setFrom("MacedoniaTravel@mail.com");
         email.setSubject(subject);
         email.setText(message);
         emailSenderService.sendEmail(email);

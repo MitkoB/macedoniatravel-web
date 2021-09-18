@@ -39,6 +39,7 @@ const LoginForm = (props) => {
                         ...error,
                         message: ""
                     })
+                    props.onHandleLogin();
                     history.push("/dashboard");
                 }).catch(error => {
                 setError({

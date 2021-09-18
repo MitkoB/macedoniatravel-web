@@ -9,7 +9,6 @@ import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Attraction;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Route;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.AttractionRepository;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.RouteRepository;
-import mk.ukim.finki.graduate.thesis.routemanagement.service.ReviewService;
 import mk.ukim.finki.graduate.thesis.routemanagement.service.RouteService;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 import mk.ukim.finki.graduate.thesis.usersdata.service.UserService;
@@ -30,7 +29,6 @@ import java.util.Optional;
 public class RouteServiceImpl implements RouteService {
     private final UserService userService;
     private final RouteRepository routeRepository;
-    private final ReviewService reviewService;
     private final AttractionRepository attractionRepository;
     private final Validator validator;
 

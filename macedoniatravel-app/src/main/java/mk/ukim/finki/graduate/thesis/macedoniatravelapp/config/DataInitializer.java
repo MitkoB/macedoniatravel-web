@@ -89,7 +89,7 @@ public class DataInitializer {
                 "awards for best and most original masks are given."
         ,LocalDateTime.now(), LocalDateTime.of(2021,9,15,20, 0),
                 "https://editorial01.shutterstock.com/wm-preview-1500/10149440k/06e4f8bf/strumica-carnival-republic-of-north-macedonia-shutterstock-editorial-10149440k.jpg",
-                "Strumica, Macedonia");
+                "Strumica, Macedonia", userRepository.findByEmail(user.getEmail()));
         if (famousEventRepository.findAll().isEmpty()) {
             famousEventRepository.save(famousEvent);
         }

@@ -21,6 +21,8 @@
     <modules>
         <module>macedoniatravel-app</module>
         <module>users-data</module>
+        <module>route-management</module>
+        <module>favorite-cart-management</module>
     </modules>
 
 </project>

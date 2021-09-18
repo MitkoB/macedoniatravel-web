@@ -3,6 +3,7 @@ package mk.ukim.finki.graduate.thesis.routemanagement.domain.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mk.ukim.finki.graduate.thesis.usersdata.domain.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,9 +25,11 @@ public class FamousEvent {
     private LocalDateTime end;
     private String picture;
     private String location;
+    @ManyToOne
+    private User creator;
 
     public FamousEvent(String title, String description, LocalDateTime start,
-                       LocalDateTime end,String picture, String location) {
+                       LocalDateTime end,String picture, String location, User creator) {
         super();
         this.title = title;
         this.description = description;
@@ -34,6 +37,7 @@ public class FamousEvent {
         this.end = end;
         this.picture=picture;
         this.location=location;
+        this.creator = creator;
     }
 
 }

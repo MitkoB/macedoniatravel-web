@@ -4,7 +4,6 @@ import '../AttractionEdit/attractionEditCss.css'
 import RouteService from "../../../repository/routeRepository";
 
 const AttractionEdit = (props) => {
-
     const history = useHistory();
     const [formData, updateFormData] = React.useState({
         name: "",
@@ -18,7 +17,6 @@ const AttractionEdit = (props) => {
     const [constructorHasRun, setConstructorHasRun] = React.useState(false);
     const [attraction, setAttraction] = React.useState(props.attraction);
     const {id} = useParams();
-
     const constructor = () => {
         if (constructorHasRun) return;
         RouteService.getAttraction(id).then((data) => {

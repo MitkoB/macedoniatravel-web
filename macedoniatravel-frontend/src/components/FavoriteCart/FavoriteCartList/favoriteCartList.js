@@ -88,9 +88,6 @@ class FavoriteCartList extends React.Component {
                 })
             });
     }
-    componentDidMount() {
-     this.loadFavoriteCartItems();
-    }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.items != this.props.items) {
             this.loadFavoriteCartItems();
