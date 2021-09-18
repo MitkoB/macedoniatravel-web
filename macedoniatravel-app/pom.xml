@@ -12,9 +12,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>macedoniatravel-app</name>
     <description>Application module</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+<!--    <properties>-->
+<!--        <java.version>11</java.version>-->
+<!--    </properties>-->
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
