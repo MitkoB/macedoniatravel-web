@@ -9,7 +9,7 @@
     </parent>
     <groupId>mk.ukim.finki.graduate.thesis</groupId>
     <artifactId>route-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+<!--    <version>0.0.1-SNAPSHOT</version>-->
     <name>route-management</name>
     <description>Route module</description>
     <!--    <properties>-->
@@ -48,8 +48,8 @@
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>users-data</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>1.0-SNAPSHOT</version>
+<!--            <scope>compile</scope>-->
         </dependency>
         <dependency>
             <groupId>com.github.librepdf</groupId>
