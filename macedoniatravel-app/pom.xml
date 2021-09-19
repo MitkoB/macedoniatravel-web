@@ -10,11 +10,10 @@
     <groupId>mk.ukim.finki.graduate.thesis</groupId>
     <artifactId>macedoniatravel-app</artifactId>
     <name>macedoniatravel-app</name>
-    <version>1.0-SNAPSHOT</version>
     <description>Application module</description>
-<!--    <properties>-->
-<!--        <java.version>11</java.version>-->
-<!--    </properties>-->
+        <properties>
+            <java.version>11</java.version>
+        </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -66,23 +65,22 @@
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>users-data</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>route-management</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>favorite-cart-management</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -97,15 +95,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
 </project>

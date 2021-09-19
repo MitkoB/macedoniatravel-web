@@ -1,7 +1,6 @@
 package mk.ukim.finki.graduate.thesis.usersdata.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.dto.UserLoginDto;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.dto.UserRegisterDto;
 import mk.ukim.finki.graduate.thesis.usersdata.domain.exception.PasswordsDoNotMatchException;

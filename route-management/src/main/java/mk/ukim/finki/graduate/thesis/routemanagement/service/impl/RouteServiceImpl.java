@@ -1,7 +1,6 @@
 package mk.ukim.finki.graduate.thesis.routemanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.RouteDto;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.exception.AlreadyHadTicketException;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.exception.CanNotEnrollOnRouteException;

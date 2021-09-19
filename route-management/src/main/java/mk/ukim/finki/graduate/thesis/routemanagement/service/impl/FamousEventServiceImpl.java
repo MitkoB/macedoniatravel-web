@@ -1,7 +1,6 @@
 package mk.ukim.finki.graduate.thesis.routemanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.FamousEventDto;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.FamousEvent;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.repository.FamousEventRepository;

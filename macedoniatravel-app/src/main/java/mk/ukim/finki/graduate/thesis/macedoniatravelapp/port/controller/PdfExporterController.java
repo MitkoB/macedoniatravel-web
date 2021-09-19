@@ -5,7 +5,6 @@ import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.PdfExporter;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.model.Route;
 import mk.ukim.finki.graduate.thesis.routemanagement.service.RouteService;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
