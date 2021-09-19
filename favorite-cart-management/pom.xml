@@ -12,9 +12,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>favorite-cart-management</name>
     <description>Favorite cart module</description>
-        <properties>
-            <java.version>11</java.version>
-        </properties>
+<!--        <properties>-->
+<!--            <java.version>11</java.version>-->
+<!--        </properties>-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
