@@ -9,6 +9,7 @@
     </parent>
     <groupId>mk.ukim.finki.graduate.thesis</groupId>
     <artifactId>users-data</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>users-data</name>
     <description>User module</description>
 <!--    <properties>-->

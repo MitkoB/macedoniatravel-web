@@ -10,6 +10,7 @@
     <groupId>mk.ukim.finki.graduate.thesis</groupId>
     <artifactId>macedoniatravel-app</artifactId>
     <name>macedoniatravel-app</name>
+    <version>1.0-SNAPSHOT</version>
     <description>Application module</description>
 <!--    <properties>-->
 <!--        <java.version>11</java.version>-->

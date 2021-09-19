@@ -10,6 +10,7 @@
     <groupId>mk.ukim.finki.graduate.thesis</groupId>
     <artifactId>route-management</artifactId>
     <name>route-management</name>
+    <version>1.0-SNAPSHOT</version>
     <description>Route module</description>
 <!--    <properties>-->
 <!--        <java.version>11</java.version>-->
