@@ -9,7 +9,6 @@
     </parent>
     <groupId>mk.ukim.finki.graduate.thesis</groupId>
     <artifactId>macedoniatravel-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>macedoniatravel-app</name>
     <description>Application module</description>
 <!--    <properties>-->
@@ -66,19 +65,16 @@
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>users-data</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>route-management</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>mk.ukim.finki.graduate.thesis</groupId>
             <artifactId>favorite-cart-management</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
