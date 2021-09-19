@@ -1,6 +1,7 @@
 package mk.ukim.finki.graduate.thesis.routemanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.dto.AttractionDto;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.enumeration.AttractionType;
 import mk.ukim.finki.graduate.thesis.routemanagement.domain.exception.TouristAttractionCanNotBeFoundException;
